@@ -1,0 +1,2128 @@
+{
+ "documento": {
+  "titulo": "Nomenclador de Puestos - Municipalidad de San Miguel de Tucuman",
+  "impreso": "septiembre de 2016",
+  "partes": [
+   {
+    "codigo": "NOM-P1",
+    "archivo": "Nomenclador de Puestos parte 1.pdf",
+    "paginas_pdf": 171,
+    "fichas": 139,
+    "pagina_impresa_inicial": 29,
+    "pagina_impresa_final": 189
+   },
+   {
+    "codigo": "NOM-P2",
+    "archivo": "Nomenclador de Puestos parte 2.pdf",
+    "paginas_pdf": 87,
+    "fichas": 71,
+    "pagina_impresa_inicial": 190,
+    "pagina_impresa_final": 264
+   }
+  ],
+  "total_fichas": 210,
+  "deteccion": "color de la barra 'Identificacion del Puesto' (una ficha = una pagina)"
+ },
+ "fichas": [
+  {
+   "id": "p1-023",
+   "parte": 1,
+   "pdf_page": 23,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-024",
+   "parte": 1,
+   "pdf_page": 24,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-025",
+   "parte": 1,
+   "pdf_page": 25,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-026",
+   "parte": 1,
+   "pdf_page": 26,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-027",
+   "parte": 1,
+   "pdf_page": 27,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-028",
+   "parte": 1,
+   "pdf_page": 28,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-029",
+   "parte": 1,
+   "pdf_page": 29,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-031",
+   "parte": 1,
+   "pdf_page": 31,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-032",
+   "parte": 1,
+   "pdf_page": 32,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-036",
+   "parte": 1,
+   "pdf_page": 36,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-037",
+   "parte": 1,
+   "pdf_page": 37,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-038",
+   "parte": 1,
+   "pdf_page": 38,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-039",
+   "parte": 1,
+   "pdf_page": 39,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-040",
+   "parte": 1,
+   "pdf_page": 40,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-041",
+   "parte": 1,
+   "pdf_page": 41,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-042",
+   "parte": 1,
+   "pdf_page": 42,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-043",
+   "parte": 1,
+   "pdf_page": 43,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-044",
+   "parte": 1,
+   "pdf_page": 44,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-045",
+   "parte": 1,
+   "pdf_page": 45,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-046",
+   "parte": 1,
+   "pdf_page": 46,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-047",
+   "parte": 1,
+   "pdf_page": 47,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-048",
+   "parte": 1,
+   "pdf_page": 48,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-049",
+   "parte": 1,
+   "pdf_page": 49,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-050",
+   "parte": 1,
+   "pdf_page": 50,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-051",
+   "parte": 1,
+   "pdf_page": 51,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-052",
+   "parte": 1,
+   "pdf_page": 52,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-053",
+   "parte": 1,
+   "pdf_page": 53,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-054",
+   "parte": 1,
+   "pdf_page": 54,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-055",
+   "parte": 1,
+   "pdf_page": 55,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-056",
+   "parte": 1,
+   "pdf_page": 56,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-057",
+   "parte": 1,
+   "pdf_page": 57,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-058",
+   "parte": 1,
+   "pdf_page": 58,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-059",
+   "parte": 1,
+   "pdf_page": 59,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-060",
+   "parte": 1,
+   "pdf_page": 60,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-061",
+   "parte": 1,
+   "pdf_page": 61,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-062",
+   "parte": 1,
+   "pdf_page": 62,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-063",
+   "parte": 1,
+   "pdf_page": 63,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-064",
+   "parte": 1,
+   "pdf_page": 64,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-065",
+   "parte": 1,
+   "pdf_page": 65,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-066",
+   "parte": 1,
+   "pdf_page": 66,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-067",
+   "parte": 1,
+   "pdf_page": 67,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-068",
+   "parte": 1,
+   "pdf_page": 68,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-069",
+   "parte": 1,
+   "pdf_page": 69,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-070",
+   "parte": 1,
+   "pdf_page": 70,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-071",
+   "parte": 1,
+   "pdf_page": 71,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-072",
+   "parte": 1,
+   "pdf_page": 72,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-073",
+   "parte": 1,
+   "pdf_page": 73,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-074",
+   "parte": 1,
+   "pdf_page": 74,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-075",
+   "parte": 1,
+   "pdf_page": 75,
+   "agrupamiento_esperado": "MANTENIMIENTO Y PRODUCCION",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-1-sg-mp"
+  },
+  {
+   "id": "p1-077",
+   "parte": 1,
+   "pdf_page": 77,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-078",
+   "parte": 1,
+   "pdf_page": 78,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-079",
+   "parte": 1,
+   "pdf_page": 79,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-080",
+   "parte": 1,
+   "pdf_page": 80,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-081",
+   "parte": 1,
+   "pdf_page": 81,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-082",
+   "parte": 1,
+   "pdf_page": 82,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-083",
+   "parte": 1,
+   "pdf_page": 83,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-084",
+   "parte": 1,
+   "pdf_page": 84,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-085",
+   "parte": 1,
+   "pdf_page": 85,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-086",
+   "parte": 1,
+   "pdf_page": 86,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-087",
+   "parte": 1,
+   "pdf_page": 87,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-088",
+   "parte": 1,
+   "pdf_page": 88,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-089",
+   "parte": 1,
+   "pdf_page": 89,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-090",
+   "parte": 1,
+   "pdf_page": 90,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-091",
+   "parte": 1,
+   "pdf_page": 91,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-092",
+   "parte": 1,
+   "pdf_page": 92,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-093",
+   "parte": 1,
+   "pdf_page": 93,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-094",
+   "parte": 1,
+   "pdf_page": 94,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-095",
+   "parte": 1,
+   "pdf_page": 95,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-096",
+   "parte": 1,
+   "pdf_page": 96,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-097",
+   "parte": 1,
+   "pdf_page": 97,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-098",
+   "parte": 1,
+   "pdf_page": 98,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-099",
+   "parte": 1,
+   "pdf_page": 99,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-100",
+   "parte": 1,
+   "pdf_page": 100,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-101",
+   "parte": 1,
+   "pdf_page": 101,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-102",
+   "parte": 1,
+   "pdf_page": 102,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-103",
+   "parte": 1,
+   "pdf_page": 103,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-104",
+   "parte": 1,
+   "pdf_page": 104,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-105",
+   "parte": 1,
+   "pdf_page": 105,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-106",
+   "parte": 1,
+   "pdf_page": 106,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-107",
+   "parte": 1,
+   "pdf_page": 107,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-108",
+   "parte": 1,
+   "pdf_page": 108,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-109",
+   "parte": 1,
+   "pdf_page": 109,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-110",
+   "parte": 1,
+   "pdf_page": 110,
+   "agrupamiento_esperado": "ADMINISTRATIVO",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-2-adm"
+  },
+  {
+   "id": "p1-113",
+   "parte": 1,
+   "pdf_page": 113,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-114",
+   "parte": 1,
+   "pdf_page": 114,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-115",
+   "parte": 1,
+   "pdf_page": 115,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-116",
+   "parte": 1,
+   "pdf_page": 116,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-117",
+   "parte": 1,
+   "pdf_page": 117,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-118",
+   "parte": 1,
+   "pdf_page": 118,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-119",
+   "parte": 1,
+   "pdf_page": 119,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-120",
+   "parte": 1,
+   "pdf_page": 120,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-121",
+   "parte": 1,
+   "pdf_page": 121,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-122",
+   "parte": 1,
+   "pdf_page": 122,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA SALUD",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-124",
+   "parte": 1,
+   "pdf_page": 124,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-125",
+   "parte": 1,
+   "pdf_page": 125,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-126",
+   "parte": 1,
+   "pdf_page": 126,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-127",
+   "parte": 1,
+   "pdf_page": 127,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-128",
+   "parte": 1,
+   "pdf_page": 128,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-129",
+   "parte": 1,
+   "pdf_page": 129,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-130",
+   "parte": 1,
+   "pdf_page": 130,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-131",
+   "parte": 1,
+   "pdf_page": 131,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-132",
+   "parte": 1,
+   "pdf_page": 132,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-133",
+   "parte": 1,
+   "pdf_page": 133,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-134",
+   "parte": 1,
+   "pdf_page": 134,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-135",
+   "parte": 1,
+   "pdf_page": 135,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-136",
+   "parte": 1,
+   "pdf_page": 136,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA CONSTRUCCION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-138",
+   "parte": 1,
+   "pdf_page": 138,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-139",
+   "parte": 1,
+   "pdf_page": 139,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-140",
+   "parte": 1,
+   "pdf_page": 140,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-141",
+   "parte": 1,
+   "pdf_page": 141,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-142",
+   "parte": 1,
+   "pdf_page": 142,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-143",
+   "parte": 1,
+   "pdf_page": 143,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-144",
+   "parte": 1,
+   "pdf_page": 144,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-145",
+   "parte": 1,
+   "pdf_page": 145,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-146",
+   "parte": 1,
+   "pdf_page": 146,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-147",
+   "parte": 1,
+   "pdf_page": 147,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-148",
+   "parte": 1,
+   "pdf_page": 148,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-149",
+   "parte": 1,
+   "pdf_page": 149,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-150",
+   "parte": 1,
+   "pdf_page": 150,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-151",
+   "parte": 1,
+   "pdf_page": 151,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-152",
+   "parte": 1,
+   "pdf_page": 152,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-153",
+   "parte": 1,
+   "pdf_page": 153,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-154",
+   "parte": 1,
+   "pdf_page": 154,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-155",
+   "parte": 1,
+   "pdf_page": 155,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-156",
+   "parte": 1,
+   "pdf_page": 156,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-157",
+   "parte": 1,
+   "pdf_page": 157,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-158",
+   "parte": 1,
+   "pdf_page": 158,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-159",
+   "parte": 1,
+   "pdf_page": 159,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-160",
+   "parte": 1,
+   "pdf_page": 160,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-161",
+   "parte": 1,
+   "pdf_page": 161,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-163",
+   "parte": 1,
+   "pdf_page": 163,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-164",
+   "parte": 1,
+   "pdf_page": 164,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-165",
+   "parte": 1,
+   "pdf_page": 165,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-166",
+   "parte": 1,
+   "pdf_page": 166,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-167",
+   "parte": 1,
+   "pdf_page": 167,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-168",
+   "parte": 1,
+   "pdf_page": 168,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-169",
+   "parte": 1,
+   "pdf_page": 169,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-170",
+   "parte": 1,
+   "pdf_page": 170,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p1-171",
+   "parte": 1,
+   "pdf_page": 171,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-3-tec-p1"
+  },
+  {
+   "id": "p2-001",
+   "parte": 2,
+   "pdf_page": 1,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-002",
+   "parte": 2,
+   "pdf_page": 2,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-003",
+   "parte": 2,
+   "pdf_page": 3,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-004",
+   "parte": 2,
+   "pdf_page": 4,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-005",
+   "parte": 2,
+   "pdf_page": 5,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-006",
+   "parte": 2,
+   "pdf_page": 6,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-007",
+   "parte": 2,
+   "pdf_page": 7,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-008",
+   "parte": 2,
+   "pdf_page": 8,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-009",
+   "parte": 2,
+   "pdf_page": 9,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-010",
+   "parte": 2,
+   "pdf_page": 10,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-011",
+   "parte": 2,
+   "pdf_page": 11,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-012",
+   "parte": 2,
+   "pdf_page": 12,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-013",
+   "parte": 2,
+   "pdf_page": 13,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-014",
+   "parte": 2,
+   "pdf_page": 14,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-015",
+   "parte": 2,
+   "pdf_page": 15,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-016",
+   "parte": 2,
+   "pdf_page": 16,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-017",
+   "parte": 2,
+   "pdf_page": 17,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-018",
+   "parte": 2,
+   "pdf_page": 18,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-019",
+   "parte": 2,
+   "pdf_page": 19,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-020",
+   "parte": 2,
+   "pdf_page": 20,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-021",
+   "parte": 2,
+   "pdf_page": 21,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-022",
+   "parte": 2,
+   "pdf_page": 22,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-023",
+   "parte": 2,
+   "pdf_page": 23,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DEL CONTROL",
+   "nota": "continua la parte 1 (impresa 190)",
+   "estado": "extraida",
+   "etapa": "etapa-4-tec-p2"
+  },
+  {
+   "id": "p2-025",
+   "parte": 2,
+   "pdf_page": 25,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-026",
+   "parte": 2,
+   "pdf_page": 26,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-027",
+   "parte": 2,
+   "pdf_page": 27,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-028",
+   "parte": 2,
+   "pdf_page": 28,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-029",
+   "parte": 2,
+   "pdf_page": 29,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-030",
+   "parte": 2,
+   "pdf_page": 30,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-031",
+   "parte": 2,
+   "pdf_page": 31,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-032",
+   "parte": 2,
+   "pdf_page": 32,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-033",
+   "parte": 2,
+   "pdf_page": 33,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-034",
+   "parte": 2,
+   "pdf_page": 34,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-035",
+   "parte": 2,
+   "pdf_page": 35,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-036",
+   "parte": 2,
+   "pdf_page": 36,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-037",
+   "parte": 2,
+   "pdf_page": 37,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-038",
+   "parte": 2,
+   "pdf_page": 38,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-039",
+   "parte": 2,
+   "pdf_page": 39,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-040",
+   "parte": 2,
+   "pdf_page": 40,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-041",
+   "parte": 2,
+   "pdf_page": 41,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-042",
+   "parte": 2,
+   "pdf_page": 42,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-043",
+   "parte": 2,
+   "pdf_page": 43,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-044",
+   "parte": 2,
+   "pdf_page": 44,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-045",
+   "parte": 2,
+   "pdf_page": 45,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-046",
+   "parte": 2,
+   "pdf_page": 46,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-047",
+   "parte": 2,
+   "pdf_page": 47,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-048",
+   "parte": 2,
+   "pdf_page": 48,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-049",
+   "parte": 2,
+   "pdf_page": 49,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-050",
+   "parte": 2,
+   "pdf_page": 50,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-051",
+   "parte": 2,
+   "pdf_page": 51,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-052",
+   "parte": 2,
+   "pdf_page": 52,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-053",
+   "parte": 2,
+   "pdf_page": 53,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-054",
+   "parte": 2,
+   "pdf_page": 54,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-055",
+   "parte": 2,
+   "pdf_page": 55,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-056",
+   "parte": 2,
+   "pdf_page": 56,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-057",
+   "parte": 2,
+   "pdf_page": 57,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-058",
+   "parte": 2,
+   "pdf_page": 58,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-059",
+   "parte": 2,
+   "pdf_page": 59,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-060",
+   "parte": 2,
+   "pdf_page": 60,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-061",
+   "parte": 2,
+   "pdf_page": 61,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-062",
+   "parte": 2,
+   "pdf_page": 62,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-063",
+   "parte": 2,
+   "pdf_page": 63,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-064",
+   "parte": 2,
+   "pdf_page": 64,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-065",
+   "parte": 2,
+   "pdf_page": 65,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": null,
+   "estado": "extraida",
+   "etapa": "etapa-5-pro"
+  },
+  {
+   "id": "p2-067",
+   "parte": 2,
+   "pdf_page": 67,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-068",
+   "parte": 2,
+   "pdf_page": 68,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-070",
+   "parte": 2,
+   "pdf_page": 70,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-071",
+   "parte": 2,
+   "pdf_page": 71,
+   "agrupamiento_esperado": "TECNICO",
+   "area_esperada": "DE LA FORMACION E INFORMACION",
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-072",
+   "parte": 2,
+   "pdf_page": 72,
+   "agrupamiento_esperado": "SERVICIOS GENERALES",
+   "area_esperada": null,
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-073",
+   "parte": 2,
+   "pdf_page": 73,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  },
+  {
+   "id": "p2-074",
+   "parte": 2,
+   "pdf_page": 74,
+   "agrupamiento_esperado": "PROFESIONAL",
+   "area_esperada": null,
+   "nota": "anexo final",
+   "estado": "extraida",
+   "etapa": "etapa-6-anexo"
+  }
+ ]
+}
