@@ -13,7 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { obtenerPuesto, type ItemFicha } from "@/features/puestos/data/puestos";
+import { HistorialPuesto } from "@/features/puestos/components/historial-puesto";
+import {
+  obtenerHistorial,
+  obtenerPuesto,
+  type ItemFicha,
+} from "@/features/puestos/data/puestos";
 
 // Next.js 16: `params` es una Promesa y hay que await-earla.
 type Props = { params: Promise<{ id: string }> };
@@ -76,7 +81,7 @@ function ListaItems({ items }: { items: ItemFicha[] }) {
 
 export default async function PuestoPage({ params }: Props) {
   const { id } = await params;
-  const p = await obtenerPuesto(id);
+  const [p, historial] = await Promise.all([obtenerPuesto(id), obtenerHistorial(id)]);
   if (!p) notFound();
 
   return (
@@ -206,6 +211,8 @@ export default async function PuestoPage({ params }: Props) {
         </div>
 
         <div className="space-y-6">
+          {historial.length > 0 && <HistorialPuesto versiones={historial} />}
+
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-base">

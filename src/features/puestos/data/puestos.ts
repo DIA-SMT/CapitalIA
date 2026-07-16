@@ -274,6 +274,122 @@ export async function obtenerPuesto(id: string): Promise<PuestoDetalle | null> {
   };
 }
 
+export type CambioEnVersion = { campo: string; antes: string | null; despues: string | null };
+
+export type VersionHistorial = {
+  id: string;
+  numero: number;
+  estado: string;
+  nombre: string;
+  motivo: string | null;
+  documentoRespaldo: string | null;
+  autor: string;
+  fecha: string;
+  vigenteDesde: string | null;
+  vigenteHasta: string | null;
+  esFuenteHistorica: boolean;
+  /** Qué cambió respecto de la versión anterior. Vacío en la versión 1. */
+  cambios: CambioEnVersion[];
+};
+
+/** Campos que se comparan entre versiones, con su nombre para mostrar. */
+const CAMPOS_COMPARABLES: [string, string][] = [
+  ["name", "Nombre"],
+  ["variant", "Variante"],
+  ["general_description", "Descripción general"],
+  ["specific_description", "Descripción específica"],
+  ["minimum_education", "Instrucción"],
+  ["required_title", "Título"],
+  ["minimum_experience", "Antigüedad y experiencia"],
+  ["physical_requirement", "Requisito físico"],
+  ["working_conditions", "Condiciones de trabajo"],
+  ["risk_level_raw", "Nivel de riesgo"],
+  ["additional_notes", "Observaciones"],
+];
+
+/**
+ * Historial de un puesto: todas sus versiones, quién las creó, cuándo y por qué,
+ * y qué cambió en cada una respecto de la anterior.
+ *
+ * El diff se calcula acá comparando versiones consecutivas. `audit_logs` guarda
+ * además el registro crudo de cada insert/update (lo escriben los triggers), que
+ * sirve para forense pero no para leer.
+ *
+ * Solo compara campos de texto de la versión. Los cambios en catálogos
+ * (competencias, riesgos) se ven entrando a cada versión: contarlos acá pediría
+ * traer las puentes de todas las versiones.
+ */
+export async function obtenerHistorial(positionId: string): Promise<VersionHistorial[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("position_versions")
+    .select(
+      `id, version_number, validity_status, name, variant,
+       general_description, specific_description,
+       minimum_education, required_title, minimum_experience,
+       physical_requirement, working_conditions, risk_level_raw, additional_notes,
+       change_reason, change_document_reference, is_historical_source,
+       created_at, valid_from, valid_until,
+       profiles ( full_name, email )`,
+    )
+    .eq("position_id", positionId)
+    .order("version_number", { ascending: true });
+
+  if (error) {
+    console.error("[puestos] obtenerHistorial:", error.message);
+    return [];
+  }
+
+  type Fila = Record<string, unknown> & {
+    id: string;
+    version_number: number;
+    validity_status: string;
+    name: string;
+    change_reason: string | null;
+    change_document_reference: string | null;
+    is_historical_source: boolean;
+    created_at: string;
+    valid_from: string | null;
+    valid_until: string | null;
+    profiles: { full_name: string | null; email: string } | null;
+  };
+
+  const filas = (data ?? []) as unknown as Fila[];
+
+  return filas
+    .map((f, i) => {
+      const previa = i > 0 ? filas[i - 1] : null;
+      const cambios: CambioEnVersion[] = [];
+      if (previa) {
+        for (const [clave, etiqueta] of CAMPOS_COMPARABLES) {
+          const antes = (previa[clave] as string | null) ?? null;
+          const despues = (f[clave] as string | null) ?? null;
+          if (antes !== despues) cambios.push({ campo: etiqueta, antes, despues });
+        }
+      }
+      return {
+        id: f.id,
+        numero: f.version_number,
+        estado: f.validity_status,
+        nombre: f.name,
+        motivo: f.change_reason,
+        documentoRespaldo: f.change_document_reference,
+        // El perfil puede faltar si el usuario se borró; la carga inicial la hizo
+        // un script sin sesión, así que esas 210 no tienen autor.
+        autor: f.profiles?.full_name ?? f.profiles?.email ?? "Carga inicial del nomenclador",
+        fecha: f.created_at,
+        vigenteDesde: f.valid_from,
+        vigenteHasta: f.valid_until,
+        esFuenteHistorica: f.is_historical_source,
+        cambios,
+      };
+    })
+    .reverse(); // la más reciente primero
+}
+
 export type PuestoParaEditar = {
   internalCode: string;
   nombre: string;
