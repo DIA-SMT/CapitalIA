@@ -1,0 +1,3000 @@
+[
+ {
+  "id": "p1-023",
+  "parte": 1,
+  "pdf_page": 23,
+  "printed_page": 29,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AUXILIAR DE LIMPIEZA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Oficina, limpiar oficinas, instalaciones y dependencias.-",
+  "descripcion_especifica": "Limpiar pasillos, galerias, baños, playas, sanitarios, ventanas, muebles en general, etc. Utilizando elementos manuales de limpieza y de desinfección.-",
+  "instruccion": "Primario completo.",
+  "titulo": "No requiere.",
+  "otros_conocimientos": [
+   "No requiere."
+  ],
+  "competencias": [
+   "Disciplina.",
+   "Adaptabilidad.",
+   "Orientación al cliente."
+  ],
+  "requisito_fisico": "No requiere. Salvo en el caso particular de quienes desarrollan este puesto en el área de la sanidad que requieren vacunación contra ATT, la Hepatitis A-B, la Gripe y la Influenza.",
+  "condiciones_trabajo": "Caminando. De pie.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito.-"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Elementos de Limpieza"
+  ],
+  "dudas": "El rótulo está impreso en plural (\"Requisitos Físicos:\"), a diferencia de otras fichas del lote que usan \"Requisito Físico:\". \"galerias\" aparece sin tilde en la fuente. \"Responsabilidad Sobre\" no lleva punto final."
+ },
+ {
+  "id": "p1-024",
+  "parte": 1,
+  "pdf_page": 24,
+  "printed_page": 30,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "ORDENANZA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Oficina, realizar mandados, limpiar y ordenar dependencias.",
+  "descripcion_especifica": "Llevar y traer documentación. Efectuar limpieza de Oficinas y dependencias. Atender servicios de cafetería.",
+  "instruccion": "Primario Completo.",
+  "titulo": "No requiere.",
+  "otros_conocimientos": [
+   "No requiere."
+  ],
+  "competencias": [
+   "Disciplina.",
+   "Adaptabilidad.",
+   "Orientación al cliente."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Caminando.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes útiles."
+  ],
+  "dudas": "\"Bienes útiles.\" se transcribe como un solo ítem: no hay separador entre las dos palabras (no es \"Bienes. Útiles.\")."
+ },
+ {
+  "id": "p1-025",
+  "parte": 1,
+  "pdf_page": 25,
+  "printed_page": 31,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "III",
+  "area": null,
+  "nombre": "MAYORDOMO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, controlar al personal de maestranza, en las tareas de higiene y conservación del edificio.",
+  "descripcion_especifica": "Distribuir y controlar tareas del personal a cargo, proveer elementos de trabajo, siendo responsable de los mismos. Recorrer el edificio verificando el estado y funcionamiento de sus instalaciones. Realizar informes comunicando averías y/o falta de elementos, solicitando reposición.",
+  "instruccion": "Primario completo.",
+  "titulo": "No requiere.",
+  "otros_conocimientos": [
+   "Generales de Mantenimiento de Edificios."
+  ],
+  "competencias": [
+   "Disciplina.",
+   "Adaptabilidad.",
+   "Orientación al cliente interno.",
+   "Control.",
+   "Conocimiento del entorno.",
+   "Delegación."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Caminando. De pie.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Equipos de trabajos y personas."
+  ],
+  "dudas": "\"Equipos de trabajos y personas.\" va como un solo ítem (unido por \"y\", sin separador de lista). La fuente dice \"trabajos\" en plural."
+ },
+ {
+  "id": "p1-026",
+  "parte": 1,
+  "pdf_page": 26,
+  "printed_page": 32,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "GUARDIÁN",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, cuidar y vigilar el uso de instalaciones y bienes del sector a su cargo.",
+  "descripcion_especifica": "Recorrer el sector observando y evitando daños o hurtos de plantas e instalaciones. Informar al público. Observar y vigilar el comportamiento de visitantes y uso de las instalaciones, según reglamentación en vigencia. Informar daños y otras novedades al superior.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Disciplina.",
+   "Juicio.",
+   "Adaptabilidad.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes."
+  ],
+  "dudas": "Requisitos Intelectuales solo imprime \"Instrucción\": no figuran los rótulos \"Título\" ni \"Otros conocimientos\" (verificado con zoom) → null / []. Riesgo de Trabajo omite \"Intoxicaciones con productos de limpieza\", presente en el resto del lote. Rótulo en plural: \"Requisitos Físicos:\"."
+ },
+ {
+  "id": "p1-027",
+  "parte": 1,
+  "pdf_page": 27,
+  "printed_page": 33,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "PORTERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión General, controlar la entrada y salida de personas, vehículos y materiales de establecimientos municipales.",
+  "descripcion_especifica": "Solicitar partes de entrada y salida, registrar el horario de las mismas. Comunicar las novedades producidas. Abrir y cerrar puertas.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "No requiere."
+  ],
+  "competencias": [
+   "Disciplina.",
+   "Juicio.",
+   "Adaptabilidad.",
+   "Sociabilidad."
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes."
+  ],
+  "dudas": "No se imprime el rótulo \"Título\" (verificado con zoom) → null. Rótulo en plural: \"Requisitos Físicos:\"."
+ },
+ {
+  "id": "p1-028",
+  "parte": 1,
+  "pdf_page": 28,
+  "printed_page": 34,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "SERENO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión General, vigilar el edificio y sus dependencias en horario nocturno.",
+  "descripcion_especifica": "Recorrer en horarios nocturnos las dependencias, observando y cuidando los bienes de las mismas. Registrar y comunicar novedades.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "No requiere."
+  ],
+  "competencias": [
+   "Disciplina.",
+   "Juicio.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "Horario nocturno. De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes."
+  ],
+  "dudas": "No se imprime el rótulo \"Título\" (verificado con zoom) → null. Rótulo en plural: \"Requisitos Físicos:\"."
+ },
+ {
+  "id": "p1-029",
+  "parte": 1,
+  "pdf_page": 29,
+  "printed_page": 35,
+  "agrupamiento": "SERVICIOS GENERALES",
+  "nivel": "I",
+  "area": null,
+  "nombre": "CAMILLERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión directa, transportar en camillas y resguardar enfermos durante su traslado en ambulancias.",
+  "descripcion_especifica": "Colocar pacientes en camillas para su traslado en ambulancias. Cobrar aranceles por su traslado desde domicilios a centros asistenciales. Extender recibos y entregar recaudación.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Primeros Auxilios."
+  ],
+  "competencias": [
+   "Sentido de la urgencia.",
+   "Juicio.",
+   "Vocación de servicio.",
+   "Discreción.",
+   "Energía."
+  ],
+  "requisito_fisico": "Requiere vacunación ATT, contra la Hepatitis A-B, la Gripe y al Influenza.",
+  "condiciones_trabajo": "Horario extraordinario. Esfuerzos por cargar pesos.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Caídas a nivel y desnivel.",
+   "Intoxicaciones con productos de limpieza.",
+   "Accidentes de tránsito."
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes.",
+   "Personas."
+  ],
+  "dudas": "\"y al Influenza\" es errata de la fuente (verificado con zoom: dice \"al\", no \"la\"); se transcribe literal. No se imprime el rótulo \"Título\" → null. Rótulo en plural: \"Requisitos Físicos:\"."
+ },
+ {
+  "id": "p1-031",
+  "parte": 1,
+  "pdf_page": 31,
+  "printed_page": 39,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "FUMIGADOR de PLAGAS y ENFERMEDADES ARBOREAS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe de Sección fumigar con productos adecuados a efectos de eliminar plagas o enfermedades arbóreas, tanto en lugares públicos o establecimientos.",
+  "descripcion_especifica": "Recepcionar pedidos. Efectuar inspección ocular. Analizar la situación. Determinar el producto a emplear, dosis, cantidad y equipo a utilizar. Realizar la fumigación empleando mochila, nebulizadores de motor, máscara, guantes, botas y capa. Confeccionar informe. Efectuar seguimiento para evaluar resultados.",
+  "instruccion": "Primario completo.",
+  "titulo": "No requiere.",
+  "otros_conocimientos": [
+   "Productos químicos.",
+   "Especies arbóreas."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al detalle.",
+   "Autoorganización.",
+   "Análisis de problemas."
+  ],
+  "requisito_fisico": "Esfuerzo Fisico: esfuerzo lumbar. Cargas pesadas. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "De pie. Caminando. Operando con maquinas.",
+  "riesgos_trabajo": [
+   "Accidentes.",
+   "Contaminación.",
+   "Enfermedades dermicas, respiratorias, afecciones oculares, afecciones hepáticas."
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Equipos de Trabajos.",
+   "Herramientas."
+  ],
+  "dudas": "El rótulo está impreso como \"Requisitos Físico:\" (plural) a diferencia de \"Requisito Físico:\" en las demás fichas; la columna de identificación dice \"Nivel\" (no \"Área\"). En la fuente aparecen sin tilde: \"Esfuerzo Fisico\", \"maquinas\", \"dermicas\". El nombre del puesto mezcla mayúsculas y minúsculas tal como está impreso (\"FUMIGADOR de PLAGAS y ENFERMEDADES ARBOREAS\")."
+ },
+ {
+  "id": "p1-032",
+  "parte": 1,
+  "pdf_page": 32,
+  "printed_page": 40,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "FUMIGADOR/DESRATIZADOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión general, fumigar y desratizar en forma manual o mecánica, para la eliminación de vectores y focos infecciosos",
+  "descripcion_especifica": "Preparar equipos y venenos líquidos, en polvo, etc. Operar fumigadora manual y mecánica. Colocar cebos y utilizar cartuchos fumígenos para destruir nidos de ratas. Desinfectar focos infecciosos y realizar fumigaciones periódicas en las viviendas, reparticiones, basurales etc. Informar a la población sobre objetivos de las tareas y medidas de seguridad a adoptar.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad.",
+   "Análisis de problemas.",
+   "Autoorganización.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Fuera del asiento habitual, en ambientes nocivos para la salud. Posición incomoda.",
+  "riesgos_trabajo": [
+   "Accidentes.",
+   "Intoxicaciones.",
+   "Contaminaciones."
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Elementos de Trabajo.",
+   "Terminación de tarea."
+  ],
+  "dudas": "En Requisitos Intelectuales sólo está impreso \"Instrucción:\"; los rótulos \"Título\" y \"Otros conocimientos\" no aparecen impresos, por eso van null y []. La descripción general termina sin punto final en la fuente. En la fuente: \"incomoda\" sin tilde. El rótulo de la columna de identificación es \"Nombre del Puesto\" y hay un gran espacio entre \"Accidentes.\" e \"Intoxicaciones.\" (justificado), no un salto de campo."
+ },
+ {
+  "id": "p1-036",
+  "parte": 1,
+  "pdf_page": 36,
+  "printed_page": 44,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "LUSTRADOR CARPINTERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisón del Jefe Inmediato, lustrar y dar acabado en detalles a muebles y elementos de madera manualmente.",
+  "descripcion_especifica": "Preparar lustre de acuerdo a colores y calidad de madera, limpiar, lijar, curar, lustrar y engrosar. Dar brillo y terminación a muebles y elementos de madera, nuevos y usados.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Tratamiento de madera y preparación de lustre"
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Energía.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo fisico: posición incomoda. Requiere vacunación ATT.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Heridas.",
+   "Atascamientos.",
+   "Inhalación.",
+   "Térmico."
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas.",
+   "Terminación de trabajos."
+  ],
+  "dudas": "La descripción general dice \"supervisón\" (errata de la fuente, no artefacto de escaneo: falta la \"i\"). No está impreso el rótulo \"Título\" → null. \"Instrucción: Primario Completo\" y \"Otros conocimientos\" van sin punto final en la fuente. En la fuente: \"fisico\" e \"incomoda\" sin tilde."
+ },
+ {
+  "id": "p1-037",
+  "parte": 1,
+  "pdf_page": 37,
+  "printed_page": 45,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE ALBAÑIL",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, colaborar con el Oficial, realizando tareas sencillas relacionadas con la construcción y reparación de obras de ingeniería y arquitectura.",
+  "descripcion_especifica": "Trasladar materiales. Manipular elementos de trabajo. Preparar andamios. Picar materiales y apisonar. Limpiar y acomodar herramientas. Preparar mezclas. Cavar, llenar cimientos y lozas. Levantar paredes, dar contrapisos, revoque grueso, colocar tirantes, rellenar encofrados, etc., según instrucciones y mediciones del Oficial.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad.",
+   "Energía.",
+   "Capacidad para aprender.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo físico: posición incómoda. Traslado de cargas pesadas.",
+  "condiciones_trabajo": "Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Heridas.",
+   "Inhalación.",
+   "Térmicos."
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Herramientas."
+  ],
+  "dudas": "Caso importante: los rótulos \"Título:\" y \"Otros conocimientos:\" SÍ están impresos pero quedaron SIN contenido (renglón vacío) → titulo null y otros_conocimientos []. La fuente dice \"lozas\" (por \"losas\")."
+ },
+ {
+  "id": "p1-038",
+  "parte": 1,
+  "pdf_page": 38,
+  "printed_page": 46,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL ALBAÑIL",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, construir y reparar obras de ingeniería y arquitectura en las que se emplean ladrillos, piedras, cementos u otros materiales semejantes, de acuerdo a planos y/o instrucciones generales.",
+  "descripcion_especifica": "Levantar paredes para la construcción de habitaciones, tapias, etc. Construir y reparar techos, columnas, vigas, casillas, canteros, etc. Revocar y mandrilar. Efectuar revestimientos, preparar encofrados. Supervisar e instruir a Ayudantes en la realización de las tareas y uso de herramientas. Medir, nivelar, aplomar y encuadrar. Interpretar planos. Solicitar materiales y elementos de trabajo. Informar novedades.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado de capacitación habilitante, extendido por organismo oficial."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Análisis de problemas.",
+   "Energía.",
+   "Control.",
+   "Capacidad para transmitir conocimientos.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo físico: Posición incómoda. Traslado de cargas pesadas.",
+  "condiciones_trabajo": "Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Heridas.",
+   "Inhalación.",
+   "Térmicos"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Del personal y ejecución de tareas.",
+   "Herramientas."
+  ],
+  "dudas": "No está impreso el rótulo \"Título\" → null. \"Térmicos\" (último riesgo) va sin punto final en la fuente. Esta ficha escribe \"transmitir\" mientras que la de OFICIAL HERRERO (p040) escribe \"trasmitir\"."
+ },
+ {
+  "id": "p1-039",
+  "parte": 1,
+  "pdf_page": 39,
+  "printed_page": 47,
+  "agrupamiento": "MANTENIMINETO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE HERRERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Oficial Herrero, colaborar con él, realizando tareas sencillas relacionadas con herrería artística y de obras; y colaborar en la reparación y fabricación de piezas metálicas.",
+  "descripcion_especifica": "Trasladar y manipular herramientas. Soldar, calentar y cortar piezas para la fabricación de herramientas, muebles u otros objetos metálicos. Preparar materiales. Limpiar y ordenar lugar de trabajo. Recibir instrucciones.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "habilidad manual."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Capacidad para aprender.",
+   "Energía."
+  ],
+  "requisito_fisico": "Esfuerzo fisico: Posición incómoda. Requiere vacunación ATT.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Heridas.",
+   "Inhalación.",
+   "Térmicos."
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Herramientas."
+  ],
+  "dudas": "ERRATA de la fuente en el agrupamiento: dice \"MANTENIMINETO Y PRODUCCION\" (letras transpuestas) y se transcribe literal. No está impreso el rótulo \"Título\" → null. \"Otros conocimientos: habilidad manual.\" arranca en minúscula en la fuente. En la fuente: \"fisico\" sin tilde."
+ },
+ {
+  "id": "p1-040",
+  "parte": 1,
+  "pdf_page": 40,
+  "printed_page": 48,
+  "agrupamiento": "MANTENIMIENTOY PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL HERRERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, realizar trabajos de herrería artística y de obra, de acuerdo a planos e instrucciones.",
+  "descripcion_especifica": "Fabricar y reparar muebles, herramientas y piezas metálicas. Calentar, forjar y soldar metales, medir y marcar, cortar y doblar piezas. Dar terminación en detalles, interpretar planos y dar instrucciones a Ayudantes.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado habilitante otorgado por organismos oficiales.",
+   "Manejo de cualquier equipo soldador."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Análisis de problemas.",
+   "Atención al detalle.",
+   "Capacidad para trasmitir conocimientos."
+  ],
+  "requisito_fisico": "Esfuerzo fisico: posición incomoda. Requiere vacunación ATT.",
+  "condiciones_trabajo": "Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Golpes.",
+   "Heridas.",
+   "Inhalación.",
+   "Térmicos."
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Personal a cargo.",
+   "Herramientas.",
+   "Terminación de trabajos."
+  ],
+  "dudas": "ERRATA de la fuente en el agrupamiento: \"MANTENIMIENTOY PRODUCCION\" sin espacio entre \"MANTENIMIENTO\" e \"Y\" (se transcribe literal; el salto de línea de la caja cae entre \"MANTENIMIENTOY\" y \"PRODUCCION\"). No está impreso el rótulo \"Título\" → null. La fuente dice \"trasmitir\" (no \"transmitir\"). En la fuente: \"fisico\" e \"incomoda\" sin tilde. Las filas de Condiciones de Trabajo y Riesgo de Trabajo están pegadas por error de maquetación, pero los valores son distinguibles."
+ },
+ {
+  "id": "p1-041",
+  "parte": 1,
+  "pdf_page": 41,
+  "printed_page": 49,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE PINTOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Oficial Pintor, cooperar con él en tareas que no requieran habilidad específica; y en la reparación y pintura de superficie.",
+  "descripcion_especifica": "Manipular elementos de trabajo y materiales. Limpiar y acomodar los mismos al concluir las tareas. Preparar pintura, raspar, lijar, cepillar, enlucir, dar imprimación a superficies según instrucciones.\nDar base, blanquear y pintar. Colaborar en la preparación de andamios.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: posición incómoda.\nRequiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Inhalación",
+   "Quemaduras",
+   "Caídas",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "El rótulo \"Otros conocimientos\" no está impreso en esta ficha (solo aparece \"Instrucción\"), por eso otros_conocimientos = []. Tampoco hay rótulo \"Título\"."
+ },
+ {
+  "id": "p1-042",
+  "parte": 1,
+  "pdf_page": 42,
+  "printed_page": 50,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL PINTOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, pintar superficies manual y mecánicamente.",
+  "descripcion_especifica": "Pintar paredes y objetos de madera y metálicos. Preparar pintura combinando colores y tonos. Dar consistencia a muros empleando materiales adecuados. Dar instrucciones para preparación de superficies y utilización de herramientas al Ayudante.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "De clases de pinturas"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Control",
+   "Capacidad para transmitir conocimientos"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Posición incómoda.\nRequiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Inhalación",
+   "Quemaduras",
+   "Caídas"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Personal",
+   "Herramientas",
+   "Terminación de trabajos"
+  ],
+  "dudas": null
+ },
+ {
+  "id": "p1-043",
+  "parte": 1,
+  "pdf_page": 43,
+  "printed_page": 51,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "PINTOR LETRISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, diseñar, dibujar y pintar letras en general.",
+  "descripcion_especifica": "Lijar, preparar y dar fondo a las superficies a pintar. Trazar, dibujar, pintar y filetear letras en carteles, letreros, mapas, señalizaciones, etc. Preparar pintura y combinar colores.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de aplicación y preparado de pintura",
+   "Estilos de letras, sus formas y proporciones"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Creatividad"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Posición incómoda.\nRequiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Inhalación",
+   "Quemaduras",
+   "Caídas"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Terminación de obras"
+  ],
+  "dudas": "El primer ítem de otros_conocimientos arranca en minúscula en la fuente (\"de aplicación y preparado de pintura\"); se respeta literal."
+ },
+ {
+  "id": "p1-044",
+  "parte": 1,
+  "pdf_page": 44,
+  "printed_page": 52,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "PINTOR DE AUTOMOTORES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, pintar vehículos.",
+  "descripcion_especifica": "Lijar, masillar, colocar cintas y antióxidos en chapas. Preparar pintura, pintar mecánicamente, pulir, lustrar y dar terminación en detalles.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado habilitante otorgado por organismo oficial"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Posición incómoda.\nRequiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Inhalación",
+   "Quemaduras",
+   "Caídas",
+   "Cortes"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Herramientas",
+   "Terminación de obras"
+  ],
+  "dudas": "\"Instrucción: Primario Completo\" aparece sin punto final en esta ficha (a diferencia de las anteriores); se respeta literal."
+ },
+ {
+  "id": "p1-045",
+  "parte": 1,
+  "pdf_page": 45,
+  "printed_page": 53,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AYUDANTE MECANICO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Oficial Mecánico, colaborar con el Oficial en tareas que no requieren habilidad específica. Realizar tareas en reparación mecánica ligera y colaborar con el oficial en reparaciones complejas.",
+  "descripcion_especifica": "Ayudar a armar, desarmar y ajustar piezas sencillas. Alcanzar y manipular piezas y herramientas. Limpiar taller. Guardar y acomodar elementos de trabajo.-\nRevisar el estado de vehículos reponiendo piezas y elementos de desgaste periódico. Regular válvulas, cambiar y engrasar rulemanes. Ayudar al Oficial a desmontar motores, desarmar cajas de velocidades, etc.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Capacidad para aprender"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Posiciones forzadas",
+   "Golpes",
+   "Caídas",
+   "Atascamiento",
+   "Carga térmica",
+   "Inhalación"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "El rótulo \"Otros conocimientos:\" SÍ está impreso pero quedó sin contenido alguno (verificado con zoom); por eso otros_conocimientos = [] y no \"No requiere.\". Nótese que la descripción específica trae un guión suelto al final del primer párrafo (\"elementos de trabajo.-\"), se respeta literal."
+ },
+ {
+  "id": "p1-046",
+  "parte": 1,
+  "pdf_page": 46,
+  "printed_page": 54,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL MECANICO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, realizar el mantenimiento y la reparación mecánica de vehículos.",
+  "descripcion_especifica": "Revisar motor, caja, transmisión, frenos, dirección y demás accesorios mecánicos de automotores, detectar fallas e informar de las mismas. Desmontar, desarmar, arreglar, armar, reparar, cambiar y montar piezas. Ajustar y poner a punto motores. Dar instrucciones al Ayudante. Solicitar compra de repuestos.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Curso de Técnico Mecánico"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Análisis de problemas",
+   "Control",
+   "Capacidad para transmitir",
+   "Energía",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Posiciones forzadas",
+   "Golpes",
+   "Caídas",
+   "Atascamiento",
+   "Carga térmica",
+   "Inhalación"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Personal",
+   "Herramientas",
+   "Terminación de obras"
+  ],
+  "dudas": "En Riesgo de Trabajo el escaneo muestra \"Posicioues forzadas\" (n leída como u); se transcribe \"Posiciones\" por ser artefacto de escaneo, igual que la misma frase impresa nítida en la ficha p1-045. \"Esfuerzo físico: Moderado\" va sin punto final en la fuente."
+ },
+ {
+  "id": "p1-047",
+  "parte": 1,
+  "pdf_page": 47,
+  "printed_page": 55,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "MECANICO DE MAQUINAS VIALES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe inmediato, realizar el mantenimiento y reparación mecánica de equipos viales, con excepción de sus motores.",
+  "descripcion_especifica": "Montar, desmontar, armar y desarmar conjuntos mecánicos e hidráulicos de: motoniveladoras, excavadoras, cargadoras, aplanadoras, hidrogrúas, etc. Revisar y reparar sistemas de dirección, cambios de frenos, bombas y cilindros hidráulicos. Afinar motores y cambiar repuestos de desgaste periódico, ajustar los movimientos hidráulicos, cuchillas y tren delantero. Analizar, determinar e informar la causa de los desperfectos. Solicitar la compra de repuestos.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado de capacitación en la especialidad, otorgados por órganismos oficiales u otro título habilitante"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Atención al detalle",
+   "Análisis de problemas"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado. Posición incómoda.\nRequiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Atascamiento",
+   "Caídas",
+   "Esfuerzos"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "La manutención de los equipos viales"
+  ],
+  "dudas": "La fuente imprime \"órganismos\" con tilde (errata, verificada con zoom); se respeta literal. También \"Jefe inmediato\" en minúscula, a diferencia de \"Jefe Inmediato\" en las demás fichas."
+ },
+ {
+  "id": "p1-048",
+  "parte": 1,
+  "pdf_page": 48,
+  "printed_page": 56,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE PLOMERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Oficial Plomero, efectuar reparaciones sencillas y colaborar con el Oficial Plomero.",
+  "descripcion_especifica": "Manipular, limpiar y ordenar herramientas. Calar paredes y cavar según instrucciones. Cambiar, reparar y soldar cañerías, desagües, cámara y artefactos sanitarios y de gas, según indicaciones del Oficial. Recibir instrucciones.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de cañerías y soldaduras"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: moderado. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Accidente y ambiente insalubre",
+   "Enfermedades Profesionales"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "El rótulo 'Título' no está impreso en la ficha. La descripción específica dice 'cámara' en singular dentro de una enumeración en plural; se transcribe literal."
+ },
+ {
+  "id": "p1-049",
+  "parte": 1,
+  "pdf_page": 49,
+  "printed_page": 57,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL PLOMERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe Inmediato, efectuar instalaciones y reparaciones de cámaras, cañerías, desagües, artefactos sanitarios y de gas.",
+  "descripcion_especifica": "Efectuar reparaciones, instalaciones y ampliaciones, Construir, arreglar y destrancar cámaras, desagües pluviales, cloacas, etc. Instalar artefactos, sanitarios y de gas. Cambiar. Arreglar y soldar cañerías, llaves y canillas. Solicitar compra de materiales. Dar instrucciones al Ayudante.",
+  "instruccion": "Primario Completo",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Preferentemente con matrícula de Organismo Oficial u otro certificado habilitante"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Análisis de problemas",
+   "Control",
+   "Atención al detalle",
+   "Energía",
+   "Capacidad para transmitir conocimientos",
+   "Requiere examen periódico para la prevención de enfermedades profesionales"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Posición incómoda",
+  "condiciones_trabajo": "Eventualmente al aire libre.",
+  "riesgos_trabajo": [
+   "Accidentes, contaminación y ambiente insalubre"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Personal",
+   "Herramientas",
+   "Terminación de Obras"
+  ],
+  "dudas": "La frase 'Requiere examen periódico para la prevención de enfermedades profesionales.' está impresa dentro del bloque de Competencias Requeridas (en otras fichas del lote aparece bajo Requisito Físico); se respeta la ubicación impresa. En 'Descripción Especifica' hay coma antes de 'Construir' y punto tras 'Cambiar', ambos literales de la fuente. El rótulo 'Responsabilidad Sobre' se lee 'Sobrc' por degradación de tinta; se transcribe como Sobre."
+ },
+ {
+  "id": "p1-050",
+  "parte": 1,
+  "pdf_page": 50,
+  "printed_page": 58,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE JARDINERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, colaborar con el Jardinero realizando tareas sencillas.",
+  "descripcion_especifica": "Desmalezar, remover, empapelar y nivelar la tierra. Regar, rastrillar, palear y limpiar canteros. Cortar el césped, sacar y acumular basura.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Al aire libre.",
+  "riesgos_trabajo": [
+   "Heridas",
+   "Enfermedades articulares"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "'empapelar' en la descripción específica parece errata de la fuente (por 'empaparar'/'emparejar'); se transcribe literal. No están impresos los rótulos 'Título' ni 'Otros conocimientos'."
+ },
+ {
+  "id": "p1-051",
+  "parte": 1,
+  "pdf_page": 51,
+  "printed_page": 59,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "JARDINERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión general, cultivar, cuidar y mantener jardines, viveros, plazas y parques.",
+  "descripcion_especifica": "Controlar el crecimiento y estado de los árboles y plantas preservando la distribución y estética de los mismos. Realizar injertos. Preparar almácigos. Sembrar, plantar, regar, podar, transplantar, etc. Cortar césped, preparar y perfilar canteros.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de especies y épocas de cultivo"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Control",
+   "Atención al detalle",
+   "Capacidad para transmitir conocimientos"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Al aire libre. Posición incómoda.",
+  "riesgos_trabajo": [
+   "Heridas"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Personal a cargo",
+   "Herramientas"
+  ],
+  "dudas": "El rótulo 'Título' no está impreso en la ficha."
+ },
+ {
+  "id": "p1-052",
+  "parte": 1,
+  "pdf_page": 52,
+  "printed_page": 60,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE ELECTRICISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión inmediata, colaborar con el electricista en tareas que no requieran habilidades específicas.",
+  "descripcion_especifica": "Manipular y alcanzar elementos y materiales. Calar paredes. Amurar caños. Cortar y medir cables. Colocar y cambiar lámparas. Guardar y limpiar elementos, materiales y herramientas.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Curso básico de electricidad"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Posición incómoda. Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "El rótulo 'Título' no está impreso en la ficha."
+ },
+ {
+  "id": "p1-053",
+  "parte": 1,
+  "pdf_page": 53,
+  "printed_page": 61,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "ELECTRICISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión directa, colocar y reparar instalaciones y artefactos eléctricos.",
+  "descripcion_especifica": "Efectuar instalaciones eléctricas aéreas, subterráneas y embutidas, realizando el cableado y sus conexiones. Prolongar, reparar y reformar instalaciones eléctricas. Preparar tableros y anexos. Arreglar artefactos eléctricos. Interpretar planos. Dar instrucciones al ayudante.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado expedido por organismo oficial u otro habilitante"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Análisis de problemas",
+   "Capacidad para transmitir conocimientos"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Posición incómoda. Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Alto.",
+  "responsabilidad_sobre": [
+   "Personal a cargo",
+   "Herramientas",
+   "Terminación de obras"
+  ],
+  "dudas": "El rótulo 'Título' no está impreso en la ficha."
+ },
+ {
+  "id": "p1-054",
+  "parte": 1,
+  "pdf_page": 54,
+  "printed_page": 62,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE ELECTRICISTA DE AUTOMOTORES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión directa, colaborar con el electricista de automotores en tareas que no requieren conocimientos específicos.",
+  "descripcion_especifica": "Sacar y cargar baterías, cambiar lámparas y fusibles, aislar cables y limpiar herramientas y lugar de trabajo según indicaciones especificas del electricista.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Curso básico de electricidad del automotor"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Capacidad para aprender"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Posición incómoda.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "La descripción general dice 'de esta clase' (el resto del lote usa 'de este puesto'); 'especificas' aparece sin tilde en la descripción específica. Ambos literales de la fuente. El rótulo 'Título' no está impreso."
+ },
+ {
+  "id": "p1-055",
+  "parte": 1,
+  "pdf_page": 55,
+  "printed_page": 63,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "ELECTRICISTA DE AUTOMOTORES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, instalar circuitos y equipos eléctricos en vehículos.",
+  "descripcion_especifica": "Revisar, reparar, armar e instalar dinamos, alternadores, conductores, instrumentos y accesorios eléctricos en general. Localizar fallas. Controlar y cambiar piezas de desgaste periódico. Modificar instalaciones. Solicitar la compra de repuestos. Dar instrucciones al ayudante.",
+  "instruccion": "Ciclo Básico Técnico.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de circuitos, materiales y catálogos"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Análisis de problemas",
+   "Atención al detalle",
+   "Capacidad para transmitir conocimientos"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Posición incómoda.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Personal",
+   "Herramientas",
+   "Mantenimiento de vehículos"
+  ],
+  "dudas": "Otros conocimientos usa comas como separador interno (\"de circuitos, materiales y catálogos\") y no punto ni guion; se transcribe como un único ítem porque la frase arranca con \"de\" y depende del encabezado. No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-056",
+  "parte": 1,
+  "pdf_page": 56,
+  "printed_page": 64,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OPERARIO DE MAQUINA HORMIGONERA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión general, operar los mandos de la maquina productora de mezcla de hormigón en planta fija.",
+  "descripcion_especifica": "Controlar el funcionamiento de las máquinas. Accionar los mandos para pesar la proporción correcta, levantar, verter y mezclar los materiales para preparar el hormigón. Descargar mezclar lista en camión. Lavar y limpiar la máquina. Comunicar desperfectos y roturas para su reparación.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Manejo de Maquinas Hormigoneras"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Disciplina",
+   "Atención",
+   "Energía",
+   "Coordinación psicomotriz"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Posición incómoda.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "Enfermedades respiratorias"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Maquinaria",
+   "Proceso de fabricación"
+  ],
+  "dudas": "Erratas de la fuente conservadas: \"maquina\" y \"Maquinas\" sin tilde, y \"Descargar mezclar lista en camión\" (probable \"mezcla\" en el original). No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-057",
+  "parte": 1,
+  "pdf_page": 57,
+  "printed_page": 65,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OPERARIO DE MAQUINA ASFALTICA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, efectuar operaciones para el manejo de máquina mezcladora de asfalto en planta fija.",
+  "descripcion_especifica": "Poner en marcha el mecanismo de la máquina. Indicar a los ayudantes la cantidad de materiales necesarios. Observar la consistencia y calcular el tiempo de preparación de la mezcla. Descargar en camiones cuando la mezcla esta lista. Comunicar desperfectos al mecánico.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "del manejo de la Máquina"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Disciplina",
+   "Atención",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Intenso. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Posición incómoda. Temperaturas elevadas.",
+  "riesgos_trabajo": [
+   "Gases tóxicos",
+   "Quemaduras"
+  ],
+  "nivel_riesgo": "Alto.",
+  "responsabilidad_sobre": [
+   "Maquinaria",
+   "Proceso de fabricación"
+  ],
+  "dudas": "Errata de la fuente conservada: \"cuando la mezcla esta lista\" (sin tilde en \"esta\"). No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-058",
+  "parte": 1,
+  "pdf_page": 58,
+  "printed_page": 66,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "GOMERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisón general, cambiar y reparar neumáticos de vehículos.",
+  "descripcion_especifica": "Levantar vehículos con gatos: Sacar, manipular y colocar neumáticos. Revisar, calibrar e inflar cubiertas. Ajustar y desabollar llantas. Reparar cámaras y cubiertas. Parchar, colocar manchones, cambiar válvulas, inflar y calibrar. Armar y desarmar ruedas. Ajustar tuercas y tornillos.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de medidas y presión óptima de ruedas"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Intenso.",
+  "condiciones_trabajo": "Posición incómoda.",
+  "riesgos_trabajo": [
+   "Traumatismos",
+   "Lumbalgias"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Mantenimiento de vehículos y herramientas"
+  ],
+  "dudas": "Errata de la fuente conservada: \"supervisón\" por \"supervisión\" en Descripción General. No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-059",
+  "parte": 1,
+  "pdf_page": 59,
+  "printed_page": 67,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICAL DE PREMOLDEADO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisón general, fabricar aditamentos de cemento para plazas y parques del municipio.",
+  "descripcion_especifica": "Preparar y verter el material en moldes. Controlar fraguado y desmoldar. Construir bancos, mesas y baldosas en moldes.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Oficial Albañil"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Intenso.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Terminación de obra"
+  ],
+  "dudas": "Erratas de la fuente conservadas: el nombre del puesto dice \"OFICAL DE PREMOLDEADO\" (por \"OFICIAL\") y la Descripción General dice \"supervisón\". Nótese el contraste con Otros conocimientos, que sí escribe \"Oficial Albañil\". No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-060",
+  "parte": 1,
+  "pdf_page": 60,
+  "printed_page": 68,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "CHOFER DE VEHICULOS LIVIANOS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, conducir vehículos livianos, transportando personal y cargas ligeras.",
+  "descripcion_especifica": "Conducir automóviles, camionetas, ambulancias, etc. Transportar funcionarios, personal jerárquico, empleados, cargas livianas, etc. Efectuar reparaciones sencillas de emergencia y comunicar desperfectos mayores. Controlar el funcionamiento del vehiculo. Cargar combustibles.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Nociones de mecánica y electricidad del automotor",
+   "Manejo Defensivo"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Disciplina",
+   "Control de impulsos",
+   "Estabilidad emocional",
+   "Coordinación psicomotriz",
+   "Tolerancia al stress",
+   "Resolución"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Horario extraordinario.",
+  "riesgos_trabajo": [
+   "Accidentes de tránsito"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Vehículos"
+  ],
+  "dudas": "Erratas de la fuente conservadas: \"vehiculo\" sin tilde en Descripción Específica y \"stress\" en Competencias. Esta ficha sí escribe \"tránsito\" con tilde, a diferencia de la ficha de vehículos pesados (pdf_page 61). No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-061",
+  "parte": 1,
+  "pdf_page": 61,
+  "printed_page": 69,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "CHOFER DE VEHICULOS PESADOS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, conducir vehículos pesados destinados al transporte de cargas y equipos viales de obras.",
+  "descripcion_especifica": "Conducir camiones con o sin acoplado, semi-remolques, etc. Supervisar tareas de cargas y descargas de materiales realizadas por los ayudantes. Operar equipos que posea el vehiculo, por ejemplo, guinches, tanques y volquetes. Supervisar al ayudante en el manejo de mezcladora, hidrogrúa, etc. Controlar funcionamiento, efectuar limpieza superficial y reparaciones sencillas. Comunicar desperfectos mayores y/o accidentes. Recibir y entregar remitos de carga.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Mecánica y electricidad del automotor",
+   "Manejo y empleo de accesorios y equipos",
+   "Código de transito",
+   "Manejo Defensivo"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Disciplina",
+   "Tolerancia al stress",
+   "Resolución"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Intenso. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Horario extraordinario.",
+  "riesgos_trabajo": [
+   "Accidentes de transito"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "La carga transportada"
+  ],
+  "dudas": "Erratas de la fuente conservadas: \"vehiculo\" y \"transito\" sin tilde (esta última tanto en Otros conocimientos como en Riesgo de Trabajo) y \"stress\". \"semi-remolques\" aparece con guion de corte de línea en el original; se transcribe con guion porque el término lo lleva. No hay rótulo \"Título\" impreso."
+ },
+ {
+  "id": "p1-062",
+  "parte": 1,
+  "pdf_page": 62,
+  "printed_page": 70,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "PEON",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión directa, ejecutar tareas sencillas que requieran habilidad y/o conocimientos específicos.",
+  "descripcion_especifica": "Palear, barrer, limpiar, cavar zanjas, regar, desmalezar, colocar césped y granza en veredas y caminos de paseo público. Recoger, transportar y acumular basura, materiales, escombros, etc. Cargar y descargar camiones. Limpiar herramientas. Romper, levantar, construir y sacar carpetas de asfalto u hormigón. Controlar combustible e informar desperfectos de la máquina a su cargo. Recibir instrucciones del capataz.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Disciplina"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Intenso. Requiere vacunación ATT, contra la Hepatitis A-B, la Gripe y la Influenza.",
+  "condiciones_trabajo": "Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "El rótulo 'Otros conocimientos' no está impreso en esta ficha (solo 'Instrucción'); por eso otros_conocimientos = []. Tampoco figura rótulo 'Título'."
+ },
+ {
+  "id": "p1-063",
+  "parte": 1,
+  "pdf_page": 63,
+  "printed_page": 71,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "III",
+  "area": null,
+  "nombre": "CAPATAZ",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, controlar y distribuir tareas a la cuadrilla a su cargo.",
+  "descripcion_especifica": "Distribuir tareas al personal de cuadrilla. Controlar la ejecución de reparaciones y/o construcciones de obras en su especialidad: albañilería, pinturería, plomería, electricidad, pavimentación y bacheo, jardinería, premoldeado, etc. Nivelar, medir y revisar antes y al final el trabajo. Coordinar tareas con otros capataces. Solicitar personal y material necesario. Elevar parte diario de asistencia de personal y trabajo.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "de obras y calidades de materiales del área que le corresponde"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Control",
+   "Capacidad para transmitir conocimientos",
+   "Delegación"
+  ],
+  "requisito_fisico": "Esfuerzo físico: moderado.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Aire libre.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Tareas",
+   "Personal",
+   "Herramientas",
+   "Terminación de obras"
+  ],
+  "dudas": "Maquetación desalineada: los valores de Competencias Requeridas, Requisito Físico y Condiciones de Trabajo aparecen desplazados hacia arriba respecto de sus rótulos; se asignaron por orden de aparición. La fuente escribe 'pinturería' (no 'pintureria') y 'jardinería'."
+ },
+ {
+  "id": "p1-064",
+  "parte": 1,
+  "pdf_page": 64,
+  "printed_page": 72,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "III",
+  "area": null,
+  "nombre": "CAPATAZ GENERAL",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, programar, asignar y supervisar tareas a los capataces de los distintos sectores a su cargo.",
+  "descripcion_especifica": "Distribuir tareas a los capataces. Controlar la ejecución de construcciones y/o reparaciones, recorriendo obras de albañilería, pinturería, limpieza, premoldeado, pavimento y bacheo. Recibir y controlar partes diarios de asistencia y de trabajo, pedidos de personal y materiales. Solucionar inconvenientes técnicos.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "De obras y calidad de materiales del área que le corresponda"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Decisión",
+   "Análisis de problemas",
+   "Visión",
+   "Delegación"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado.",
+  "condiciones_trabajo": "Fuera del asiento habitual. Aire libre.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Tareas",
+   "Personal"
+  ],
+  "dudas": null
+ },
+ {
+  "id": "p1-065",
+  "parte": 1,
+  "pdf_page": 65,
+  "printed_page": 73,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "ESCOBERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión general, fabricar escobas manuales.",
+  "descripcion_especifica": "Limpiar y clasificar la paja. Envolver, armar, prensar, coser y guitollinar el material.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "del proceso de fabricación de escobas"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Disciplina"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere. Requiere exámenes periódicos para prevenir enfermedades profesionales.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Enfermedades Profesionales"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Productos"
+  ],
+  "dudas": "'guitollinar' se transcribe literal: verificado con ampliación, las letras están nítidas, es errata de la fuente (por 'guillotinar'), no degradación del escaneo."
+ },
+ {
+  "id": "p1-066",
+  "parte": 1,
+  "pdf_page": 66,
+  "printed_page": 74,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "AYUDANTE CHAPISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión directa, efectuar reparaciones sencillas de chapas de vehículos.",
+  "descripcion_especifica": "Desarmar, doblar y efectuar soldaduras en general y armar piezas o partes en chapas metálicas de vehículos según instrucciones especificas del oficial.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Soldaduras en general"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado. Requiere vacunación ATT.",
+  "condiciones_trabajo": "Asiento habitual. Posición incómoda.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "'especificas' (sin tilde) en la descripción específica se transcribe literal, tal como está impreso."
+ },
+ {
+  "id": "p1-067",
+  "parte": 1,
+  "pdf_page": 67,
+  "printed_page": 75,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OFICIAL CHAPISTA DE AUTOMOTORES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión general, construir y reparar piezas en chapas de vehículos.",
+  "descripcion_especifica": "Desmontar, desarmar y armar partes de carrocerías, chasis y accesorios. Enderezar, alinear, doblar, planchar, estirar, encuadrar, comprimir y reconstruir de acuerdo al modelo original y/o diseños. Efectuar soldaduras en general.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Soldaduras en general"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para transmitir conocimientos",
+   "Control",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado. Requiere vacunación ATT.",
+  "condiciones_trabajo": "Asiento habitual. Posición incómoda.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Traumatismos"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Personal",
+   "Herramientas",
+   "Terminación de obras"
+  ],
+  "dudas": "'Terminación de obras' aparece en Responsabilidad Sobre pese a tratarse de un puesto de chapistería; así está impreso."
+ },
+ {
+  "id": "p1-068",
+  "parte": 1,
+  "pdf_page": 68,
+  "printed_page": 76,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "SEPULTURERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, inhumar y exhumar cadáveres.",
+  "descripcion_especifica": "Cavar fosas. Sepultar. Extraer cajones y restos de nichos y sepulturas para la realización de reconocimientos, traslados, autopsías, etc. Colaborar con el Médico Autopsista.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Tolerancia al stress"
+  ],
+  "requisito_fisico": "Fortaleza física. Requiere vacunación ATT, contra la Hepatitis A-B, la Gripe y la Influenza.",
+  "condiciones_trabajo": "Ambientes nocivos para la salud. Aire libre.",
+  "riesgos_trabajo": [
+   "Intoxicaciones",
+   "Contaminaciones",
+   "Requiere control médico periódico"
+  ],
+  "nivel_riesgo": "Severo.",
+  "responsabilidad_sobre": [
+   "Instalaciones",
+   "Restos óseos"
+  ],
+  "dudas": "'stress' verificado con ampliación: está impreso así (no 'strees'). 'autopsías' lleva tilde en la fuente. El tercer ítem de riesgos_trabajo ('Requiere control médico periódico') es una indicación, no un riesgo, pero está impreso dentro de la celda Riesgo de Trabajo. No hay rótulo 'Otros conocimientos'."
+ },
+ {
+  "id": "p1-069",
+  "parte": 1,
+  "pdf_page": 69,
+  "printed_page": 77,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "TAPICERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, reparar y confeccionar tapizados.",
+  "descripcion_especifica": "Confeccionar y reparar asientos de vehículos, tapizados de muebles, etc. Medir, cortar y rellenar. Adaptar acolchados. Colocar resortes. Armar. Engrampar. Coser a máquina y manualmente.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "certificado expedido por organismos oficiales"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Posición Incómoda. Asiento habitual.",
+  "riesgos_trabajo": [
+   "Alergias"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Herramientas"
+  ],
+  "dudas": "No hay rótulo \"Título\" impreso. El rótulo se imprime como \"Otros conocimientos:\" (minúscula en \"conocimientos\", a diferencia de \"Otros Conocimientos:\" en otras fichas del lote) y el contenido arranca en minúscula (\"certificado\"); se respeta la fuente. Separador de competencias: punto."
+ },
+ {
+  "id": "p1-070",
+  "parte": 1,
+  "pdf_page": 70,
+  "printed_page": 78,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "MOSAISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, fabricar mosaicos y baldosas de cemento en las dimensiones, colores y diseños solicitados.",
+  "descripcion_especifica": "Fabricar zócalos, baldosas y mosaicos. Preparar materiales y planchas. Colocar mezcla y pintura de acuerdo a diseños o instrucciones. Prensar, desmoldar y controlar el fraguado. Limpiar y lubricar los moldes.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado.",
+  "condiciones_trabajo": "Posición Incómoda.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Terminación de productos",
+   "Herramientas"
+  ],
+  "dudas": "Requisitos Intelectuales sólo trae \"Instrucción\": no hay rótulo \"Título\" ni \"Otros Conocimientos\" impresos, por eso titulo=null y otros_conocimientos=[]. Separador de competencias y de responsabilidad: punto."
+ },
+ {
+  "id": "p1-071",
+  "parte": 1,
+  "pdf_page": 71,
+  "printed_page": 79,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "YESERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, reparar y construir cielorrasos y decorados en yeso.",
+  "descripcion_especifica": "Calcular y preparar el material. Colocar alfajías y material desplegable. Copiar, fundir y hacer molduras de acuerdo a diseños para decorar cielorrasos y muros. Dar instrucciones al ayudante.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado expedido por empresa u organismo en el que se haya desempeñado en tareas similares"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Capacidad para transmitir conocimientos",
+   "Creatividad"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado.",
+  "condiciones_trabajo": "Posición Incómoda. Con cooperación del Oficial Albañil.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Terminación de obras"
+  ],
+  "dudas": "IMPORTANTE: el rótulo \"Otros Conocimientos:\" NO está impreso. Bajo \"Instrucción: Primario Completo.\" aparece directamente la frase \"Certificado expedido por empresa u organismo en el que se haya desempeñado en tareas similares.\" como párrafo suelto dentro de Requisitos Intelectuales. Se la asigna a otros_conocimientos para no perder el contenido, pero la asignación es inferida, no rotulada. No hay rótulo \"Título\"."
+ },
+ {
+  "id": "p1-072",
+  "parte": 1,
+  "pdf_page": 72,
+  "printed_page": 80,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "OPERADOR DE COMPRESOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general; operar y controlar el funcionamiento de equipos compresores.",
+  "descripcion_especifica": "Controlar el rendimiento y funcionamiento del equipo y sus accesorios. Cargar combustible, colocar y revisar mangueras, ajustar controles, cambiar elementos de desgaste periódico, etc. Solucionar inconvenientes de mayor importancia. Llevar el control del tiempo trabajado.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "del manejo de Equipo y conocimientos elementales de mecánica"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Asiento habitual de trabajo.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Maquinaria"
+  ],
+  "dudas": "En la descripción general la fuente imprime punto y coma tras \"bajo supervisión general;\" donde las demás fichas llevan coma; se respeta la fuente. Otros Conocimientos se transcribe como un único ítem porque la frase arranca en minúscula con \"del\" y depende sintácticamente del encabezado (separador interno: \"y\", no punto). No hay rótulo \"Título\"."
+ },
+ {
+  "id": "p1-073",
+  "parte": 1,
+  "pdf_page": 73,
+  "printed_page": 81,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "TRACTORISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, conducir tractores con o sin accesorios.",
+  "descripcion_especifica": "Colocar y preparar maquinarias y herramientas agrícolas y viales para: arar, cortar césped, picar y afinar la tierra, regar, acarrear materiales. Remolcar accesorios a utilizar. Cargar combustible. Realizar reparaciones sencillas y comunicar desperfectos de cierta magnitud.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Certificado de curso de capacitación",
+   "Carnet de manejo de categoría acorde"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Conocimiento del entorno",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere.",
+  "condiciones_trabajo": "Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Vehiculo"
+  ],
+  "dudas": "\"Carnet de manejo de categoría acorde.\" figura en renglón aparte, sin repetir el rótulo \"Otros Conocimientos\"; se la toma como segundo ítem del mismo campo (separador: punto y salto de línea). \"Vehiculo\" aparece sin tilde en la fuente: se respeta la errata. No hay rótulo \"Título\"."
+ },
+ {
+  "id": "p1-074",
+  "parte": 1,
+  "pdf_page": 74,
+  "printed_page": 82,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "II",
+  "area": null,
+  "nombre": "TORNERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, fabricar, reparar y modificar piezas metálicas de precisión, operando torno mecánico.",
+  "descripcion_especifica": "Rectificar, desbastar, taladrar, centrar y limar metales para la construcción de herramientas, piezas de motores, máquinas, accesorios, etc. Interpretar planos, bosquejos y muestras. Calcular pesos, medidas y velocidades utilizando calibre, compás y otros instrumentos de precisión. Diseñar y elaborar dispositivos. Preparar y afilar herramientas a utilizar.",
+  "instruccion": "Secundario Técnico Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Tornero Mecánico"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Energía",
+   "Atención al detalle",
+   "Creatividad"
+  ],
+  "requisito_fisico": "Esfuerzo físico: No requiere. Requiere vacunación ATT, contra la Hepatitis A-B, la Gripe y la Influenza.",
+  "condiciones_trabajo": "Posición incómoda. Ruidos. Esfuerzo visual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Moderado a Alto.",
+  "responsabilidad_sobre": [
+   "Maquinaria",
+   "Herramientas"
+  ],
+  "dudas": "Requisito Físico ocupa dos renglones bajo un único rótulo (\"Esfuerzo físico: No requiere.\" + la línea de vacunación); se concatenan en un solo string. Aquí la fuente imprime \"Posición incómoda.\" con minúscula, mientras que las fichas p069/p070/p071 imprimen \"Posición Incómoda.\" con mayúscula; se respeta cada caso. No hay rótulo \"Título\"."
+ },
+ {
+  "id": "p1-075",
+  "parte": 1,
+  "pdf_page": 75,
+  "printed_page": 83,
+  "agrupamiento": "MANTENIMIENTO Y PRODUCCION",
+  "nivel": "I",
+  "area": null,
+  "nombre": "LAVADOR ENGRASADOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, lavar y engrasar vehículos.",
+  "descripcion_especifica": "Lavar carrocerías, chasis, motor, limpiar interiores de vehículos. Secar y engrasar tren delantero, transmisión y engranajes. Controlar nivel de agua y aceite y cambiar en casos necesarios.",
+  "instruccion": "Primario Completo.",
+  "titulo": null,
+  "otros_conocimientos": [
+   "Manejo de equipo de lavado y engrase"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Energía"
+  ],
+  "requisito_fisico": "Esfuerzo físico: Moderado.",
+  "condiciones_trabajo": "Ambiente húmedo.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Caídas",
+   "Intoxicación"
+  ],
+  "nivel_riesgo": "Moderado.",
+  "responsabilidad_sobre": [
+   "Tarea asignada"
+  ],
+  "dudas": "No hay rótulo \"Título\" impreso. Separador de riesgos y competencias: punto."
+ },
+ {
+  "id": "p1-077",
+  "parte": 1,
+  "pdf_page": 77,
+  "printed_page": 88,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AUXILIAR ADMINISTRATIVO \"B\"",
+  "variant": "B",
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión General, realizar tareas relacionadas con licitaciones.",
+  "descripcion_especifica": "Confeccionar resoluciones e invitaciones para concursos, recepcionar sobres de propuestas, verificar si el contenido se ajusta a las especificaciones, redactar actas de aperturas, enviar sobres a la comisión de preadjudicación.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "no requiere.",
+  "otros_conocimientos": [
+   "Certificado de Dactilografía",
+   "Legislación sobre licitaciones"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Capacidad para aprender",
+   "Conocimiento del entorno",
+   "Comunicación oral",
+   "Sociabilidad"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Sentado. Ambiente cerrado.",
+  "riesgos_trabajo": [
+   "Stress",
+   "Caídas a nivel y desnivel",
+   "Eléctricos",
+   "Térmicos"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes útiles",
+   "Documentación"
+  ],
+  "dudas": "El rótulo impreso es \"Requisitos Físico:\" (en singular \"Físico\"), va literal. El nombre del puesto usa comillas rectas dobles en el escaneo (\"B\"), interpretadas como comillas tipográficas del original. En \"Título: no requiere.\" la inicial es minúscula en la fuente, se respeta."
+ },
+ {
+  "id": "p1-078",
+  "parte": 1,
+  "pdf_page": 78,
+  "printed_page": 89,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "AUXILIAR ADMINISTRATIVO \"C\"",
+  "variant": "C",
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión General, realizar tareas administrativas a mediana complejidad que requieren conocimientos de normas de administración, dominio de técnica mecanográfica y redacción propia.",
+  "descripcion_especifica": "Atender, asesorar y orientar al público sobre trámites administrativos. Redactar y contestar notas, esquelas, memorádum, etc. Informar y elevar expedientes y actuaciones de mediana complejidad. Preparar o confeccionar proyectos de disposiciones, resoluciones o decretos de rutina. Tramitar y evaluar informes. Registrar entrada y salida de expedientes. Orientar las tareas q realiza el personal de menor jerarquía o experiencia, ejerciendo supervisión o reemplazando eventualmente a encargado de ese sector. Notificar al personal.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Indistinto.",
+  "otros_conocimientos": [
+   "Procedimientos administrativos",
+   "Certificado de dactilografía"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Análisis de problemas",
+   "Atención al cliente"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Sentado. Ambiente cerrado.",
+  "riesgos_trabajo": [
+   "Stress",
+   "Caídas a nivel y desnivel",
+   "Eléctricos",
+   "Térmicos"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes",
+   "Procesos"
+  ],
+  "dudas": "Erratas reales de la fuente conservadas: \"memorádum\" (por memorándum) y \"q\" abreviando \"que\". El rótulo impreso es \"Requisitos Físico:\" (singular). Artefactos de escaneo corregidos: la fila de condiciones se lee \"Condicioncs dc Trabajo: Dc pic. Scntado. Ambientc ccrrado.\" por degradación de la tinta (e→c); se transcribió \"Condiciones de Trabajo: De pie. Sentado. Ambiente cerrado.\"."
+ },
+ {
+  "id": "p1-079",
+  "parte": 1,
+  "pdf_page": 79,
+  "printed_page": 90,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AUXILIAR CONTABLE \"A\"",
+  "variant": "A",
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, realizar el ordenamiento y registro de documentación contable del movimiento de fondos.",
+  "descripcion_especifica": "Ordenar, archivar y registrar comprobantes del movimiento de ingresos, gastos e inversiones. Realizar manual y/o PC, registraciones contables en libros correspondientes. Efectuar afectaciones y desafectaciones presupuestarias. Confeccionar planillas. Controlar caja única de reparticiones.",
+  "instruccion": "Secundario completo",
+  "titulo": "Preferentemente Perito Mercantil",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Aprendizaje",
+   "Análisis numérico",
+   "Atención al detalle",
+   "Conocimiento del entorno"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Afecciones oculares",
+   "Lesiones posturales"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos",
+   "Bienes Útiles"
+  ],
+  "dudas": "Artefactos de escaneo corregidos en Descripción General/Específica: se lee \"Scccíón, rcalizar cl\" y \"Rcalizar manual y/o PC, rcgistracioncs\" por degradación (e→c); se transcribió \"Sección, realizar el\" y \"Realizar manual y/o PC, registraciones\". En Otros conocimientos el apóstrofo de \"PC's\" aparece como comilla doble deformada (\"PC\"s\"); se interpreta como apóstrofo. Instrucción y Título no llevan punto final impreso."
+ },
+ {
+  "id": "p1-080",
+  "parte": 1,
+  "pdf_page": 80,
+  "printed_page": 91,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "AUXILIAR CONTABLE \"B\"",
+  "variant": "B",
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión General, realizar el ordenamiento y registros contables de documentación del movimiento de fondos.",
+  "descripcion_especifica": "Efectuar asientos de registros, ordenar, controlar y archivar comprobantes. Confeccionar estados contables, órdenes y planes de pago, cierre de ejercicios. Efectuar conciliaciones, retenciones y mayorizaciones. Redactar informes. Controlar el registro y evacuar dudas del personal. Asesorar al público en general.",
+  "instruccion": "Secundario completo",
+  "titulo": "Preferentemente Perito Mercantil",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Análisis numérico",
+   "Comunicación oral",
+   "Atención al detalle",
+   "Conocimiento del entorno"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Afecciones oculares",
+   "Lesiones posturales"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos",
+   "Bienes Útiles"
+  ],
+  "dudas": "Anomalía de la ficha: la banda roja de sección que precede a los Requisitos Intelectuales está IMPRESA EN BLANCO, sin la palabra \"Especificaciones\" (en el resto de las fichas sí figura). En Otros conocimientos el apóstrofo de \"PC's\" aparece como comilla doble deformada (\"PC\"s\"); se interpreta como apóstrofo. Instrucción y Título no llevan punto final impreso."
+ },
+ {
+  "id": "p1-081",
+  "parte": 1,
+  "pdf_page": 81,
+  "printed_page": 92,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "VERIFICADOR DE TITULOS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe del Área, verificar la autenticidad de títulos del personal Municipal.",
+  "descripcion_especifica": "Recepcionar expedientes con pedidos de pago de asignación por títulos. Constatar si la copia se ajusta a la normativa vigente en lo referente a autenticidad. Elevar notas a la autoridad emisora para la correspondiente verificación. Labrar acta de verificación con firma de autoridades del establecimiento. Entregar informes al área competente.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Legislación vigente en materia de adicionales"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Integridad",
+   "Comunicación oral",
+   "Comunicación escrita"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Caminando. Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Bajo a moderado.",
+  "responsabilidad_sobre": [
+   "Bienes útiles"
+  ],
+  "dudas": "El nombre del puesto va sin tilde: \"VERIFICADOR DE TITULOS\" (literal de la fuente). Artefactos de escaneo corregidos: se lee \"Corrcspondc a los ocupantcs dc cstc pucsto\" y \"Rcccpcionar cxpcdicntcs con pcdidos dc pago dc asignación\" por degradación (e→c); se transcribió con las \"e\" correctas."
+ },
+ {
+  "id": "p1-082",
+  "parte": 1,
+  "pdf_page": 82,
+  "printed_page": 93,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "V",
+  "area": null,
+  "nombre": "JEFE DEPARTAMENTO ADMINISTRATIVO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Director o Sub. Director, planificar y supervisar tareas fundamentalmente de índole administrativas efectuadas por el personal a su cargo. Proporcionar apoyo necesario a sus Superiores.",
+  "descripcion_especifica": "Recepcionar, clasificar, distribuir expedientes. Supervisar distribuir y coordinar tareas. Legalizar mediante firma toda documentación que egresa del Departamento. Elevar informes. Controlar comportamiento y eficiencia del personal a su cargo. Coordinar tareas con otros jefes.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's",
+   "Redacción Administrativa"
+  ],
+  "competencias": [
+   "Liderazgo",
+   "Iniciativa",
+   "Resolución de conflictos",
+   "Flexibilidad",
+   "Trabajo en equipo"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: Visual.",
+  "condiciones_trabajo": "Sentado.",
+  "riesgos_trabajo": [
+   "Afecciones oculares"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Personas",
+   "procesos",
+   "equipos",
+   "bienes útiles"
+  ],
+  "dudas": "Anomalías de la ficha: (1) la celda del encabezado \"Nivel\" está EN BLANCO (el rótulo no está impreso), aunque la celda de valor sí trae \"V\"; se cargó nivel = \"V\". (2) Dentro de Requisitos Intelectuales hay un sub-campo extra no previsto en el esquema, impreso después de Otros conocimientos: \"Antigüedad y Experiencia: 3 años como Jefe de Sección.\"; NO se incluyó en otros_conocimientos para no mezclarlo, queda registrado acá. Artefactos de escaneo corregidos: \"Flcxibilidad. Trabajo cn cquipo\" → \"Flexibilidad. Trabajo en equipo\"; el rótulo \"Rcsponsabilidad Sobrc:\" y su valor \"Pcrsonas, proccsos, cquipos y bicncs útilcs.\" → \"Responsabilidad Sobre:\" / \"Personas, procesos, equipos y bienes útiles.\"."
+ },
+ {
+  "id": "p1-083",
+  "parte": 1,
+  "pdf_page": 83,
+  "printed_page": 94,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "CONTRALOR DE CALIDAD VERIFICADOR Y REVISOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión de la Dirección/Sub-dirección, controlar información y documentación, antes y después de la emisión de instrumentos legales, respaldatorios sobre Asignaciones y Licencias.",
+  "descripcion_especifica": "Recepcionar expedientes, verificar que lo solicitado y la documentación presentada se ajuste a la normativa vigente. Controlar que los proyectos de Resolución no adolezcan de errores, remitirlos al área correspondiente para la emisión de instrumento legal. Refrendar los mismos mediante firma. Remitir a la Dirección.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's",
+   "Curso sobre procedimientos administrativos"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Conocimiento del entorno"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No Requiere.",
+  "condiciones_trabajo": "Sentado.",
+  "riesgos_trabajo": [
+   "Afecciones oculares"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos",
+   "bienes útiles"
+  ],
+  "dudas": "El rótulo \"Responsabilidad Sobre\" se imprime sin los dos puntos finales, a diferencia del resto de las fichas. En Requisito Físico la fuente escribe \"No Requiere.\" con R mayúscula (literal)."
+ },
+ {
+  "id": "p1-084",
+  "parte": 1,
+  "pdf_page": 84,
+  "printed_page": 95,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "ENCARGADO DE PERSONAL",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, efectuar el control de entrada, permanencia y salida del personal, asesorar y confeccionar informes inherentes al tema.",
+  "descripcion_especifica": "Confeccionar y actualizar planillas de firma, parte de novedades diarios y mensuales.- Asesorar y orientar sobre trámites de su injerencia. Difundir normas y políticas emanadas de distintos organismos o la superioridad. Confeccionar planillas de Altas y Bajas del personal. Dar instrucciones al personal a su cargo. Verificar coincidencia entre la liquidación y novedades mensuales.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's",
+   "Curso de capacitación y actualización sobre Recursos Humanos"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Integridad",
+   "Comunicación oral",
+   "Comunicación escrita",
+   "Atención al detalle"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. Caminando.",
+  "riesgos_trabajo": [
+   "Stress"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Personas",
+   "Bienes útiles",
+   "Procesos"
+  ],
+  "dudas": "Artefactos de escaneo (tinta degradada) corregidos a la lectura correcta en la Descripción General: 'Corrcspondc'->'Corresponde', 'ocupantcs dc cstc pucsto'->'ocupantes de este puesto'; y en la Descripción Específica: 'Confcccionar'->'Confeccionar', 'dc'->'de', 'partc'->'parte', 'novcdadcs'->'novedades'. El rótulo impreso es 'Requisitos Físicos:' (plural), no 'Requisito Físico:'. La Descripción Específica conserva literalmente el guion final de 'mensuales.-'."
+ },
+ {
+  "id": "p1-085",
+  "parte": 1,
+  "pdf_page": 85,
+  "printed_page": 96,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "IV",
+  "area": null,
+  "nombre": "ENCARGADO DE MESA DE ENTRADA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del jefe de Sección registrar movimiento de expedientes, brindar información al público.",
+  "descripcion_especifica": "Registrar ingreso y egreso de expedientes. Confeccionar informes, pases y distribución al sector correspondientes. Caratular, sellar y descargar expedientes en soporte magnético y libros. Clasificar, ordenar y archivar planillas de distribución, Resoluciones, Decretos y notas. Dar instrucciones al personal a su cargo. Atender al público.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's",
+   "Redacción administrativa"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Integridad",
+   "Comunicación oral",
+   "Comunicación escrita",
+   "Autoorganización"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Sentado.",
+  "riesgos_trabajo": [
+   "Stress",
+   "afecciones oculares"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes útiles"
+  ],
+  "dudas": "Artefacto de escaneo corregido en Requisitos Físicos: 'Esfucrzo Físico: No rcquirc.'->'Esfuerzo Físico: No requiere.'. El rótulo impreso es 'Requisitos Físicos:' (plural). La fuente dice literalmente 'al sector correspondientes' (concordancia errónea del original, se transcribe tal cual) y 'jefe de Sección' con minúscula inicial en 'jefe'."
+ },
+ {
+  "id": "p1-086",
+  "parte": 1,
+  "pdf_page": 86,
+  "printed_page": 97,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "I",
+  "area": null,
+  "nombre": "TARJETERO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Encargado de Oficina de Personal, distribuir tarjetas de marcación horaria al personal o planillas de firmas según corresponda.",
+  "descripcion_especifica": "Recepcionar mensualmente tarjetas de marcación horaria del Encargado de Personal. Numerar para identificación rápida de acuerdo con el número de orden de los empleados. Verificar marcación del personal en horarios de entrada y salida. Entregar en Oficina de Personal tarjetas o planillas de firma de agentes con prestación de servicios fuera de la Repartición. Renovar mensualmente las tarjetas y diariamente las planillas de firma.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Legislación sobre el tema"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Integridad"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "No posee"
+  ],
+  "nivel_riesgo": "Bajo",
+  "responsabilidad_sobre": [
+   "Bienes útiles"
+  ],
+  "dudas": "Artefactos de escaneo corregidos: 'Corrcspondc'->'Corresponde' (Descripción General) y 'Rcccpcionar mcnsualmcntc tarjctas dc'->'Recepcionar mensualmente tarjetas de' (Descripción Específica). 'Nivel de Riesgo: Bajo' aparece impreso sin punto final, a diferencia de las demás fichas. 'Riesgo de Trabajo: No posee.' es un valor impreso real, no ausencia de dato."
+ },
+ {
+  "id": "p1-087",
+  "parte": 1,
+  "pdf_page": 87,
+  "printed_page": 98,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "ENCARGADO DE DEPOSITO DE COMBUSTIBLES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo dependencia de la Dirección controlar la provisión y distribución del combustible en la Repartición.",
+  "descripcion_especifica": "Gestionar la cantidad necesaria de combustible a usar. Recepcionar y almacenar el mismo en depósito. Distribuir de acuerdo a necesidades de servicio. Controlar el uso adecuado. Efectuar rendiciones diarias y semanales de las cantidades movilizadas. Administrar base de datos en soporte magnético y su respectivo respaldo en soporte fisico. Dar instrucciones al personal a su cargo.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Integridad",
+   "Autoorganización"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "De pie. Caminando. Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Inhalaciones de hidrocarburo",
+   "Afecciones de piel",
+   "Enfermedades profesionales"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Sobre bienes e insumos"
+  ],
+  "dudas": "El último rótulo está impreso como 'Responsabilidad:' (no 'Responsabilidad Sobre:') y su valor es la frase única 'Sobre bienes e insumos.', que se mapea como un solo ítem. Artefactos de escaneo corregidos: 'Intcgridad'->'Integridad' (Competencias); 'Condicioncs dc Trabajo'->'Condiciones de Trabajo' y 'Dc pic. Caminando. Evcntualmcntc fucra'->'De pie. Caminando. Eventualmente fuera' (Condiciones de Trabajo); 'profcsionalcs'->'profesionales' (Riesgo de Trabajo). 'soporte fisico' aparece sin tilde en el original: se transcribe literal."
+ },
+ {
+  "id": "p1-088",
+  "parte": 1,
+  "pdf_page": 88,
+  "printed_page": 99,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "OPERADOR DE COMPUTADORAS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de esta clase bajo supervisión general, operar equipos de cómputos.",
+  "descripcion_especifica": "Controlar el correcto funcionamiento del sistema de cómputos. Realizar tareas administrativas, con la ayuda de la computadora. Informar los desperfectos producidos en el equipo de cómputos en el que desarrolla sus diarias funciones.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Tolerancia al stress"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: Visual. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Sentado. Asiento habitual.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "stress",
+   "lesiones posturales y afecciones oculares",
+   "Enfermedades profesionales"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes útiles",
+   "Equipo de trabajo"
+  ],
+  "dudas": "ANOMALÍA DE MAQUETACIÓN: el rótulo de la columna central ('Nivel') NO está impreso en esta ficha, aunque el valor 'II' sí figura en esa celda; se asigna a nivel por posición. La ficha usa 'esta clase' (no 'este puesto') en la Descripción General. Artefactos de escaneo corregidos: 'Corrcspondc'->'Corresponde'; 'Controlar cl corrccto funcionamicnto dcl'->'Controlar el correcto funcionamiento del'. 'curso de Operador de PC's' figura con 'curso' en minúscula: literal. Rótulo impreso 'Condiciones de Trabajo' sin dos puntos finales. Separadores del Riesgo de Trabajo mixtos (punto y coma y punto)."
+ },
+ {
+  "id": "p1-089",
+  "parte": 1,
+  "pdf_page": 89,
+  "printed_page": 100,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "APUNTADOR DE MATERIALES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Oficina, controlar y registrar el movimiento de materiales de depósitos.",
+  "descripcion_especifica": "Registrar entrada y salida de materiales. Solicitar orden por escrito. Controlar cantidad y calidad de los mismos. Confeccionar planillas del movimiento y características de los materiales. Informar novedades.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Secundario Técnico.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Disciplina"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Caídas a nivel y desnivel",
+   "Afecciones de piel"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes Útiles"
+  ],
+  "dudas": "Artefactos de escaneo corregidos: 'Corrcspondc'->'Corresponde', 'ocupantcs dc cstc pucsto'->'ocupantes de este puesto' (Descripción General); 'Rcgistrar cntrada y salida dc matcrialcs. Solicitar ordcn por cscrito'->'Registrar entrada y salida de materiales. Solicitar orden por escrito' (Descripción Específica). ANOMALÍA DE MAQUETACIÓN: los valores de 'Riesgo de Trabajo', 'Nivel de Riesgo' y 'Responsabilidad Sobre' están desalineados verticalmente respecto de sus rótulos (cada valor aparece corrido hacia abajo); se asignan por orden de secuencia. 'Bienes Útiles' con mayúscula en 'Útiles' es literal del original. A diferencia de otras fichas, el Título exige 'Secundario Técnico.' en vez de 'No requiere especialidad.'."
+ },
+ {
+  "id": "p1-090",
+  "parte": 1,
+  "pdf_page": 90,
+  "printed_page": 101,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "GESTOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección; realizar tramitaciones dentro y fuera de su lugar de trabajo.",
+  "descripcion_especifica": "Realizar y agilizar el diligenciamiento de expedientes, notas y demás actuaciones internas y externas ante organismos públicos y privados. Dar cuentas de los mismos al concluir la tarea. Efectuar depósitos y trámites bancarios.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Comunicación oral",
+   "Comunicación escrita",
+   "Conocimiento del entorno",
+   "Sociabilidad"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De Pie. Caminando. Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Caídas a nivel y desnivel",
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes útiles"
+  ],
+  "dudas": "Artefactos de escaneo corregidos: 'Corrcspondc'->'Corresponde', 'ocupantcs dc cstc pucsto'->'ocupantes de este puesto' (Descripción General); 'Rcalizar y agilizar cl diligcnciamicnto dc cxpcdicntcs, notas y dcmás actuacioncs'->'Realizar y agilizar el diligenciamiento de expedientes, notas y demás actuaciones' (Descripción Específica). 'De Pie.' con mayúscula en 'Pie' es literal del original (las otras fichas usan 'De pie.'). El rótulo 'Responsabilidad Sobre' está impreso sin dos puntos finales."
+ },
+ {
+  "id": "p1-091",
+  "parte": 1,
+  "pdf_page": 91,
+  "printed_page": 102,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "RECEPCIONISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Oficina, realizar tareas relacionadas con la recepción, atención e información al público.",
+  "descripcion_especifica": "Informar al público. Recibir y distribuir correspondencia y llamadas telefónicas. Dar información al público referente a temas de la Repartición.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "curso de Operador de PC's."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Comunicación oral.",
+   "Sociabilidad.",
+   "Atención al cliente."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere. Aptitudes: Discrecionalidad. Sociabilidad. Buena Dicción. Requiere examen periódico para la prevención de enfermedades profesionales.",
+  "condiciones_trabajo": "Sentado.",
+  "riesgos_trabajo": [
+   "Descargas eléctricas",
+   "stress",
+   "lesiones posturales.",
+   "Lesiones auditivas.",
+   "Enfermedades Profesionales."
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes Útiles."
+  ],
+  "dudas": "Artefactos de escaneo corregidos (tinta degradada, c/e confundidas): 'Corrcspondc a los ocupantcs dc cstc pucsto bajo supcrvisión' -> 'Corresponde a los ocupantes de este puesto bajo supervisión'; 'Rccibir y distribuir corrcspondcncia' -> 'Recibir y distribuir correspondencia'. El rótulo impreso es 'Requisitos Físicos:' (plural) y agrupa 'Esfuerzo Físico' + 'Aptitudes'; se transcribió el bloque completo. El primer bloque de riesgos usa punto y coma como separador y va en minúscula ('stress', 'lesiones posturales')."
+ },
+ {
+  "id": "p1-092",
+  "parte": 1,
+  "pdf_page": 92,
+  "printed_page": 103,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "I",
+  "area": null,
+  "nombre": "NOTIFICADOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Oficina, distribuir comunicaciones de interés dentro y fuera del ámbito Municipal.",
+  "descripcion_especifica": "Recibir y repartir notificaciones. Concurrir a domicilios. Entregar oficios, cédulas, invitaciones, citatorios, notas, etc. Hacer firmar constancia de recepción.",
+  "instruccion": "Primario Completo.",
+  "titulo": "No requiere.",
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad.",
+   "Sociabilidad.",
+   "Comunicación oral."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Accidentes de Transito.",
+   "Caídas y Golpes."
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Bienes Útiles."
+  ],
+  "dudas": "El rótulo 'Otros conocimientos:' está impreso pero SIN contenido alguno -> [] (no es 'No requiere'). Artefactos de escaneo corregidos: 'intcrés dcntro y fucra dcl' -> 'interés dentro y fuera del'; 'Haccr firmar constancia dc rcccpción' -> 'Hacer firmar constancia de recepción'. 'Accidentes de Transito.' va literal sin tilde (en la ficha p093 la misma palabra aparece acentuada como 'Tránsito')."
+ },
+ {
+  "id": "p1-093",
+  "parte": 1,
+  "pdf_page": 93,
+  "printed_page": 104,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AUXILIAR de COMPRAS",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión, del Jefe de Oficina, cotizar precios para la adquisición de materiales y elementos de trabajo.",
+  "descripcion_especifica": "Confeccionar y cotejar listados de precios. Comprar, pagar y retirar mercaderías. Entregar invitaciones a licitaciones y concursos. Pedir factura pro-forma y presupuesto. Concurrir a comercios.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's.",
+   "Curso de Redacción Administrativa."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Sociabilidad.",
+   "Integridad.",
+   "Atención al detalle.",
+   "Análisis numérico."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Accidentes de Tránsito."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes Útiles."
+  ],
+  "dudas": "Artefactos de escaneo corregidos: 'Corrcspondc a los ocupantcs dc cstc pucsto' -> 'Corresponde a los ocupantes de este puesto'; 'Confcccionar y cotcjar listados dc prccios' -> 'Confeccionar y cotejar listados de precios'. La coma tras 'supervisión,' antes de 'del Jefe de Oficina' está impresa así (va literal). El apóstrofo de PC's se imprime degradado (parece una comilla doble 'PC\"s'); se normalizó a PC's por lectura del original. El rótulo es 'Requisitos Físico:' en singular."
+ },
+ {
+  "id": "p1-094",
+  "parte": 1,
+  "pdf_page": 94,
+  "printed_page": 105,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AUXILIAR de PERSONAL",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe de Oficina, registrar novedades y asistencia del personal no jerarquizado.",
+  "descripcion_especifica": "Confeccionar los partes diarios de firmas. Corroborar tarjetas de asistencia con planillas de firma. Recibir pedidos de notas médicas y de justificaciones de inasistencias. Controlar marcación de tarjetas, registrar e informar novedades. Informar al personal sobre trámites a seguir. Recibir instrucciones del inmediato superior.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Operador de PC's.",
+   "Curso de Encargado y Auxiliar de Personal."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Sociabilidad.",
+   "Atención al cliente.",
+   "Aprendizaje."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. Caminando. Asiento habitual.",
+  "riesgos_trabajo": [
+   "Strees.",
+   "Afecciones oculares."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Personas.",
+   "Bienes Útiles."
+  ],
+  "dudas": "'Strees.' es errata real de la fuente (no artefacto de escaneo): se transcribe literal. El apóstrofo de PC's se imprime degradado (parece 'PC\"s'). El rótulo es 'Requisitos Físico:' en singular. Nota: 'Otros conocimientos' abre con 'Operador de PC\"s.' sin la palabra 'Curso' (a diferencia de otras fichas del lote); va literal."
+ },
+ {
+  "id": "p1-095",
+  "parte": 1,
+  "pdf_page": 95,
+  "printed_page": 106,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "ARCHIVISTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de puesto bajo supervisión del Jefe de Sección, ordenar y archivar documentos e información de interés para la Administración Municipal.",
+  "descripcion_especifica": "Ordenar, clasificar y registrar la documentación recibida. Actualizar fichas e índices. Rotular libros, carpetas, paquetes etc., para su identificación. Conservar en buen estado el material archivado. Atender al público y brindar información.",
+  "instruccion": "Secundario completo",
+  "titulo": "No requiere especialidad",
+  "otros_conocimientos": [
+   "Curso de archivista.",
+   "Curso de Operador de PC's."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al detalle.",
+   "Capacidad para organizar."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "De pie. Sentado. Ambiente cerrado.",
+  "riesgos_trabajo": [
+   "Stress.",
+   "Caídas a nivel y desnivel.",
+   "Eléctricos.",
+   "Térmicos.",
+   "Afecciones de piel."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes útiles.",
+   "Documentación."
+  ],
+  "dudas": "Errata real de la fuente en descripción general: dice 'a los ocupantes de puesto' (falta 'este'); va literal. Artefactos de escaneo corregidos: 'Corrcspondc a los ocupantcs dc pucsto bajo supcrvisión dcl' -> 'Corresponde a los ocupantes de puesto bajo supervisión del'; 'Ordcnar, clasificar y rcgistrar la documcntación rccibida' -> 'Ordenar, clasificar y registrar la documentación recibida'. Instrucción y Título van SIN punto final (así impresos), a diferencia del resto del lote. 'Bienes útiles.' con minúscula en útiles (el resto del lote usa 'Bienes Útiles.'); va literal. El rótulo es 'Requisitos Físico:' en singular."
+ },
+ {
+  "id": "p1-096",
+  "parte": 1,
+  "pdf_page": 96,
+  "printed_page": 107,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "SECRETARIA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión atender y mantener informado al personal jerarquizado municipal de las necesidades de su sector y realizar tareas administrativas de menor complejidad.",
+  "descripcion_especifica": "Transcribir redactar informes y notas. Confeccionar planillas y listados manual o en PC. Atender al público, empleados llamados telefónicos. Informar y transmitir instrucciones facilitando la tarea del supervisor dar pases a expedientes. Ordenar, clasificar y archivar documentación de interés.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al cliente.",
+   "Sociabilidad.",
+   "Autoorganización.",
+   "Comunicación oral."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Afecciones oculares.",
+   "Lesiones posturales."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "Descripción general y específica presentan omisiones de la fuente que se transcriben literales: 'bajo supervisión atender' (sin indicar de quién ni coma), 'Transcribir redactar informes' (sin 'y'/coma), 'Atender al público, empleados llamados telefónicos' y 'facilitando la tarea del supervisor dar pases a expedientes' (sin puntuación entre cláusulas). El apóstrofo de PC's se imprime degradado (parece 'PC\"s'). El rótulo es 'Requisitos Físico:' en singular."
+ },
+ {
+  "id": "p1-097",
+  "parte": 1,
+  "pdf_page": 97,
+  "printed_page": 108,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "SECRETARIA PRIVADA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión de funcionarios o Directores Municipales, atender los problemas de menor complejidad de su área de trabajo, facilitándole las tareas al supervisor jerárquico.",
+  "descripcion_especifica": "Redactar, reproducir y tomar dictado de temas inherentes a la administración municipal. Atender y discriminar la importancia de llamadas telefónicas. Recepcionar e informar al público. Seleccionar, coordinar y registrar en agendas turnos para audiencias, reuniones y entrevistas. Transmitir instrucciones generales y específicas de la superioridad. Derivar problemas de mayor complejidad. Ordenar, clasificar y entregar correspondencias y documentación.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Autoorganización.",
+   "Sociabilidad.",
+   "Comunicación oral."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Afecciones oculares.",
+   "Lesiones posturales.",
+   "Strees."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Bienes Útiles."
+  ],
+  "dudas": "'Strees.' es errata real de la fuente (no artefacto de escaneo): se transcribe literal. Artefactos de escaneo corregidos: 'Corrcspondc a los ocupantcs dc cstc pucsto bajo supcrvisión dc' -> 'Corresponde a los ocupantes de este puesto bajo supervisión de'; 'Rcdactar, rcproducir y tomar dictado dc tcmas inhcrcntcs' -> 'Redactar, reproducir y tomar dictado de temas inherentes'. El apóstrofo de PC's se imprime degradado (parece 'PC\"s'). El rótulo es 'Requisitos Físico:' en singular."
+ },
+ {
+  "id": "p1-098",
+  "parte": 1,
+  "pdf_page": 98,
+  "printed_page": 109,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "LIQUIDADOR DE HABERES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, realizar tareas relacionadas con el calculo y determinación de haberes, efectuar manual y mecánicamente, operaciones para determinar el ajuste formal de haberes de agentes municipales.",
+  "descripcion_especifica": "Mantener actualizadas las fichas con novedades del personal. Calcular montos de jornadas extras, escalafones, asignaciones familiares, retenciones, titulo y novedades en general, determinando el importe a pagar. Corregir errores u omisiones en planillas. Atender consultas de empleados. Confeccionar informes de anticipos de haberes. Informar expedientes.",
+  "instruccion": "Secundario completo.",
+  "titulo": "Preferentemente Perito Mercantil.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Análisis numérico.",
+   "Análisis de problemas.",
+   "Integridad.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Afecciones oculares.",
+   "Lesiones posturales."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "El rótulo de competencias está impreso en singular: 'Competencia Requeridas:'. Artefactos de escaneo corregidos: 'dctallc' -> 'detalle', 'Proccsos. Bicncs Útilcs.' -> 'Procesos. Bienes Útiles.', 'Rcsponsabilidad Sobrc' -> 'Responsabilidad Sobre'. El rótulo físico dice 'Requisitos Físico:' (así en la fuente). 'PC\"s' reproduce el signo de comillas dobles que el escaneo muestra en lugar del apóstrofo."
+ },
+ {
+  "id": "p1-099",
+  "parte": 1,
+  "pdf_page": 99,
+  "printed_page": 110,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "AUXILIAR DE HABILITADO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, colaborar con el jefe en control y registro del movimiento de fondos.",
+  "descripcion_especifica": "Confeccionar cheques, controlar boletas de pagos de haberes, facturas, comprobantes, etc. Hacer registraciones simples. Realizar compras. Transcribir a maquina notas e informes.",
+  "instruccion": "Secundario completo.",
+  "titulo": "Preferentemente Perito Mercantil.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s.",
+   "Curso de capacitación de habilitado."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Integridad.",
+   "Autoorganización.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie. Caminando. Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Afecciones oculares.",
+   "Lesiones posturales.",
+   "Accidentes."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "Artefactos de escaneo corregidos en condiciones de trabajo: 'Evcntualmcntc fucra dcl asicnto habitual.' -> 'Eventualmente fuera del asiento habitual.'. El rótulo dice 'Requisitos Físico:' (así en la fuente)."
+ },
+ {
+  "id": "p1-100",
+  "parte": 1,
+  "pdf_page": 100,
+  "printed_page": 111,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "IV",
+  "area": null,
+  "nombre": "HABILITADO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Director, controlar y registrar el movimiento de fondos de reparticiones municipales.",
+  "descripcion_especifica": "Confeccionar y librar cheques. Realizar pagos de haberes. Adquirir materiales necesarios para la repartición y rendir cuenta de los mismos. Registrar las operaciones efectuadas en los libros correspondientes. Realizar conciliaciones bancarias. Confeccionar balances. Informar expedientes. Participar en la apertura de licitaciones y concursos de precios.",
+  "instruccion": "Secundario completo.",
+  "titulo": "Preferentemente Perito Mercantil.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s.",
+   "Curso para habilitado"
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Integridad.",
+   "Capacidad para negociar.",
+   "Atención al detalle."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie. Caminando. Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Afecciones oculares.",
+   "Lesiones posturales.",
+   "Accidentes."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "'Curso para habilitado' aparece sin punto final en la fuente; se transcribe literal. El rótulo dice 'Requisitos Físico:' (así en la fuente)."
+ },
+ {
+  "id": "p1-101",
+  "parte": 1,
+  "pdf_page": 101,
+  "printed_page": 112,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "ECONOMO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de, recibir y entregar útiles y materiales de trabajo entregado y responsabilizándose de los mismos.",
+  "descripcion_especifica": "Efectuar entregas según autorizaciones. Controlar y registrar el ingreso y egreso de elementos de economato. Hacer firmar y archivar constancias y demás comprobantes. Confeccionar planillas mensuales. Actualizar el inventario de elementos y solicitar la reposición de los mismos.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al detalle.",
+   "Integridad."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Accidentes."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "La descripción general dice literalmente 'bajo supervisión del Jefe de,' (frase truncada en la fuente, con coma). Toda la ficha está muy degradada: artefactos de escaneo corregidos ('Corrcspondc' -> 'Corresponde', 'dc cstc pucsto' -> 'de este puesto', 'Efcctuar cntrcgas scgún autorizacioncs' -> 'Efectuar entregas según autorizaciones', 'cl ingrcso y cgrcso' -> 'el ingreso y egreso'). El rótulo dice 'Requisitos Físico:' (así en la fuente)."
+ },
+ {
+  "id": "p1-102",
+  "parte": 1,
+  "pdf_page": 102,
+  "printed_page": 113,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "ENCARGADO DE DEPOSITO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, atender locales de guarda de herramientas materiales y elementos de trabajo, responsabilizándose por la entrada, salida y conservación de los mismos.",
+  "descripcion_especifica": "Controlar, recibir y entregar materiales herramientas u otros, objetos. Identificar y registrar entrada y salida de los mismos. Ordenar y separar por rubros. Solicitar reposición de elementos. Eventualmente, supervisar personal a su cargo. Comunicar novedades ocurridas en el local. Mantener actualizado el inventario.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al detalle.",
+   "Integridad.",
+   "Disciplina."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere. Requiere vacunación contra Hepatitias A-B, ATT, contra la Gripe y contra la Influenza.",
+  "condiciones_trabajo": "Sentado. De pie.",
+  "riesgos_trabajo": [
+   "Lesiones posturales.",
+   "Accidentes."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "'Hepatitias' se transcribe literal: es errata de la fuente, no artefacto (la degradación afecta vocales e/c, no la sílaba 'ti' extra). Artefacto de escaneo corregido: 'Requicrc' -> 'Requiere'. El rótulo dice 'Requisitos Físico:' (así en la fuente)."
+ },
+ {
+  "id": "p1-103",
+  "parte": 1,
+  "pdf_page": 103,
+  "printed_page": 114,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "ENCARGADO de PLANTA",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Jefe de Sección, controlar producción y tareas del personal de palta fija.",
+  "descripcion_especifica": "Distribuir tareas. Instruir al personal sobre la ejecución de la misma. Controlar cantidad de la producción de planta. Procurar soluciones para el normal funcionamiento de la máquina. Informar novedades. Solicitar reposición de materiales. Elevar planillas de personal y tareas.",
+  "instruccion": "Secundario completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC\"s."
+  ],
+  "competencias": [
+   "Adaptabilidad.",
+   "Atención al detalle.",
+   "Capacidad para dirigir.",
+   "Capacidad para resolver problemas."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. De pie. Caminando.",
+  "riesgos_trabajo": [
+   "Lesiones posturales.",
+   "Accidentes.",
+   "Caídas a nivel y desnivel."
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Procesos.",
+   "Bienes Útiles."
+  ],
+  "dudas": "'palta fija' se transcribe literal: es errata de la fuente por 'planta fija'. El nombre del puesto mezcla mayúsculas y minúsculas en la fuente: 'ENCARGADO de PLANTA'. Artefactos de escaneo corregidos: 'Corrcspondc a los ocupantcs dc cstc pucsto' y 'Distribuir tarcas. Instruir al pcrsonal sobrc la cjccución dc la misma.'."
+ },
+ {
+  "id": "p1-104",
+  "parte": 1,
+  "pdf_page": 104,
+  "printed_page": 115,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "V",
+  "area": null,
+  "nombre": "JEFE DEPARTAMENTO ESPECIALIZADO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Director y/o Sub-director, planificar distribuir y supervisar tareas de índole administrativas como así también las Técnicas – Profesionales inherentes a la especialidad del área a su cargo.",
+  "descripcion_especifica": "Elaborar proyectos. Diagramar campañas y relevamientos. Desarrollar metodologías de trabajo. Evaluar rendimientos. Brindar asesoramiento sobre temas de su competencia a los Superiores Jerárquicos. Coordinar tareas con otros jefes. Controlar e instruir al personal a su cargo. Elevar informes. Legalizar mediante firma toda documentación que salga de su Departamento.",
+  "instruccion": "Universitario Completo.",
+  "titulo": "El idóneo habilitante.",
+  "otros_conocimientos": [],
+  "competencias": [
+   "Liderazgo.",
+   "Iniciativa.",
+   "Resolución de conflictos.",
+   "Flexibilidad.",
+   "Trabajo en equipo."
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Sentado. Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Stress",
+   "lesiones posturales y afecciones oculares",
+   "accidentes."
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Personas.",
+   "Procesos.",
+   "Equipos.",
+   "Bienes útiles."
+  ],
+  "dudas": "Esta ficha NO tiene el sub-campo 'Otros conocimientos'; en su lugar imprime 'Antigüedad y Experiencia: 3 años en la administración.' (no hay campo en el esquema para ese dato, por eso otros_conocimientos = []). La descripción específica está impresa como lista de renglones, no como párrafo corrido. Riesgo de Trabajo usa punto y coma y comas como separadores: 'Stress; lesiones posturales y afecciones oculares, accidentes.'. El rótulo aquí dice 'Requisitos Físicos:' en plural (a diferencia de las otras fichas del lote). Artefactos de escaneo corregidos: 'Flcxibilidad. Trabajo cn cquipo.' -> 'Flexibilidad. Trabajo en equipo.'; 'Pcrsonas. Proccsos. Equipos. Bicncs útilcs.' -> 'Personas. Procesos. Equipos. Bienes útiles.'; 'Rcsponsabilidad Sobrc'. Nota: 'Bienes útiles' aquí va con minúscula en 'útiles', distinto de las otras fichas."
+ },
+ {
+  "id": "p1-105",
+  "parte": 1,
+  "pdf_page": 105,
+  "printed_page": 116,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "II",
+  "area": null,
+  "nombre": "ENCARGADO DE EMBARGOS Y RETENCIONES",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión del Jefe de Oficina, realizar tareas relacionadas con retenciones de haberes de los empleados Municipales.",
+  "descripcion_especifica": "Recepcionar e informar expedientes y planillas remitidas desde liquidación de haberes.\nVerificar existencia de cuentas nuevas por juicios.\nConfeccionar y depositar boletas de depósitos en banco, sobre pensiones y embargos.\nEfectuar carga de datos en la base respectiva.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Perito Mercantil.",
+  "otros_conocimientos": [
+   "Curso de Operador de PC's",
+   "Redacción Administrativa"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Atención al detalle",
+   "Integridad"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Caminando. Sentado.",
+  "riesgos_trabajo": [
+   "Lesiones posturales y afecciones oculares",
+   "Strees"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Procesos",
+   "bienes útiles"
+  ],
+  "dudas": "El escaneo degrada la tinta: se leen 'Corrcspondc', 'Compctcncias Rcqucridas', 'Atcnción al dctallc', 'Intcgridad'; transcripto como Corresponde / Competencias Requeridas / Atención al detalle / Integridad. 'Strees' (por Stress) SÍ se transcribe literal: es errata de la fuente, no artefacto. Responsabilidad Sobre usa coma como separador."
+ },
+ {
+  "id": "p1-106",
+  "parte": 1,
+  "pdf_page": 106,
+  "printed_page": 117,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "IV",
+  "area": null,
+  "nombre": "PROSECRETARIO DE JUZGADO",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión del Secretario de Juzgado, revisar causas y medidas ordenadas por fallos judiciales colaborando con el Secretario y Juez.",
+  "descripcion_especifica": "Recibir instrucciones del Secretario o Juez.\nControlar la labor realizada por los empleados administrativos. Despachar en forma conjunta con el Secretario las causas en trámite.\nFirmar Oficios y Cédulas.\nLevantar actas de audiencia.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "No requiere especialidad.",
+  "otros_conocimientos": [
+   "Redacción Administrativa",
+   "Legislación vigente",
+   "Curso de Operador de PC's"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Integridad",
+   "Capacidad para controlar",
+   "Disciplina",
+   "Juicio"
+  ],
+  "requisito_fisico": "Esfuerzo Físico: No requiere.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Stress",
+   "lesiones posturales y afecciones oculares"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Personas",
+   "Bienes accidentes"
+  ],
+  "dudas": "Riesgo de Trabajo usa punto y coma como separador ('Stress; lesiones posturales y afecciones oculares.'). 'Bienes accidentes' se transcribe literal (posible errata de la fuente por 'Bienes. Accidentes')."
+ },
+ {
+  "id": "p1-107",
+  "parte": 1,
+  "pdf_page": 107,
+  "printed_page": 118,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "OFICIAL DE JUSTICIA \"A\"",
+  "variant": "A",
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, diligenciar y efectivizar medidas ordenadas por fallos judiciales.",
+  "descripcion_especifica": "Efectuar secuestro de vehículos en domicilios y via pública. Clausurar negocios, obras y establecimientos en general. Localizar y notificar a infractores por embargos, imitaciones y otras actuaciones judiciales. Labrar actas. Solicitar colaboración de fuerza pública. Recibir instrucciones y confeccionar informes.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Indistinto.",
+  "otros_conocimientos": [
+   "sexo masculino"
+  ],
+  "competencias": [
+   "Adaptabilidad",
+   "Integridad",
+   "Disciplina",
+   "Comunicación"
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Caídas a nivel",
+   "Golpes",
+   "Strees"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Documentación"
+  ],
+  "dudas": "El rótulo impreso es 'Requisitos Físico:' (literal, en plural) a diferencia de otras fichas que usan 'Requisito Físico:'. 'via pública' sin tilde e 'imitaciones' (probable errata de la fuente por 'intimaciones') van literales. 'Strees' es errata de la fuente. Artefactos de escaneo en 'Rcsponsabilidad Sobrc' y 'Documcntación'; transcripto correcto."
+ },
+ {
+  "id": "p1-108",
+  "parte": 1,
+  "pdf_page": 108,
+  "printed_page": 119,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "OFICIAL DE JUSTICIA \"B\"",
+  "variant": "B",
+  "descripcion_general": "Corresponde a los ocupantes de esta clase, bajo supervisión general, efectuar intimaciones de pago a través de cédulas de sentencias.",
+  "descripcion_especifica": "Concurrir a domicilios particulares. Cobrar deudas por medio de embargos preventivos o embargos secuestros. Convocar a la fuerza policial en los casos que lo requieran. Informar al Juez sobre los resultados obtenidos.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Temas Legales. Capacitación Especial.",
+  "otros_conocimientos": [],
+  "competencias": [
+   "Adaptabilidad",
+   "Integridad",
+   "Disciplina",
+   "Comunicación"
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "Fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Caídas a nivel",
+   "Golpes",
+   "Strees"
+  ],
+  "nivel_riesgo": "Bajo a Moderado.",
+  "responsabilidad_sobre": [
+   "Documentación"
+  ],
+  "dudas": "El rótulo 'Otros conocimientos:' está impreso pero SIN contenido alguno a continuación → []. Rótulo 'Requisitos Físico:' en plural, literal. Artefactos de escaneo: 'Corrcspondc', 'dc csta clasc', 'supcrvisión', 'dcudas por mcdio dc cmbargos', 'particularcs', 'conocimicntos'; transcriptos con la lectura correcta. 'Strees' es errata de la fuente."
+ },
+ {
+  "id": "p1-109",
+  "parte": 1,
+  "pdf_page": 109,
+  "printed_page": 120,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "OPERADOR DE PC",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto bajo supervisión directa, operar equipos de procesamiento de datos.",
+  "descripcion_especifica": "Conocer y manejar herramientas de informática para gestionar tareas administrativas como ser, Word, Excel, Power Point, etc. Conocer sistemas operativos y manejar programas de comunicación como ser navegación en Internet y correo electrónico.",
+  "instruccion": "Secundario Completo.",
+  "titulo": "Indistinto.",
+  "otros_conocimientos": [
+   "de manejo de PC"
+  ],
+  "competencias": [
+   "Capacidad para organizar",
+   "Atención al detalle",
+   "Trabajo en equipo/cooperación"
+  ],
+  "requisito_fisico": "No requiere.\nRequiere exámenes periódicos para prevenir enfermedades profesionales.",
+  "condiciones_trabajo": "Asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes",
+   "Síndrome del Túnel Carpiano",
+   "Trastornos visuales y posturales"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Equipos",
+   "Procesos"
+  ],
+  "dudas": "Rótulo 'Requisitos Físico:' en plural, literal; su contenido son dos oraciones ('No requiere.' + 'Requiere exámenes periódicos para prevenir enfermedades profesionales.'), conservadas juntas. Artefactos de escaneo: 'Corrcspondc a los ocupantcs dc cstc pucsto', 'Conoccr y mancjar hcrramicntas dc', 'gcstionar tarcas', 'Indistinto' (se lee 'Iudistinto'), 'mancjo'; transcriptos con la lectura correcta."
+ },
+ {
+  "id": "p1-110",
+  "parte": 1,
+  "pdf_page": 110,
+  "printed_page": 121,
+  "agrupamiento": "ADMINISTRATIVO",
+  "nivel": "III",
+  "area": null,
+  "nombre": "COORDINADOR",
+  "variant": null,
+  "descripcion_general": "Corresponde a los ocupantes de este puesto, bajo supervisión y con cierto grado de autonomía, establecer los nexos necesarios para mantener relacionados distintos estamentos, ya sean dentro de las Reparticiones Municipales y otras estructuras tanto provinciales o nacionales.",
+  "descripcion_especifica": "Concurrir periódicamente a las distintas sedes o contactos. Asesorar a los equipos sobre métodos y procedimientos a seguir para la consecución de los fines propuestos. Organizar y mantener ordenada toda documentación emanada de las partes integrantes.",
+  "instruccion": "Preferentemente Universitario.",
+  "titulo": "Acorde al área de trabajo.",
+  "otros_conocimientos": [],
+  "competencias": [
+   "Liderazgo",
+   "Iniciativa",
+   "Resolución de conflictos",
+   "Flexibilidad",
+   "Trabajo en equipo",
+   "Capacidad para organizar"
+  ],
+  "requisito_fisico": "No requiere.",
+  "condiciones_trabajo": "Eventualmente fuera del asiento habitual.",
+  "riesgos_trabajo": [
+   "Accidentes"
+  ],
+  "nivel_riesgo": "Bajo.",
+  "responsabilidad_sobre": [
+   "Equipos",
+   "Procesos",
+   "Documentación",
+   "Mobiliario",
+   "Personas"
+  ],
+  "dudas": "El rótulo 'Otros conocimientos:' NO está impreso en esta ficha (Requisitos Intelectuales sólo trae Instrucción y Título) → []. Rótulo 'Requisitos Físico:' en plural, literal. Artefactos de escaneo: 'Corrcspondc a los ocupantcs dc cstc pucsto', 'supcrvisión', 'pcriódicamcntc', 'scdcs'; transcriptos con la lectura correcta."
+ }
+]
