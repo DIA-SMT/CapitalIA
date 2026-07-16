@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   type ColumnDef,
@@ -93,8 +94,15 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
           </button>
         ),
         cell: ({ row }) => (
+          // El enlace va en la celda y no en la fila: una fila clickeable no es
+          // navegable por teclado ni se puede abrir en otra pestaña.
           <div className="flex items-center gap-2">
-            <span className="font-medium">{row.original.nombre}</span>
+            <Link
+              href={`/puestos/${row.original.id}`}
+              className="font-medium underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+            >
+              {row.original.nombre}
+            </Link>
             {row.original.variante && (
               <Badge variant="outline" className="text-[10px]">
                 {row.original.variante}

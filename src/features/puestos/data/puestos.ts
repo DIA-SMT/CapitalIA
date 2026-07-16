@@ -97,3 +97,178 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
     };
   });
 }
+
+/** Un ítem de catálogo tal como se muestra en la ficha. */
+export type ItemFicha = {
+  /** Entrada canónica del catálogo: sirve para filtrar y comparar. */
+  canonico: string;
+  /** Literal como está impreso en la hoja de 2016. Puede diferir del canónico. */
+  impreso: string | null;
+  notas: string | null;
+};
+
+export type PuestoDetalle = {
+  id: string;
+  internalCode: string;
+  estado: string;
+  versionId: string;
+  versionNumero: number;
+  nombre: string;
+  variante: string | null;
+  agrupamiento: string;
+  nivel: string | null;
+  area: string | null;
+  descripcionGeneral: string | null;
+  descripcionEspecifica: string | null;
+  instruccion: string | null;
+  titulo: string | null;
+  experiencia: string | null;
+  requisitoFisico: string | null;
+  condicionesTrabajo: string | null;
+  riesgo: string | null;
+  riesgoImpreso: string | null;
+  notasAdicionales: string | null;
+  esFuenteHistorica: boolean;
+  competencias: ItemFicha[];
+  riesgos: ItemFicha[];
+  responsabilidades: ItemFicha[];
+  conocimientos: ItemFicha[];
+  fuente: {
+    documento: string;
+    paginaImpresa: number | null;
+    paginaPdf: number | null;
+    verificacion: string;
+  } | null;
+};
+
+type Puente = { raw_text: string | null; notes: string | null; sort_order: number };
+type FilaDetalle = {
+  id: string;
+  internal_code: string;
+  status: string;
+  current_version: {
+    id: string;
+    version_number: number;
+    name: string;
+    variant: string | null;
+    general_description: string | null;
+    specific_description: string | null;
+    minimum_education: string | null;
+    required_title: string | null;
+    minimum_experience: string | null;
+    physical_requirement: string | null;
+    working_conditions: string | null;
+    risk_level_raw: string | null;
+    additional_notes: string | null;
+    is_historical_source: boolean;
+    groupings: { name: string } | null;
+    levels: { code: string } | null;
+    technical_areas: { name: string } | null;
+    risk_levels: { name: string } | null;
+    position_version_competencies: (Puente & { competencies: { name: string } | null })[];
+    position_version_risks: (Puente & { risks: { name: string } | null })[];
+    position_version_responsibilities: (Puente & { responsibilities: { name: string } | null })[];
+    position_version_knowledge: (Puente & { knowledge_items: { name: string } | null })[];
+    source_references: {
+      printed_page_number: number | null;
+      pdf_page_number: number | null;
+      verification_status: string;
+      source_documents: { title: string } | null;
+    }[];
+  } | null;
+};
+
+/** Ordena por sort_order (el orden en que figuran en la ficha) y normaliza. */
+function aItems<T extends Puente>(filas: T[], nombre: (f: T) => string | undefined): ItemFicha[] {
+  return [...(filas ?? [])]
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map((f) => ({
+      canonico: nombre(f) ?? "—",
+      impreso: f.raw_text,
+      notas: f.notes,
+    }));
+}
+
+/**
+ * Trae una ficha completa: la versión vigente con todos sus campos, los ítems de
+ * catálogo con su literal impreso, y la procedencia documental.
+ * Devuelve `null` si el puesto no existe o RLS no lo deja ver.
+ */
+export async function obtenerPuesto(id: string): Promise<PuestoDetalle | null> {
+  if (!isSupabaseConfigured()) return null;
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("positions")
+    .select(
+      `id, internal_code, status,
+       current_version:position_versions!positions_current_version_fk (
+         id, version_number, name, variant,
+         general_description, specific_description,
+         minimum_education, required_title, minimum_experience,
+         physical_requirement, working_conditions,
+         risk_level_raw, additional_notes, is_historical_source,
+         groupings ( name ), levels ( code ), technical_areas ( name ),
+         risk_levels ( name ),
+         position_version_competencies ( raw_text, notes, sort_order, competencies ( name ) ),
+         position_version_risks ( raw_text, notes, sort_order, risks ( name ) ),
+         position_version_responsibilities ( raw_text, notes, sort_order, responsibilities ( name ) ),
+         position_version_knowledge ( raw_text, notes, sort_order, knowledge_items ( name ) ),
+         source_references (
+           printed_page_number, pdf_page_number, verification_status,
+           source_documents ( title )
+         )
+       )`,
+    )
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("[puestos] obtenerPuesto:", error.message);
+    throw new Error(error.message);
+  }
+  if (!data) return null;
+
+  const fila = data as unknown as FilaDetalle;
+  const v = fila.current_version;
+  if (!v) return null;
+
+  const ref = v.source_references?.[0];
+
+  return {
+    id: fila.id,
+    internalCode: fila.internal_code,
+    estado: fila.status,
+    versionId: v.id,
+    versionNumero: v.version_number,
+    nombre: v.name,
+    variante: v.variant,
+    agrupamiento: v.groupings?.name ?? "—",
+    nivel: v.levels?.code ?? null,
+    area: v.technical_areas?.name ?? null,
+    descripcionGeneral: v.general_description,
+    descripcionEspecifica: v.specific_description,
+    instruccion: v.minimum_education,
+    titulo: v.required_title,
+    experiencia: v.minimum_experience,
+    requisitoFisico: v.physical_requirement,
+    condicionesTrabajo: v.working_conditions,
+    riesgo: v.risk_levels?.name ?? null,
+    riesgoImpreso: v.risk_level_raw,
+    notasAdicionales: v.additional_notes,
+    esFuenteHistorica: v.is_historical_source,
+    competencias: aItems(v.position_version_competencies, (f) => f.competencies?.name),
+    riesgos: aItems(v.position_version_risks, (f) => f.risks?.name),
+    responsabilidades: aItems(v.position_version_responsibilities, (f) => f.responsibilities?.name),
+    conocimientos: aItems(v.position_version_knowledge, (f) => f.knowledge_items?.name),
+    fuente: ref
+      ? {
+          documento: ref.source_documents?.title ?? "—",
+          paginaImpresa: ref.printed_page_number,
+          paginaPdf: ref.pdf_page_number,
+          verificacion: ref.verification_status,
+        }
+      : null,
+  };
+}
