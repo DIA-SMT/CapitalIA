@@ -288,27 +288,26 @@ con el universo real de valores a la vista — no antes.
    literales colapsan a 64 canónicos — esas **32 variantes de escritura se
    pierden** si no se guarda el literal impreso. En riesgos son 50.
 
-6. **Falta el campo "Antigüedad y Experiencia".** Aparece impreso dentro de
-   Requisitos Intelectuales y **no tiene columna en `position_versions`**. No es
-   marginal: **10 fichas en 3 agrupamientos** (no solo jefaturas de nivel V, como
-   parecía al principio — la mayoría son Profesional III).
+6. **Falta el campo "Antigüedad y Experiencia".** ✅ Resuelto en la `0006`
+   (columna `minimum_experience`). Aparece impreso dentro de Requisitos
+   Intelectuales en **6 fichas de 3 agrupamientos**:
 
-   | Ficha | Puesto | Agrupamiento |
-   |---|---|---|
-   | p1-082 (93) | JEFE DEPARTAMENTO ADMINISTRATIVO | Administrativo |
-   | p1-104 (115) | JEFE DEPARTAMENTO ESPECIALIZADO | Administrativo |
-   | p2-019 (208) | CONTRALOR DE EJECUCION PRESUPUESTARIA | Técnico |
-   | p2-032 (222) | PEDAGOGO | Profesional |
-   | p2-060 (250) | ANALISTA DE PUESTO | Profesional |
-   | p2-061 (251) | ANALISTA DE ESTRUCTURAS ORGANIZATIVAS | Profesional |
-   | p2-062 (252) | ANALISTA DE PROCEDIMIENTOS ADMINISTRATIVOS | Profesional |
-   | p2-063 (253) | LICENCIADO EN TURISMO | Profesional |
-   | p2-064 (254) | LICENCIADO EN ADMINISTRACIÓN | Profesional |
-   | p2-065 (255) | PLANIFICADOR URBANISTICO | Profesional |
+   | Ficha | Puesto | Agrupamiento | Valor |
+   |---|---|---|---|
+   | p1-082 (93) | JEFE DEPARTAMENTO ADMINISTRATIVO | Administrativo | 3 años como Jefe de Sección. |
+   | p1-104 (115) | JEFE DEPARTAMENTO ESPECIALIZADO | Administrativo | 3 años en la administración. |
+   | p2-019 (208) | CONTRALOR DE EJECUCION PRESUPUESTARIA | Técnico | Conviene desempeño anterior en Habilitación. |
+   | p2-060 (250) | ANALISTA DE PUESTO | Profesional | 2 años en la administración municipal. |
+   | p2-061 (251) | ANALISTA DE ESTRUCTURAS ORGANIZATIVAS | Profesional | 2 años en la administración municipal. |
+   | p2-062 (252) | ANALISTA DE PROCEDIMIENTOS ADMINISTRATIVOS | Profesional | 2 años en la administración municipal. |
 
-   Valores tipo "3 años como Jefe de Sección.", "2 años en la administración
-   municipal.". Por ahora está en `dudas` con prefijo `ANTIGUEDAD:` para no
-   perderlo. Requiere columna nueva (`minimum_experience text`) en la `0006`.
+   > **Corrección.** Una versión anterior de este README decía "10 fichas" y
+   > listaba además a PEDAGOGO, LICENCIADO EN TURISMO, LICENCIADO EN
+   > ADMINISTRACIÓN y PLANIFICADOR URBANISTICO. Estaba mal: se contó por
+   > búsqueda de la palabra "antigüedad" en `dudas`, y en esas cuatro fichas la
+   > nota dice justamente lo contrario — que el campo **no** está impreso. El
+   > número correcto es 6. Lección: contar menciones de una palabra cuenta
+   > también sus negaciones.
 
 7. **Familias de puestos (`position_families`) — se usan, y agrupar por nombre no
    alcanza.** 21 fichas con variante en 11 nombres base:
