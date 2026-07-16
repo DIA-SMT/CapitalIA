@@ -47,28 +47,83 @@ const TONO_RIESGO: Record<string, string> = {
   Severo: "bg-red-50 text-red-700 border-red-200",
 };
 
+type Filtros = {
+  agrupamiento: string | null;
+  riesgo: string | null;
+  nivelArea: string | null;
+  verificacion: string | null;
+};
+
+const SIN_FILTROS: Filtros = {
+  agrupamiento: null,
+  riesgo: null,
+  nivelArea: null,
+  verificacion: null,
+};
+
+function Selector({
+  etiqueta,
+  valor,
+  opciones,
+  onChange,
+}: {
+  etiqueta: string;
+  valor: string | null;
+  opciones: string[];
+  onChange: (v: string | null) => void;
+}) {
+  return (
+    <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+      {etiqueta}
+      <select
+        value={valor ?? ""}
+        onChange={(e) => onChange(e.target.value || null)}
+        className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground"
+      >
+        <option value="">Todos</option>
+        {opciones.map((o) => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
   const [orden, setOrden] = useState<SortingState>([]);
   const [busqueda, setBusqueda] = useState("");
-  const [agrupamiento, setAgrupamiento] = useState<string | null>(null);
+  const [f, setF] = useState<Filtros>(SIN_FILTROS);
 
-  const agrupamientos = useMemo(
-    () => [...new Set(puestos.map((p) => p.agrupamiento))].sort(),
+  const listas = useMemo(
+    () => ({
+      agrupamientos: [...new Set(puestos.map((p) => p.agrupamiento))].sort(),
+      riesgos: [...new Set(puestos.map((p) => p.riesgo).filter(Boolean))].sort() as string[],
+      nivelesAreas: [
+        ...new Set(puestos.map((p) => p.area ?? (p.nivel ? `Nivel ${p.nivel}` : null)).filter(Boolean)),
+      ].sort() as string[],
+    }),
     [puestos],
   );
 
-  // Filtro propio en vez del de TanStack: hay que buscar sin tildes sobre varias
-  // columnas a la vez, y cruzarlo con el filtro de agrupamiento.
+  // Filtro propio en vez del de TanStack: hay que cruzar la búsqueda de texto
+  // libre (sobre el índice que arma el servidor) con cuatro filtros exactos.
   const filtrados = useMemo(() => {
-    const q = normalizar(busqueda.trim());
+    const terminos = normalizar(busqueda.trim()).split(/\s+/).filter(Boolean);
     return puestos.filter((p) => {
-      if (agrupamiento && p.agrupamiento !== agrupamiento) return false;
-      if (!q) return true;
-      return normalizar(
-        `${p.nombre} ${p.internalCode} ${p.agrupamiento} ${p.area ?? ""} ${p.variante ?? ""}`,
-      ).includes(q);
+      if (f.agrupamiento && p.agrupamiento !== f.agrupamiento) return false;
+      if (f.riesgo && p.riesgo !== f.riesgo) return false;
+      if (f.verificacion && p.verificacion !== f.verificacion) return false;
+      if (f.nivelArea) {
+        const na = p.area ?? (p.nivel ? `Nivel ${p.nivel}` : null);
+        if (na !== f.nivelArea) return false;
+      }
+      // Todos los términos tienen que aparecer: "chofer pesados" es más preciso
+      // que buscar la frase entera.
+      return terminos.every((t) => p.buscable.includes(t));
     });
-  }, [puestos, busqueda, agrupamiento]);
+  }, [puestos, busqueda, f]);
 
   const columnas = useMemo<ColumnDef<PuestoListado>[]>(
     () => [
@@ -178,50 +233,70 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
     initialState: { pagination: { pageSize: 25 } },
   });
 
-  const hayFiltro = busqueda !== "" || agrupamiento !== null;
+  const hayFiltro = busqueda !== "" || Object.values(f).some(Boolean);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="relative min-w-56 flex-1">
-          <Search
-            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-            aria-hidden
-          />
-          <Input
-            value={busqueda}
-            onChange={(e) => setBusqueda(e.target.value)}
-            placeholder="Buscar por nombre, código o área…"
-            className="pl-9"
-            aria-label="Buscar puestos"
-          />
-        </div>
+      <div className="relative">
+        <Search
+          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden
+        />
+        <Input
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+          placeholder="Buscar en toda la ficha: nombre, tareas, requisitos, competencias, riesgos…"
+          className="pl-9"
+          aria-label="Buscar puestos"
+        />
+      </div>
 
-        <div className="flex flex-wrap gap-1">
-          {agrupamientos.map((a) => (
-            <Button
-              key={a}
-              size="sm"
-              variant={agrupamiento === a ? "default" : "outline"}
-              onClick={() => setAgrupamiento(agrupamiento === a ? null : a)}
-            >
-              {a}
-            </Button>
-          ))}
-          {hayFiltro && (
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={() => {
-                setBusqueda("");
-                setAgrupamiento(null);
-              }}
-            >
-              <X className="h-4 w-4" aria-hidden />
-              Limpiar
-            </Button>
-          )}
-        </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Selector
+          etiqueta="Agrupamiento"
+          valor={f.agrupamiento}
+          opciones={listas.agrupamientos}
+          onChange={(v) => setF({ ...f, agrupamiento: v })}
+        />
+        <Selector
+          etiqueta="Nivel / Área"
+          valor={f.nivelArea}
+          opciones={listas.nivelesAreas}
+          onChange={(v) => setF({ ...f, nivelArea: v })}
+        />
+        <Selector
+          etiqueta="Riesgo"
+          valor={f.riesgo}
+          opciones={listas.riesgos}
+          onChange={(v) => setF({ ...f, riesgo: v })}
+        />
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          Ficha
+          <select
+            value={f.verificacion ?? ""}
+            onChange={(e) => setF({ ...f, verificacion: e.target.value || null })}
+            className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground"
+          >
+            <option value="">Todas</option>
+            <option value="pending">Pendiente de verificar</option>
+            <option value="verified">Verificada</option>
+            <option value="needs_review">Necesita revisión</option>
+          </select>
+        </label>
+
+        {hayFiltro && (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              setBusqueda("");
+              setF(SIN_FILTROS);
+            }}
+          >
+            <X className="h-4 w-4" aria-hidden />
+            Limpiar
+          </Button>
+        )}
       </div>
 
       <p className="text-sm text-muted-foreground" aria-live="polite">
