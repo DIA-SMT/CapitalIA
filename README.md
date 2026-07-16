@@ -3,11 +3,21 @@
 Plataforma interna de la **Municipalidad de San Miguel de Tucumán** para
 digitalizar y administrar el **Nomenclador de Puestos**.
 
-> **Alcance del MVP:** solo administración de **puestos**. No incluye empleados,
-> legajos, salarios, licencias, evaluaciones de personas ni contrataciones.
+Los dos tomos escaneados del Nomenclador de 2016 —436 MB sin capa de texto— hoy
+son **210 puestos** consultables y editables, cada uno trazable hasta su página
+del original.
+
+> **Alcance:** administración de **puestos**, más la **dotación** (qué persona
+> ocupa cada puesto: legajo, nombre, área y fechas).
+>
+> **No incluye** legajos completos, salarios, licencias, sanciones, evaluaciones
+> de desempeño ni contrataciones. Sumar cualquiera de esos datos requiere
+> resolver antes el modelo de roles — ver [`CONTEXT.md`](CONTEXT.md) §4.
 
 ## Documentación
 
+- [`CONTEXT.md`](CONTEXT.md) — **empezá por acá**: estado real, decisiones
+  tomadas y trampas conocidas.
 - [`docs/architecture.md`](docs/architecture.md) — arquitectura, modelo de datos,
   estrategia de auth y de server/client components.
 - [`docs/roadmap.md`](docs/roadmap.md) — plan de trabajo por etapas.
@@ -43,5 +53,13 @@ npm run dev                  # http://localhost:3000
 
 ## Estado
 
-Fase de **configuración inicial** (Etapa 0 del roadmap): estructura técnica
-lista, sin CRUD ni IA todavía.
+**En producción:** https://capital-ia-eight.vercel.app — acceso solo con usuarios
+habilitados por un administrador, sin registro público.
+
+Etapas 0 a 5 del [roadmap](docs/roadmap.md) cerradas: el nomenclador está
+cargado, se consulta, se edita por versiones (sin perder las fichas de 2016) y
+registra la dotación.
+
+Falta comparar puestos y detectar similares (Etapa 6) y la consulta en lenguaje
+natural (Etapa 7). El detalle del estado real y la deuda conocida está en
+[`CONTEXT.md`](CONTEXT.md).

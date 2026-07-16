@@ -69,40 +69,78 @@ Objetivo: esquema de base de datos en Supabase. Documentado en
 
 ---
 
-## Etapa 3 — Preservación de fichas históricas (ingesta)
+## Etapa 3 — Preservación de fichas históricas (ingesta) ✅
 
 Objetivo: cargar las fichas históricas conservando su origen.
 
-- [ ] Flujo de ingesta (OCR/carga asistida) de los PDF a `puesto_version`
-      con `origen = 'historico'`.
-- [ ] Registro de la `fuente` (PDF + página) por ficha.
-- [ ] Validación y control de calidad de la carga.
-- **Salida:** fichas históricas disponibles y trazables en la base.
+- [x] Extracción de las **210 fichas** de los dos PDF escaneados. Sin capa de
+      texto: se detectaron las páginas-ficha por el color del encabezado y se
+      transcribieron con modelo de visión, con fidelidad literal a la fuente.
+- [x] Registro de la fuente (documento + página impresa + página PDF + evidencia)
+      por ficha, en `source_references`.
+- [x] Validación de la carga: ids únicos, campos completos, nivel XOR área,
+      agrupamiento contrastado contra el color del bloque.
+- [x] Migración `0006` con las correcciones que la ingesta dejó a la vista
+      (áreas técnicas, niveles de riesgo, `raw_text`, `minimum_experience`).
+- [ ] Verificar las 210 fichas contra el papel (quedan en `pending`; lo hace
+      Capital Humano, falta la pantalla para marcarlas).
+- **Salida:** ✅ fichas históricas disponibles y trazables. Método y hallazgos en
+  [`data/nomenclador/README.md`](../data/nomenclador/README.md).
 
 ---
 
-## Etapa 4 — Consulta y filtrado (lectura)
+## Etapa 4 — Consulta y filtrado (lectura) ✅
 
 Objetivo: explorar el nomenclador.
 
-- [ ] Listado de puestos con **TanStack Table** (orden, filtro, paginación).
-- [ ] Buscador y filtros (por denominación, dependencia, nivel, estado).
-- [ ] Vista de **detalle** de un puesto con su versión vigente e historial.
-- [ ] Indicadores de **procedencia** (fuente por dato) en la UI.
-- **Salida:** consulta y filtrado completos sobre datos reales.
+- [x] Listado de puestos con **TanStack Table** (orden, paginación).
+- [x] Buscador (ignora tildes) y filtro por agrupamiento.
+- [x] Vista de **detalle** con la versión vigente y el historial de versiones.
+- [x] Indicadores de **procedencia**: documento, página impresa, página PDF y
+      estado de verificación. Cuando el literal impreso difiere del canónico del
+      catálogo, se muestran los dos.
+- [x] Dashboard, Catálogos y Documentos conectados a datos reales.
+- [ ] Filtros por nivel, área, riesgo y estado; persistencia en la URL.
+- **Salida:** ✅ consulta y filtrado sobre datos reales.
 
 ---
 
-## Etapa 5 — Edición: nuevas versiones y nuevos puestos (escritura)
+## Etapa 5 — Edición: nuevas versiones y nuevos puestos (escritura) ✅
 
 Objetivo: mantener el nomenclador vivo sin perder historia.
 
-- [ ] Formularios con **React Hook Form + Zod** (Server Actions).
-- [ ] Crear **nuevo puesto**.
-- [ ] Crear **versión actualizada** (marca anterior `es_vigente = false`).
-- [ ] Registro automático en `historial` (diff por cambio).
-- [ ] Autorización efectiva (`editor`/`admin`) en UI y servidor.
-- **Salida:** ABM de puestos por versión, auditado y con permisos.
+- [x] Formulario por secciones con **React Hook Form + Zod** (Server Actions).
+      Un solo esquema para cliente y servidor; la validación se repite en el
+      servidor.
+- [x] Crear **nuevo puesto** (`crear_puesto`, genera el código interno).
+- [x] Crear **versión actualizada** (`crear_version_puesto`): la vigente pasa a
+      `historical` y se conserva. Motivo del cambio obligatorio, validado en la
+      base.
+- [x] **Baja lógica** (`archivar_puesto` / `restaurar_puesto`). No borra: el
+      trigger `prevent_delete` lo impide a propósito.
+- [x] Historial en la ficha: quién, cuándo, por qué y qué campos cambiaron.
+- [x] Las mutaciones que tocan varias tablas van en funciones de Postgres, en una
+      transacción. Ver `CONTEXT.md` §3 para el motivo.
+- [ ] Autorización por rol (`lector`/`editor`/`admin`): **hoy todo usuario nace
+      admin**. Tolerable con 2 usuarios de Capital Humano; bloqueante si entran
+      más. Ver `CONTEXT.md` §4.
+- [ ] Diff de cambios en catálogos (hoy solo campos de texto).
+- **Salida:** ✅ ABM de puestos por versión, auditado.
+
+---
+
+## Etapa 5.5 — Dotación: personas y puestos ✅
+
+Fuera del roadmap original: la documentación excluía personas del MVP. Se agregó
+a pedido, **acotado a dotación**.
+
+- [x] `personas` (legajo, nombre, área, email) y `asignaciones` con fechas: una
+      persona ocupa un puesto a la vez, y los cambios quedan en el historial.
+- [x] `asignar_persona` / `desasignar_persona` en una transacción.
+- [x] Panel "Personas en este puesto" en la ficha, y listado en `/personas`.
+- **Alcance deliberadamente mínimo.** No se guardan datos sensibles (DNI, CUIL,
+  salario, licencias, sanciones, evaluaciones) y no deberían agregarse sin
+  resolver antes los roles. Ver la cabecera de la migración `0008`.
 
 ---
 
