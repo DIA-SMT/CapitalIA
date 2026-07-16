@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Bot, Send, Sparkles, X } from "lucide-react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { MessageCircleQuestion, Send, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,22 @@ const SUGERENCIAS = [
   "¿Qué puestos requieren manejo de vehículos?",
   "¿En qué se diferencian Oficial Mecánico y Ayudante Mecánico?",
 ];
+
+/** Para no repetir el aviso en cada carga una vez que ya lo vieron. */
+const CLAVE_AVISO = "capitalia:aviso-asistente-visto";
+
+/**
+ * Si ya vieron el aviso, leído de localStorage.
+ *
+ * Va por useSyncExternalStore y no por un efecto: localStorage no existe en el
+ * servidor, así que leerlo en el estado inicial rompe la hidratación, y leerlo
+ * en un efecto dispara un render en cascada. Esta API existe justamente para
+ * esto: el snapshot del servidor dice "ya visto" (no se pinta nada, no hay
+ * mismatch) y el cliente lo relee después de hidratar.
+ */
+const noHaySuscripcion = () => () => {};
+const leerCliente = () => localStorage.getItem(CLAVE_AVISO) === "1";
+const leerServidor = () => true;
 
 /**
  * Asistente de consulta sobre el nomenclador.
@@ -26,7 +42,16 @@ export function Asistente() {
   const [entrada, setEntrada] = useState("");
   const [pensando, setPensando] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [avisoCerrado, setAvisoCerrado] = useState(false);
   const finRef = useRef<HTMLDivElement>(null);
+
+  const avisoYaVisto = useSyncExternalStore(noHaySuscripcion, leerCliente, leerServidor);
+  const avisoVisible = !avisoYaVisto && !avisoCerrado;
+
+  function ocultarAviso() {
+    setAvisoCerrado(true);
+    localStorage.setItem(CLAVE_AVISO, "1");
+  }
 
   useEffect(() => {
     finRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -64,14 +89,35 @@ export function Asistente() {
 
   if (!abierto) {
     return (
-      <Button
-        onClick={() => setAbierto(true)}
-        className="fixed bottom-5 right-5 z-40 shadow-lg"
-        aria-label="Abrir el asistente del nomenclador"
-      >
-        <Sparkles className="h-4 w-4" aria-hidden />
-        Preguntar al nomenclador
-      </Button>
+      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
+        {avisoVisible && (
+          <div className="relative max-w-56 rounded-xl rounded-br-sm border border-border bg-card px-3 py-2 pr-8 shadow-lg">
+            <p className="text-xs leading-relaxed text-foreground">
+              Preguntá lo que quieras sobre el nomenclador
+            </p>
+            <button
+              type="button"
+              onClick={ocultarAviso}
+              className="absolute right-1 top-1 rounded p-1 text-muted-foreground hover:bg-secondary hover:text-foreground"
+              aria-label="No mostrar este aviso"
+            >
+              <X className="h-3 w-3" aria-hidden />
+            </button>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={() => {
+            setAbierto(true);
+            ocultarAviso();
+          }}
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          aria-label="Preguntar sobre el nomenclador"
+        >
+          <MessageCircleQuestion className="h-6 w-6" aria-hidden />
+        </button>
+      </div>
     );
   }
 
@@ -83,17 +129,17 @@ export function Asistente() {
     >
       <header className="flex items-center justify-between border-b border-border px-4 py-3">
         <div className="flex items-center gap-2">
-          <Bot className="h-4 w-4 text-brand-celeste" aria-hidden />
-          <span className="text-sm font-semibold">Asistente del nomenclador</span>
+          <MessageCircleQuestion className="h-4 w-4 text-brand-celeste" aria-hidden />
+          <span className="text-sm font-semibold">Consultar el nomenclador</span>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           onClick={() => setAbierto(false)}
-          aria-label="Cerrar el asistente"
+          className="rounded-md p-1.5 text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-label="Cerrar"
         >
           <X className="h-4 w-4" aria-hidden />
-        </Button>
+        </button>
       </header>
 
       <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
