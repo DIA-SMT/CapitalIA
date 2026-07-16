@@ -6,15 +6,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
-import type { z } from "zod";
 
-import { crearPersona, personaSchema } from "../actions";
+import { crearPersona } from "../actions";
+import { personaSchema, type PersonaFormValues } from "../schemas/persona";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-type Valores = z.input<typeof personaSchema>;
+type Valores = PersonaFormValues;
 
 /** Alta de una persona. No la asigna a ningún puesto: eso se hace desde la ficha. */
 export function AltaPersona() {

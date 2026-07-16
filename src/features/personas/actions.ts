@@ -1,43 +1,20 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
+import { asignacionSchema, personaSchema } from "./schemas/persona";
 
 /**
  * Alta de personas y asignación a puestos.
  *
  * Igual que en puestos: la validación se repite en el servidor y el trabajo que
  * toca varias tablas lo hacen funciones de Postgres (migración 0008).
+ *
+ * Los esquemas viven en schemas/persona.ts: este archivo tiene "use server" y
+ * solo puede exportar funciones async.
  */
-
-export const personaSchema = z.object({
-  legajo: z.string().trim().min(1, "El legajo es obligatorio").max(30),
-  full_name: z.string().trim().min(3, "El nombre es obligatorio").max(200),
-  email: z
-    .union([z.email("Email inválido"), z.literal("")])
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-  area: z
-    .string()
-    .trim()
-    .max(200)
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-});
-
-export const asignacionSchema = z.object({
-  persona_id: z.uuid("Elegí una persona"),
-  desde: z.iso.date().optional(),
-  notas: z
-    .string()
-    .trim()
-    .max(500)
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-});
 
 export type ResultadoPersona = { error: string } | { ok: true };
 
