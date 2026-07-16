@@ -12,17 +12,35 @@ Nomenclador (Etapa 3 del [roadmap](../../docs/roadmap.md)).
 
 ## 1. Estado
 
+**Extracción completa: 210/210 fichas.** Falta cargarlas a la base (ver §10).
+
 | Etapa | Fichas | Estado |
 |-------|-------:|--------|
 | `etapa-1-sg-mp` — Servicios Generales + Mantenimiento (parte 1) | 49 | ✅ extraída |
 | `etapa-2-adm` — Administrativo | 34 | ✅ extraída |
-| `etapa-3-tec-p1` — Técnico (parte 1, 4 áreas) | 56 | pendiente |
-| `etapa-4-tec-p2` — Técnico (parte 2, Del Control) | 23 | pendiente |
-| `etapa-5-pro` — Profesional | 41 | pendiente |
-| `etapa-6-anexo` — Anexo final (impresas 259–264) | 7 | pendiente |
-| **Total** | **210** | |
+| `etapa-3-tec-p1` — Técnico (parte 1, 4 áreas) | 56 | ✅ extraída |
+| `etapa-4-tec-p2` — Técnico (parte 2, Del Control) | 23 | ✅ extraída |
+| `etapa-5-pro` — Profesional | 41 | ✅ extraída |
+| `etapa-6-anexo` — Anexo final (impresas 259–266) | 7 | ✅ extraída |
+| **Total** | **210** | **✅** |
 
-`fichas.json` acumula lo extraído. `mapa-documento.json` marca `estado` por ficha.
+Las 210 están en `fichas.json`, validadas: sin ids duplicados ni faltantes, todos los
+campos presentes, listas bien tipadas, y cada ficha con nivel **o** área (nunca las dos).
+
+Reparto final por agrupamiento — **coincide exactamente con lo que predijo la detección
+por color**, que es una verificación cruzada fuerte del método:
+
+| Agrupamiento | Fichas |
+|---|---:|
+| Técnico | 83 |
+| Profesional | 43 |
+| Mantenimiento y Producción | 42 |
+| Administrativo | 34 |
+| Servicios Generales | 8 |
+
+(3 de esas fichas traen el agrupamiento mal escrito en la fuente: `MANTENIMINETO Y
+PRODUCCION`, `MANTENIMIENTOY PRODUCCION`, `PROESIONAL`. Van literales; el validador
+las detecta contrastando contra el color del encabezado.)
 
 ---
 
@@ -209,13 +227,33 @@ con el universo real de valores a la vista — no antes.
    Información"; las fichas dicen "E INFORMACIÓN". Inconsistencia de la fuente.)
 
 2. **`risk_levels` no alcanza.** El seed tiene `Bajo/Medio/Alto/Crítico` como FK
-   simple. El universo real observado hasta ahora (8 valores):
-   `Bajo` · `Moderado` · `Medio` · `Alto` · `Escaso` · `Severo` ·
-   `Bajo a Moderado` · `Moderado a Alto`.
-   Son rangos y vocabulario inconsistente (`Medio` y `Escaso` solo aparecen en el
-   anexo final; `Severo` una sola vez en Mantenimiento). `Crítico` no aparece
-   nunca. Hay que decidir: catálogo con los valores observados, o columnas
-   min/max. **Sigue creciendo con cada etapa — no fijarlo hasta terminar.**
+   simple. Universo real sobre las **210 fichas**: **13 literales → 10 canónicos**.
+
+   | Canónico | Fichas | Observación |
+   |---|---:|---|
+   | bajo | 86 | |
+   | moderado | 54 | |
+   | moderado a alto | 25 | rango |
+   | bajo a moderado | 20 | rango |
+   | alto | 14 | |
+   | medio | 5 | sinónimo de `moderado` |
+   | escaso | 2 | sinónimo de `bajo`; solo en el anexo |
+   | de bajo a moderado | 2 | **mismo rango que `bajo a moderado`** |
+   | severo | 1 | sinónimo de `alto` |
+   | moderado a bajo | 1 | **mismo rango, invertido** |
+
+   `Crítico` (del seed) **no aparece ni una vez en 210 fichas**.
+
+   Son tres problemas mezclados: **rangos** (45 fichas), **sinónimos**
+   (medio/moderado, escaso/bajo, severo/alto) y **el mismo rango escrito de tres
+   formas** (`bajo a moderado` / `de bajo a moderado` / `moderado a bajo` = 23
+   fichas). Semánticamente son ~3 niveles + 2 rangos, expresados de 13 maneras.
+
+   **Recomendación:** catálogo de 3 niveles (`bajo`/`moderado`/`alto`) + columnas
+   `risk_level_min_id` / `risk_level_max_id`. Un puesto "moderado" tiene min=max;
+   uno "bajo a moderado" tiene min=bajo, max=moderado. Se preserva el literal
+   impreso aparte. Requiere reemplazar `risk_level_id` — es la decisión más
+   invasiva de la lista, conviene consensuarla con el autor del esquema.
 
 3. **Falta dónde guardar el texto literal de los ítems de catálogo.** Las tablas
    puente tienen FK + `notes`, pero no el literal impreso. Al canonizar
@@ -232,31 +270,68 @@ con el universo real de valores a la vista — no antes.
    versión. Contrastar con competencias, que sí saturan.
 
 5. **Catálogos starter muy cortos** (esperado: la migración dice "no pretende ser
-   exhaustivo, se curará durante la ingesta"). Medido sobre 49 fichas:
+   exhaustivo, se curará durante la ingesta"). Universo real sobre las **210
+   fichas**, canonizando por minúsculas + sin tildes + sin puntuación final:
 
-   | Catálogo | Menciones | Literales distintos | % únicos | ¿Catálogo? |
-   |---|---:|---:|---:|---|
-   | competencias | 184 | 40 | 22% | sí, satura bien |
-   | riesgos | 126 | 43 | 34% | sí |
-   | responsabilidades | 79 | 33 | 42% | sí, en el límite |
-   | otros conocimientos | 48 | 43 | 90% | **no** |
+   | Catálogo | Menciones | Literales | **Canónicos** | % únicos | En el seed | ¿Catálogo? |
+   |---|---:|---:|---:|---:|---:|---|
+   | competencias | 882 | 96 | **64** | 7% | 5 | sí, satura muy bien |
+   | riesgos | 670 | 140 | **90** | 13% | 5 | sí |
+   | responsabilidades | 372 | 110 | **90** | 24% | 3 | sí, en el límite |
+   | otros conocimientos | 231 | 184 | **165** | 71% | 2 | **no** |
 
-   Los literales incluyen variantes de puntuación/mayúsculas que colapsan al
-   canonizar; el conteo canónico será menor. El seed tiene 5 competencias y 5
-   riesgos.
+   Competencias y riesgos saturan con claridad: las menciones crecieron ~60%
+   entre las 139 y las 210 fichas, pero los canónicos solo ~12% y ~17%. "Otros
+   conocimientos" siguió creciendo casi 1:1 con las fichas — no es un catálogo.
+
+   **Este cuadro es el argumento del `raw_text` (punto 3):** en competencias, 96
+   literales colapsan a 64 canónicos — esas **32 variantes de escritura se
+   pierden** si no se guarda el literal impreso. En riesgos son 50.
 
 6. **Falta el campo "Antigüedad y Experiencia".** Aparece impreso dentro de
-   Requisitos Intelectuales en las fichas de nivel V y **no tiene columna en
-   `position_versions`**:
+   Requisitos Intelectuales y **no tiene columna en `position_versions`**. No es
+   marginal: **10 fichas en 3 agrupamientos** (no solo jefaturas de nivel V, como
+   parecía al principio — la mayoría son Profesional III).
 
-   | Ficha | Puesto | Valor |
+   | Ficha | Puesto | Agrupamiento |
    |---|---|---|
-   | p1-082 (impresa 93) | JEFE DEPARTAMENTO ADMINISTRATIVO | "3 años como Jefe de Sección." |
-   | p1-104 (impresa 115) | JEFE DEPARTAMENTO ESPECIALIZADO | "3 años en la administración" |
+   | p1-082 (93) | JEFE DEPARTAMENTO ADMINISTRATIVO | Administrativo |
+   | p1-104 (115) | JEFE DEPARTAMENTO ESPECIALIZADO | Administrativo |
+   | p2-019 (208) | CONTRALOR DE EJECUCION PRESUPUESTARIA | Técnico |
+   | p2-032 (222) | PEDAGOGO | Profesional |
+   | p2-060 (250) | ANALISTA DE PUESTO | Profesional |
+   | p2-061 (251) | ANALISTA DE ESTRUCTURAS ORGANIZATIVAS | Profesional |
+   | p2-062 (252) | ANALISTA DE PROCEDIMIENTOS ADMINISTRATIVOS | Profesional |
+   | p2-063 (253) | LICENCIADO EN TURISMO | Profesional |
+   | p2-064 (254) | LICENCIADO EN ADMINISTRACIÓN | Profesional |
+   | p2-065 (255) | PLANIFICADOR URBANISTICO | Profesional |
 
-   Por ahora queda en `dudas` para no perderlo. Requiere columna nueva
-   (`minimum_experience`) en la migración `0006`. Revisar si reaparece en
-   Profesional / Técnico, donde también hay jefaturas.
+   Valores tipo "3 años como Jefe de Sección.", "2 años en la administración
+   municipal.". Por ahora está en `dudas` con prefijo `ANTIGUEDAD:` para no
+   perderlo. Requiere columna nueva (`minimum_experience text`) en la `0006`.
+
+7. **Familias de puestos (`position_families`) — se usan, y agrupar por nombre no
+   alcanza.** 21 fichas con variante en 11 nombres base:
+
+   | Puesto base | Variantes |
+   |---|---|
+   | INSPECTOR DE SALUBRIDAD Y PROFILAXIS | A, B, C |
+   | MAQUINISTA VIAL | A, B, C |
+   | AUXILIAR CONTABLE · BIOQUÍMICO · CANTANTE SOLISTA O COREUTA · INSPECTOR DE TRÁNSITO · OFICIAL DE JUSTICIA | A, B |
+   | AUXILIAR ADMINISTRATIVO | B, C — **sin "A"** |
+   | MUSICO INSTRUMENTISTA | B — **sin "A"** |
+   | INSPECTOR DE TRANSPOTES PÚBLICOS | A |
+   | INSPECTOR DE TRANSPORTES PÚBLICO | B |
+
+   Tres problemas para armar las familias automáticamente:
+   - **Las dos últimas filas son la misma familia**, partida por una errata
+     (`TRANSPOTES`) y un singular/plural. Cruza además los dos PDF (impresas 189
+     y 190). Agrupar por nombre exacto las deja separadas.
+   - **Variantes huérfanas:** `AUXILIAR ADMINISTRATIVO` tiene B y C pero no A;
+     `MUSICO INSTRUMENTISTA` tiene B pero no A. O falta en la fuente, o el "A" es
+     el puesto sin sufijo. Verificar contra el PDF antes de decidir.
+   - Conclusión: **las familias hay que armarlas con revisión humana**, no por
+     regla automática. Son 11 casos, es media hora de trabajo.
 
 ---
 
