@@ -173,6 +173,55 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
   });
 }
 
+export type PuestoOpcion = {
+  id: string;
+  internalCode: string;
+  nombre: string;
+  agrupamiento: string;
+};
+
+/**
+ * Los puestos vigentes en su forma mínima, para selectores.
+ *
+ * Existe aparte de `listarPuestos` a propósito: aquella trae el índice de
+ * búsqueda de las 210 fichas (~190 KB) y acá solo hacen falta el id y el nombre.
+ */
+export async function listarPuestosParaSelector(): Promise<PuestoOpcion[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("positions")
+    .select(
+      `id, internal_code,
+       current_version:position_versions!positions_current_version_fk (
+         name, groupings ( name )
+       )`,
+    )
+    .neq("status", "archived")
+    .order("internal_code");
+
+  if (error) {
+    console.error("[puestos] listarPuestosParaSelector:", error.message);
+    return [];
+  }
+
+  type Fila = {
+    id: string;
+    internal_code: string;
+    current_version: { name: string; groupings: { name: string } | null } | null;
+  };
+
+  return ((data ?? []) as unknown as Fila[])
+    .filter((f) => f.current_version)
+    .map((f) => ({
+      id: f.id,
+      internalCode: f.internal_code,
+      nombre: f.current_version!.name,
+      agrupamiento: f.current_version!.groupings?.name ?? "—",
+    }));
+}
+
 /** Un ítem de catálogo tal como se muestra en la ficha. */
 export type ItemFicha = {
   /** Entrada canónica del catálogo: sirve para filtrar y comparar. */

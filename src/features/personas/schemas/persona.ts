@@ -23,6 +23,14 @@ export const personaSchema = z.object({
     .max(200)
     .optional()
     .transform((v) => (v === "" ? undefined : v)),
+  /**
+   * Puesto que ocupa, opcional. Se puede cargar una persona sin puesto y
+   * asignarla después desde la ficha del puesto.
+   */
+  position_id: z
+    .union([z.uuid(), z.literal("")])
+    .optional()
+    .transform((v) => (v === "" ? undefined : v)),
 });
 
 export const asignacionSchema = z.object({
