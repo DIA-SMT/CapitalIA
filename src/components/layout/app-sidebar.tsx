@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { FilePlus2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Logo, LogoMark } from "@/components/brand/logo";
 import { NavLinks } from "./nav-links";
 
@@ -30,17 +28,6 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
         >
           {collapsed ? <LogoMark className="h-8 w-8" /> : <Logo />}
         </Link>
-      </div>
-
-      <div className="p-2">
-        <Button
-          className={cn("w-full", collapsed && "px-0")}
-          aria-label="Crear nuevo puesto"
-          render={<Link href="/puestos/nuevo" />}
-        >
-          <FilePlus2 className="h-4 w-4" aria-hidden />
-          {!collapsed && <span>Nuevo puesto</span>}
-        </Button>
       </div>
 
       <div className="flex-1 overflow-y-auto">

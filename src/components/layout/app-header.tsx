@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { FilePlus2, PanelLeft } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -42,16 +41,6 @@ export function AppHeader({
       <div className="min-w-0 flex-1">
         <Breadcrumbs />
       </div>
-
-      <Button
-        variant="outline"
-        size="sm"
-        className="hidden sm:inline-flex"
-        render={<Link href="/puestos/nuevo" />}
-      >
-        <FilePlus2 className="h-4 w-4" aria-hidden />
-        Nuevo puesto
-      </Button>
 
       <UserMenu user={user} />
     </header>

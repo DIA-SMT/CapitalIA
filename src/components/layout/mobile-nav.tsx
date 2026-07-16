@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { FilePlus2, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
@@ -43,15 +42,6 @@ export function MobileNav({
             <Logo />
           </SheetTitle>
         </SheetHeader>
-        <div className="p-2">
-          <Button
-            className="w-full"
-            render={<Link href="/puestos/nuevo" onClick={close} />}
-          >
-            <FilePlus2 className="h-4 w-4" aria-hidden />
-            Nuevo puesto
-          </Button>
-        </div>
         <NavLinks onNavigate={close} />
       </SheetContent>
     </Sheet>
