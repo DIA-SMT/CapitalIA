@@ -13,6 +13,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PersonasDelPuesto } from "@/features/personas/components/personas-del-puesto";
+import {
+  listarPersonasDePuesto,
+  listarPersonasSinPuesto,
+} from "@/features/personas/data/personas";
 import { HistorialPuesto } from "@/features/puestos/components/historial-puesto";
 import {
   obtenerHistorial,
@@ -81,7 +86,12 @@ function ListaItems({ items }: { items: ItemFicha[] }) {
 
 export default async function PuestoPage({ params }: Props) {
   const { id } = await params;
-  const [p, historial] = await Promise.all([obtenerPuesto(id), obtenerHistorial(id)]);
+  const [p, historial, personas, disponibles] = await Promise.all([
+    obtenerPuesto(id),
+    obtenerHistorial(id),
+    listarPersonasDePuesto(id),
+    listarPersonasSinPuesto(),
+  ]);
   if (!p) notFound();
 
   return (
@@ -211,6 +221,12 @@ export default async function PuestoPage({ params }: Props) {
         </div>
 
         <div className="space-y-6">
+          <PersonasDelPuesto
+            positionId={p.id}
+            personas={personas}
+            disponibles={disponibles}
+          />
+
           {historial.length > 0 && <HistorialPuesto versiones={historial} />}
 
           <Card>
