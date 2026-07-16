@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, BadgeCheck, CircleAlert, FileText } from "lucide-react";
+import { ArrowLeft, BadgeCheck, CircleAlert, FileText, Pencil } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
@@ -87,10 +87,16 @@ export default async function PuestoPage({ params }: Props) {
           p.area ? ` · ${p.area}` : p.nivel ? ` · Nivel ${p.nivel}` : ""
         }`}
         action={
-          <Button variant="outline" render={<Link href="/puestos" />}>
-            <ArrowLeft className="h-4 w-4" aria-hidden />
-            Volver al nomenclador
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" render={<Link href="/puestos" />}>
+              <ArrowLeft className="h-4 w-4" aria-hidden />
+              Volver
+            </Button>
+            <Button render={<Link href={`/puestos/${p.id}/editar`} />}>
+              <Pencil className="h-4 w-4" aria-hidden />
+              Editar
+            </Button>
+          </div>
         }
       />
 

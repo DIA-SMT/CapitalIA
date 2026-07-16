@@ -2,6 +2,7 @@ import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
+import type { PuestoFormValues } from "../schemas/puesto";
 
 /**
  * Acceso a datos de puestos. Solo servidor: las consultas corren con la sesión
@@ -270,5 +271,102 @@ export async function obtenerPuesto(id: string): Promise<PuestoDetalle | null> {
           verificacion: ref.verification_status,
         }
       : null,
+  };
+}
+
+export type PuestoParaEditar = {
+  internalCode: string;
+  nombre: string;
+  versionNumero: number;
+  valores: PuestoFormValues;
+};
+
+/**
+ * La versión vigente en la forma que espera el formulario, para precargarlo.
+ *
+ * Reusa `obtenerPuesto` en vez de una consulta propia: la ficha ya trae todo lo
+ * necesario. Falta solo resolver los ids de los catálogos, que la ficha no
+ * expone porque para mostrar alcanza con el nombre.
+ *
+ * `change_reason` va vacío a propósito: es del cambio que se está por hacer, no
+ * del anterior.
+ */
+export async function obtenerPuestoParaEditar(
+  id: string,
+): Promise<PuestoParaEditar | null> {
+  if (!isSupabaseConfigured()) return null;
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("positions")
+    .select(
+      `internal_code,
+       current_version:position_versions!positions_current_version_fk (
+         version_number, name, variant, grouping_id, level_id, technical_area_id,
+         general_description, specific_description,
+         minimum_education, required_title, minimum_experience,
+         physical_requirement, working_conditions,
+         risk_level_id, risk_level_raw, additional_notes,
+         position_version_competencies ( competency_id, raw_text, sort_order ),
+         position_version_risks ( risk_id, raw_text, sort_order ),
+         position_version_responsibilities ( responsibility_id, raw_text, sort_order ),
+         position_version_knowledge ( knowledge_item_id, raw_text, sort_order )
+       )`,
+    )
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("[puestos] obtenerPuestoParaEditar:", error.message);
+    throw new Error(error.message);
+  }
+  if (!data) return null;
+
+  type Fila = {
+    internal_code: string;
+    current_version: (Record<string, unknown> & { version_number: number }) | null;
+  };
+  const fila = data as unknown as Fila;
+  const v = fila.current_version;
+  if (!v) return null;
+
+  const items = (filas: unknown, fk: string) =>
+    [...((filas ?? []) as Record<string, unknown>[])]
+      .sort((a, b) => (a.sort_order as number) - (b.sort_order as number))
+      .map((f) => ({
+        id: f[fk] as string,
+        raw_text: (f.raw_text as string | null) ?? undefined,
+      }));
+
+  const texto = (k: string) => (v[k] as string | null) ?? undefined;
+
+  return {
+    internalCode: fila.internal_code,
+    nombre: v.name as string,
+    versionNumero: v.version_number,
+    valores: {
+      name: v.name as string,
+      variant: texto("variant"),
+      grouping_id: v.grouping_id as string,
+      level_id: (v.level_id as string | null) ?? undefined,
+      technical_area_id: (v.technical_area_id as string | null) ?? undefined,
+      general_description: texto("general_description"),
+      specific_description: texto("specific_description"),
+      minimum_education: texto("minimum_education"),
+      required_title: texto("required_title"),
+      minimum_experience: texto("minimum_experience"),
+      physical_requirement: texto("physical_requirement"),
+      working_conditions: texto("working_conditions"),
+      risk_level_id: (v.risk_level_id as string | null) ?? undefined,
+      risk_level_raw: texto("risk_level_raw"),
+      additional_notes: texto("additional_notes"),
+      competencias: items(v.position_version_competencies, "competency_id"),
+      riesgos: items(v.position_version_risks, "risk_id"),
+      responsabilidades: items(v.position_version_responsibilities, "responsibility_id"),
+      conocimientos: items(v.position_version_knowledge, "knowledge_item_id"),
+      change_reason: "",
+      change_document_reference: undefined,
+    },
   };
 }

@@ -1,4 +1,5 @@
 import {
+  FilePlus2,
   FileStack,
   FolderOpen,
   LayoutDashboard,
@@ -15,16 +16,11 @@ export type NavItem = {
   exact?: boolean;
 };
 
-/**
- * Navegación principal del layout privado.
- *
- * "Nuevo puesto" se saca hasta que el formulario exista (Etapa 5): llevaba a una
- * pantalla "en preparación", y ofrecer una acción que no hace nada es peor que
- * no ofrecerla. La ruta sigue existiendo, solo no se enlaza.
- */
+/** Navegación principal del layout privado. */
 export const NAV_ITEMS: NavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Nomenclador", href: "/puestos", icon: FileStack, exact: true },
+  { title: "Nuevo puesto", href: "/puestos/nuevo", icon: FilePlus2 },
   { title: "Catálogos", href: "/catalogos", icon: Library },
   { title: "Documentos", href: "/documentos", icon: FolderOpen },
   { title: "Configuración", href: "/configuracion", icon: Settings },
