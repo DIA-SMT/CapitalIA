@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Library,
   Settings,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,6 +22,7 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Nomenclador", href: "/puestos", icon: FileStack, exact: true },
   { title: "Nuevo puesto", href: "/puestos/nuevo", icon: FilePlus2 },
+  { title: "Personas", href: "/personas", icon: Users },
   { title: "Catálogos", href: "/catalogos", icon: Library },
   { title: "Documentos", href: "/documentos", icon: FolderOpen },
   { title: "Configuración", href: "/configuracion", icon: Settings },
@@ -31,6 +33,8 @@ export const ROUTE_LABELS: Record<string, string> = {
   dashboard: "Dashboard",
   puestos: "Nomenclador",
   nuevo: "Nuevo puesto",
+  editar: "Editar",
+  personas: "Personas",
   catalogos: "Catálogos",
   documentos: "Documentos",
   configuracion: "Configuración",
