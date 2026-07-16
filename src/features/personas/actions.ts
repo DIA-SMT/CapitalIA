@@ -1,43 +1,20 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
+import { asignacionSchema, personaSchema } from "./schemas/persona";
 
 /**
  * Alta de personas y asignación a puestos.
  *
  * Igual que en puestos: la validación se repite en el servidor y el trabajo que
  * toca varias tablas lo hacen funciones de Postgres (migración 0008).
+ *
+ * Los esquemas viven en schemas/persona.ts: este archivo tiene "use server" y
+ * solo puede exportar funciones async.
  */
-
-export const personaSchema = z.object({
-  legajo: z.string().trim().min(1, "El legajo es obligatorio").max(30),
-  full_name: z.string().trim().min(3, "El nombre es obligatorio").max(200),
-  email: z
-    .union([z.email("Email inválido"), z.literal("")])
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-  area: z
-    .string()
-    .trim()
-    .max(200)
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-});
-
-export const asignacionSchema = z.object({
-  persona_id: z.uuid("Elegí una persona"),
-  desde: z.iso.date().optional(),
-  notas: z
-    .string()
-    .trim()
-    .max(500)
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
-});
 
 export type ResultadoPersona = { error: string } | { ok: true };
 
@@ -52,7 +29,14 @@ function mensaje(e: { code?: string; message: string }): string {
   return "No se pudo guardar. Intentá de nuevo.";
 }
 
-/** Da de alta una persona. Sin asignar a ningún puesto todavía. */
+/**
+ * Da de alta una persona y, si se indicó puesto, la asigna.
+ *
+ * Son dos operaciones y no una transacción: si el alta sale y la asignación
+ * falla, la persona queda cargada sin puesto y se avisa. Es recuperable (se
+ * asigna después desde la ficha) y evita una función de base más para un caso
+ * que no rompe nada.
+ */
 export async function crearPersona(values: unknown): Promise<ResultadoPersona> {
   if (!isSupabaseConfigured()) return { error: SIN_CONFIG };
 
@@ -62,14 +46,34 @@ export async function crearPersona(values: unknown): Promise<ResultadoPersona> {
   }
 
   const supabase = await createClient();
-  const { error } = await supabase.from("personas").insert({
-    legajo: parsed.data.legajo,
-    full_name: parsed.data.full_name,
-    email: parsed.data.email ?? null,
-    area: parsed.data.area ?? null,
-  });
+  const { data, error } = await supabase
+    .from("personas")
+    .insert({
+      legajo: parsed.data.legajo,
+      full_name: parsed.data.full_name,
+      email: parsed.data.email ?? null,
+      area: parsed.data.area ?? null,
+    })
+    .select("id")
+    .single();
 
   if (error) return { error: mensaje(error) };
+
+  if (parsed.data.position_id) {
+    const { error: errorAsig } = await supabase.rpc("asignar_persona", {
+      p_persona_id: data.id,
+      p_position_id: parsed.data.position_id,
+      p_desde: new Date().toISOString().slice(0, 10),
+      p_notas: null,
+    });
+    if (errorAsig) {
+      revalidatePath("/personas");
+      return {
+        error: `Se cargó la persona, pero no se pudo asignar al puesto: ${mensaje(errorAsig)} Asignala desde la ficha del puesto.`,
+      };
+    }
+    revalidatePath(`/puestos/${parsed.data.position_id}`);
+  }
 
   revalidatePath("/personas");
   return { ok: true };

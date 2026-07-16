@@ -26,7 +26,16 @@ export type PuestoListado = {
   estado: string;
   paginaImpresa: number | null;
   verificacion: string | null;
+  /**
+   * Índice de búsqueda: todo el texto de la ficha, ya normalizado (minúsculas,
+   * sin tildes). No es para mostrar, solo para buscar. Permite encontrar por
+   * contenido —"vehiculos", "caidas", "secundario"— y no solo por nombre.
+   */
+  buscable: string;
 };
+
+/** Fila de tabla puente que solo trae el nombre del catálogo, para el índice. */
+type PuenteNombre<K extends string> = Record<K, { name: string } | null>;
 
 /** Forma cruda que devuelve PostgREST para la consulta de abajo. */
 type FilaCruda = {
@@ -37,20 +46,46 @@ type FilaCruda = {
     name: string;
     variant: string | null;
     risk_level_raw: string | null;
+    general_description: string | null;
+    specific_description: string | null;
+    minimum_education: string | null;
+    required_title: string | null;
+    minimum_experience: string | null;
+    physical_requirement: string | null;
+    working_conditions: string | null;
     groupings: { name: string } | null;
     levels: { code: string } | null;
     technical_areas: { name: string } | null;
     risk_levels: { name: string } | null;
+    position_version_competencies: PuenteNombre<"competencies">[];
+    position_version_risks: PuenteNombre<"risks">[];
+    position_version_responsibilities: PuenteNombre<"responsibilities">[];
+    position_version_knowledge: PuenteNombre<"knowledge_items">[];
     source_references: { printed_page_number: number | null; verification_status: string }[];
   } | null;
 };
+
+/** Minúsculas y sin tildes: "MECÁNICO" y "mecanico" tienen que coincidir. */
+function normalizar(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 /**
  * Trae los puestos con su versión vigente para el listado.
  *
  * Una sola consulta con embeds en lugar de N+1: PostgREST resuelve los joins
- * contra `positions.current_version_id`. Son ~210 filas, así que se traen todas
- * y el filtrado/orden se hace en el cliente (criterio del roadmap para el MVP).
+ * contra `positions.current_version_id`. Son ~210 filas y se traen todas: el
+ * filtrado y el orden se hacen en el cliente, como fija architecture.md para el
+ * MVP.
+ *
+ * El payload ronda los 230 KB (~40 KB gzipeado) porque incluye el texto completo
+ * de cada ficha para poder buscar por contenido. Si el nomenclador crece mucho,
+ * el criterio del mismo documento es migrar el filtrado al servidor.
  */
 export async function listarPuestos(): Promise<PuestoListado[]> {
   if (!isSupabaseConfigured()) return [];
@@ -63,10 +98,17 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
       `id, internal_code, status,
        current_version:position_versions!positions_current_version_fk (
          name, variant, risk_level_raw,
+         general_description, specific_description,
+         minimum_education, required_title, minimum_experience,
+         physical_requirement, working_conditions,
          groupings ( name ),
          levels ( code ),
          technical_areas ( name ),
          risk_levels ( name ),
+         position_version_competencies ( competencies ( name ) ),
+         position_version_risks ( risks ( name ) ),
+         position_version_responsibilities ( responsibilities ( name ) ),
+         position_version_knowledge ( knowledge_items ( name ) ),
          source_references ( printed_page_number, verification_status )
        )`,
     )
@@ -82,6 +124,37 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
   return ((data ?? []) as unknown as FilaCruda[]).map((fila) => {
     const v = fila.current_version;
     const ref = v?.source_references?.[0];
+
+    const nombresDe = <K extends string>(filas: PuenteNombre<K>[] | undefined, k: K) =>
+      (filas ?? []).map((f) => f[k]?.name ?? "").filter(Boolean);
+
+    // Todo lo que se pueda buscar, en un solo string ya normalizado. Se arma acá
+    // y no en el cliente para no normalizar 210 fichas en cada tecla.
+    const buscable = normalizar(
+      [
+        v?.name,
+        fila.internal_code,
+        v?.variant,
+        v?.groupings?.name,
+        v?.levels?.code,
+        v?.technical_areas?.name,
+        v?.general_description,
+        v?.specific_description,
+        v?.minimum_education,
+        v?.required_title,
+        v?.minimum_experience,
+        v?.physical_requirement,
+        v?.working_conditions,
+        v?.risk_levels?.name,
+        ...nombresDe(v?.position_version_competencies, "competencies"),
+        ...nombresDe(v?.position_version_risks, "risks"),
+        ...nombresDe(v?.position_version_responsibilities, "responsibilities"),
+        ...nombresDe(v?.position_version_knowledge, "knowledge_items"),
+      ]
+        .filter(Boolean)
+        .join(" "),
+    );
+
     return {
       id: fila.id,
       internalCode: fila.internal_code,
@@ -95,8 +168,58 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
       estado: fila.status,
       paginaImpresa: ref?.printed_page_number ?? null,
       verificacion: ref?.verification_status ?? null,
+      buscable,
     };
   });
+}
+
+export type PuestoOpcion = {
+  id: string;
+  internalCode: string;
+  nombre: string;
+  agrupamiento: string;
+};
+
+/**
+ * Los puestos vigentes en su forma mínima, para selectores.
+ *
+ * Existe aparte de `listarPuestos` a propósito: aquella trae el índice de
+ * búsqueda de las 210 fichas (~190 KB) y acá solo hacen falta el id y el nombre.
+ */
+export async function listarPuestosParaSelector(): Promise<PuestoOpcion[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("positions")
+    .select(
+      `id, internal_code,
+       current_version:position_versions!positions_current_version_fk (
+         name, groupings ( name )
+       )`,
+    )
+    .neq("status", "archived")
+    .order("internal_code");
+
+  if (error) {
+    console.error("[puestos] listarPuestosParaSelector:", error.message);
+    return [];
+  }
+
+  type Fila = {
+    id: string;
+    internal_code: string;
+    current_version: { name: string; groupings: { name: string } | null } | null;
+  };
+
+  return ((data ?? []) as unknown as Fila[])
+    .filter((f) => f.current_version)
+    .map((f) => ({
+      id: f.id,
+      internalCode: f.internal_code,
+      nombre: f.current_version!.name,
+      agrupamiento: f.current_version!.groupings?.name ?? "—",
+    }));
 }
 
 /** Un ítem de catálogo tal como se muestra en la ficha. */

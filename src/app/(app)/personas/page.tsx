@@ -14,11 +14,15 @@ import {
 } from "@/components/ui/table";
 import { AltaPersona } from "@/features/personas/components/alta-persona";
 import { listarPersonas } from "@/features/personas/data/personas";
+import { listarPuestosParaSelector } from "@/features/puestos/data/puestos";
 
 export const metadata: Metadata = { title: "Personas" };
 
 export default async function PersonasPage() {
-  const personas = await listarPersonas();
+  const [personas, puestos] = await Promise.all([
+    listarPersonas(),
+    listarPuestosParaSelector(),
+  ]);
   const sinPuesto = personas.filter((p) => !p.puesto && p.activa).length;
 
   return (
@@ -26,13 +30,13 @@ export default async function PersonasPage() {
       <PageHeader
         title="Personas"
         description="Empleados municipales y el puesto que ocupan."
-        action={<AltaPersona />}
+        action={<AltaPersona puestos={puestos} />}
       />
 
       {personas.length === 0 ? (
         <EmptyState
           title="Sin personas cargadas"
-          description="Cargá una persona y después asignala a su puesto desde la ficha del puesto."
+          description="Cargá la primera persona con el botón de arriba. Podés indicar su puesto en el mismo paso."
         />
       ) : (
         <>
@@ -88,7 +92,9 @@ export default async function PersonasPage() {
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground">
-            Para asignar una persona a un puesto, entrá a la ficha del puesto.
+            Para cambiar de puesto a alguien que ya está cargado, entrá a la ficha del
+            puesto nuevo y asignala ahí: la asignación anterior se cierra sola y queda
+            en el historial.
           </p>
         </>
       )}

@@ -6,21 +6,34 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
-import type { z } from "zod";
 
-import { crearPersona, personaSchema } from "../actions";
+import { crearPersona } from "../actions";
+import { personaSchema, type PersonaFormValues } from "../schemas/persona";
+import type { PuestoOpcion } from "@/features/puestos/data/puestos";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-type Valores = z.input<typeof personaSchema>;
+type Valores = PersonaFormValues;
 
-/** Alta de una persona. No la asigna a ningún puesto: eso se hace desde la ficha. */
-export function AltaPersona() {
+/**
+ * Alta de una persona, con su puesto en el mismo paso.
+ *
+ * El puesto es opcional: se puede cargar a alguien sin asignar y hacerlo después
+ * desde la ficha del puesto. Pero el caso normal es saber a qué puesto va, y
+ * obligar a ir a otra pantalla para eso no tenía sentido.
+ */
+export function AltaPersona({ puestos }: { puestos: PuestoOpcion[] }) {
   const router = useRouter();
   const [abierto, setAbierto] = useState(false);
   const [pendiente, startTransition] = useTransition();
+
+  // Agrupados para que el desplegable de 210 opciones sea navegable.
+  const porAgrupamiento = puestos.reduce<Record<string, PuestoOpcion[]>>((acc, p) => {
+    (acc[p.agrupamiento] ??= []).push(p);
+    return acc;
+  }, {});
 
   const {
     register,
@@ -88,6 +101,29 @@ export function AltaPersona() {
               {errors.email && (
                 <p className="text-xs text-destructive">{errors.email.message}</p>
               )}
+            </div>
+
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label htmlFor="position_id">Puesto que ocupa</Label>
+              <select
+                id="position_id"
+                className="flex h-9 w-full rounded-md border border-border bg-transparent px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                {...register("position_id")}
+              >
+                <option value="">Sin asignar por ahora</option>
+                {Object.entries(porAgrupamiento).map(([agr, lista]) => (
+                  <optgroup key={agr} label={agr}>
+                    {lista.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.nombre} ({p.internalCode})
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">
+                Se puede dejar sin asignar y hacerlo después desde la ficha del puesto.
+              </p>
             </div>
           </div>
           <div className="flex justify-end gap-2">
