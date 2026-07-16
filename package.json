@@ -8,10 +8,10 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "db:types": "supabase gen types typescript --project-id \"$SUPABASE_PROJECT_ID\" --schema public > src/lib/types/database.types.ts",
-    "db:types:local": "supabase gen types typescript --local --schema public > src/lib/types/database.types.ts",
-    "db:push": "supabase db push",
-    "db:reset": "supabase db reset"
+    "db:types": "npx supabase gen types typescript --project-id \"$SUPABASE_PROJECT_ID\" --schema public > src/lib/types/database.types.ts",
+    "db:types:local": "npx supabase gen types typescript --local --schema public > src/lib/types/database.types.ts",
+    "db:push": "npx supabase db push",
+    "db:reset": "npx supabase db reset"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
