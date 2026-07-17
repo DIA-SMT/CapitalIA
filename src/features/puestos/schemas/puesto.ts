@@ -12,6 +12,20 @@ const textoOpcional = z
   .optional()
   .transform((v) => (v === "" ? undefined : v));
 
+/**
+ * UUID de un `<select>` opcional.
+ *
+ * Un select sin elegir devuelve `""`, no `undefined`, y `z.uuid().optional()`
+ * rechaza el string vacío con "Invalid UUID" —en inglés y sin sentido para quien
+ * solo dejó el campo en blanco—. Peor: en los campos sin cartel de error visible,
+ * el formulario no se enviaba y no se mostraba nada.
+ */
+const uuidOpcional = (mensaje: string) =>
+  z
+    .union([z.literal(""), z.uuid(mensaje)])
+    .optional()
+    .transform((v) => (v === "" ? undefined : v));
+
 /** Un ítem de catálogo elegido en el formulario. */
 export const itemSchema = z.object({
   id: z.uuid("Ítem de catálogo inválido"),
@@ -39,8 +53,8 @@ export const puestoSchema = z
 
     // --- Clasificación
     grouping_id: z.uuid("Elegí un agrupamiento"),
-    level_id: z.uuid().optional(),
-    technical_area_id: z.uuid().optional(),
+    level_id: uuidOpcional("Nivel inválido"),
+    technical_area_id: uuidOpcional("Área técnica inválida"),
 
     // --- Descripción
     general_description: textoOpcional,
@@ -56,7 +70,7 @@ export const puestoSchema = z
     working_conditions: textoOpcional,
 
     // --- Riesgo
-    risk_level_id: z.uuid().optional(),
+    risk_level_id: uuidOpcional("Nivel de riesgo inválido"),
     risk_level_raw: z.string().trim().max(200).optional(),
 
     // --- Catálogos
@@ -81,8 +95,11 @@ export const puestoSchema = z
   })
   // La ficha usa Nivel o Área según el agrupamiento, nunca las dos. El esquema lo
   // permite (ambas columnas son nullable), así que la regla se valida acá.
+  //
+  // El mensaje no aclara "pero no las dos" porque el formulario muestra un campo o
+  // el otro según el agrupamiento: quien lo lea dejó el campo vacío, no eligió dos.
   .refine((d) => Boolean(d.level_id) !== Boolean(d.technical_area_id), {
-    message: "Indicá un nivel o un área técnica, pero no las dos",
+    message: "Elegí el nivel o el área técnica del puesto",
     path: ["level_id"],
   });
 
