@@ -117,7 +117,9 @@ Objetivo: mantener el nomenclador vivo sin perder historia.
       `historical` y se conserva. Motivo del cambio obligatorio, validado en la
       base.
 - [x] **Baja lógica** (`archivar_puesto` / `restaurar_puesto`). No borra: el
-      trigger `prevent_delete` lo impide a propósito.
+      trigger `prevent_delete` lo impide a propósito. *La interfaz se agregó el
+      17/07: hasta entonces las acciones existían pero ningún componente las
+      llamaba, así que no se podía archivar desde la app.*
 - [x] Historial en la ficha: quién, cuándo, por qué y qué campos cambiaron.
 - [x] Las mutaciones que tocan varias tablas van en funciones de Postgres, en una
       transacción. Ver `CONTEXT.md` §3 para el motivo.
@@ -144,6 +146,26 @@ a pedido, **acotado a dotación**.
 
 ---
 
+## Etapa 5.6 — Bitácora ✅
+
+Fuera del roadmap original. `audit_logs` se escribía desde la Etapa 2 y no la leía
+nadie.
+
+- [x] `/auditoria`: línea de tiempo de todo lo que se hizo, con autor, fecha y
+      motivo. Filtros por tipo, acción y origen, persistidos en la URL.
+- [x] Contadores de cuánto se apartó el nomenclador del papel de 2016.
+- [x] Filtros y paginación del lado del servidor: la tabla crece sin techo.
+- [x] **Descarga en CSV** (`/api/auditoria/csv`) con los filtros puestos, para
+      archivar el registro fuera del sistema. Abre en Excel en español (BOM +
+      separador `;`) y neutraliza la inyección de fórmulas.
+- [x] Distinción honesta entre la ingesta original y lo hecho por SQL directo.
+      Ver `CONTEXT.md` §3.
+- [ ] Agrupar los eventos que son parte de una misma acción (crear una versión
+      deja dos líneas).
+- **Salida:** ✅ trazabilidad legible de las altas, bajas y cambios.
+
+---
+
 ## Etapa 6 — Comparación y detección de similares
 
 Objetivo: herramientas analíticas sobre el nomenclador.
@@ -155,14 +177,17 @@ Objetivo: herramientas analíticas sobre el nomenclador.
 
 ---
 
-## Etapa 7 — Consulta en lenguaje natural (IA)
+## Etapa 7 — Consulta en lenguaje natural (IA) ✅
 
 Objetivo: preguntar al nomenclador en español.
 
-- [ ] Búsqueda semántica con `pgvector` (embeddings de fichas).
-- [ ] Interfaz conversacional que responde citando puestos/fuentes.
-- [ ] Salvaguardas de alcance (solo puestos; nunca personas ni decisiones).
-- **Salida:** consulta en lenguaje natural con respuestas trazables.
+- [x] Interfaz conversacional que responde citando puesto y página impresa.
+- [x] Salvaguardas de alcance (solo puestos; nunca personas ni decisiones).
+- [x] **Sin `pgvector` ni embeddings**, contra lo que decía el plan: las 210 fichas
+      entran enteras en el contexto del modelo (~61k tokens), así que se le pasan
+      completas y no hay chunk que se pierda. El nomenclador va con
+      `cache_control` para no pagarlo en cada pregunta.
+- **Salida:** ✅ consulta en lenguaje natural con respuestas trazables.
 
 ---
 
