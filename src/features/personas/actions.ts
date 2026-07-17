@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
+import { hoy } from "@/lib/fechas";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
 import { asignacionSchema, personaSchema } from "./schemas/persona";
@@ -63,7 +64,7 @@ export async function crearPersona(values: unknown): Promise<ResultadoPersona> {
     const { error: errorAsig } = await supabase.rpc("asignar_persona", {
       p_persona_id: data.id,
       p_position_id: parsed.data.position_id,
-      p_desde: new Date().toISOString().slice(0, 10),
+      p_desde: hoy(),
       p_notas: null,
     });
     if (errorAsig) {
@@ -98,7 +99,7 @@ export async function asignarPersona(
   const { error } = await supabase.rpc("asignar_persona", {
     p_persona_id: parsed.data.persona_id,
     p_position_id: positionId,
-    p_desde: parsed.data.desde ?? new Date().toISOString().slice(0, 10),
+    p_desde: parsed.data.desde ?? hoy(),
     p_notas: parsed.data.notas ?? null,
   });
 
@@ -119,7 +120,7 @@ export async function desasignarPersona(
   const supabase = await createClient();
   const { error } = await supabase.rpc("desasignar_persona", {
     p_persona_id: personaId,
-    p_hasta: new Date().toISOString().slice(0, 10),
+    p_hasta: hoy(),
   });
 
   if (error) return { error: mensaje(error) };

@@ -30,8 +30,14 @@ export default async function PersonasPage() {
       <PageHeader
         title="Personas"
         description="Empleados municipales y el puesto que ocupan."
-        action={<AltaPersona puestos={puestos} />}
       />
+
+      {/* Fuera del `action` del PageHeader a propósito: ahí vive en un `shrink-0`
+          que no deja achicar el panel, y el desplegable de 210 puestos lo estiraba
+          hasta sacarle scroll horizontal a la página entera. */}
+      <div className="mb-6">
+        <AltaPersona puestos={puestos} />
+      </div>
 
       {personas.length === 0 ? (
         <EmptyState
