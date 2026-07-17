@@ -355,7 +355,9 @@ export function FormularioPuesto({
       )}
 
       <div className="fixed inset-x-0 bottom-0 border-t border-border bg-background/95 p-4 backdrop-blur md:pl-64">
-        <div className="mx-auto flex max-w-5xl items-center justify-end gap-3">
+        {/* `pr-20` deja libre la esquina donde flota el asistente: sin eso el botón
+            redondo queda encima de "Crear puesto" y se roba el click. */}
+        <div className="mx-auto flex max-w-5xl items-center justify-end gap-3 pr-20">
           <Button
             type="button"
             variant="outline"
