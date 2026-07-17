@@ -7,6 +7,7 @@ import { UserMinus, UserPlus, Users } from "lucide-react";
 
 import type { PersonaEnPuesto } from "../data/personas";
 import { asignarPersona, desasignarPersona } from "../actions";
+import { formatearFecha } from "@/lib/fechas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,12 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-const FMT = new Intl.DateTimeFormat("es-AR", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
 
 type Props = {
   positionId: string;
@@ -155,7 +150,7 @@ export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) 
                   <p className="truncate text-sm font-medium">{p.nombre}</p>
                   <p className="text-xs text-muted-foreground">
                     Legajo {p.legajo}
-                    {p.area && ` · ${p.area}`} · desde {FMT.format(new Date(p.desde))}
+                    {p.area && ` · ${p.area}`} · desde {formatearFecha(p.desde)}
                   </p>
                 </div>
                 <Button
@@ -182,7 +177,7 @@ export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) 
                 <li key={p.id} className="flex items-center gap-2 text-sm">
                   <span className="text-muted-foreground">{p.nombre}</span>
                   <Badge variant="outline" className="text-[10px]">
-                    {FMT.format(new Date(p.desde))} – {FMT.format(new Date(p.hasta!))}
+                    {formatearFecha(p.desde)} – {formatearFecha(p.hasta!)}
                   </Badge>
                 </li>
               ))}

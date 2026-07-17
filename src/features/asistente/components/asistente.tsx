@@ -89,9 +89,12 @@ export function Asistente() {
 
   if (!abierto) {
     return (
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
+      // `pointer-events-none` en el contenedor y `auto` en los hijos: si no, la
+      // caja del flex —el hueco del gap y todo el ancho del aviso— se come los
+      // clicks de lo que haya debajo. Se comía el botón "Crear puesto".
+      <div className="pointer-events-none fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
         {avisoVisible && (
-          <div className="relative max-w-56 rounded-xl rounded-br-sm border border-border bg-card px-3 py-2 pr-8 shadow-lg">
+          <div className="pointer-events-auto relative max-w-56 rounded-xl rounded-br-sm border border-border bg-card px-3 py-2 pr-8 shadow-lg">
             <p className="text-xs leading-relaxed text-foreground">
               Preguntá lo que quieras sobre el nomenclador
             </p>
@@ -112,7 +115,7 @@ export function Asistente() {
             setAbierto(true);
             ocultarAviso();
           }}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           aria-label="Preguntar sobre el nomenclador"
         >
           <MessageCircleQuestion className="h-6 w-6" aria-hidden />

@@ -45,3 +45,6 @@ next-env.d.ts
 # supabase (artefactos locales de la CLI)
 supabase/.temp/
 supabase/.branches/
+
+# configuración local de herramientas de asistencia (no es del proyecto)
+.claude/

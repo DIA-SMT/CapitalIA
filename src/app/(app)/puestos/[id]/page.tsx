@@ -18,6 +18,7 @@ import {
   listarPersonasDePuesto,
   listarPersonasSinPuesto,
 } from "@/features/personas/data/personas";
+import { BajaPuesto } from "@/features/puestos/components/baja-puesto";
 import { HistorialPuesto } from "@/features/puestos/components/historial-puesto";
 import {
   obtenerHistorial,
@@ -107,6 +108,7 @@ export default async function PuestoPage({ params }: Props) {
               <ArrowLeft className="h-4 w-4" aria-hidden />
               Volver
             </Button>
+            <BajaPuesto positionId={p.id} estado={p.estado} />
             <Button render={<Link href={`/puestos/${p.id}/editar`} />}>
               <Pencil className="h-4 w-4" aria-hidden />
               Editar
@@ -116,6 +118,7 @@ export default async function PuestoPage({ params }: Props) {
       />
 
       <div className="mb-6 flex flex-wrap items-center gap-2">
+        {p.estado === "archived" && <Badge variant="destructive">Archivado</Badge>}
         {p.variante && <Badge variant="outline">Variante {p.variante}</Badge>}
         {p.esFuenteHistorica && (
           <Badge variant="secondary">Ficha histórica 2016</Badge>

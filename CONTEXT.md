@@ -29,12 +29,29 @@ Los otros documentos siguen valiendo y son más específicos:
 | 4 · Consulta y filtrado | ✅ listado + ficha + historial |
 | 5 · Edición: versiones, altas y bajas | ✅ |
 | — · Dotación (personas ↔ puestos) | ✅ *fuera del roadmap original, ver §4* |
+| — · Bitácora (`/auditoria`) | ✅ *lee `audit_logs`, que antes nadie leía* |
 | 6 · Comparar y detectar similares | ❌ |
-| 7 · Consulta en lenguaje natural | ❌ |
+| 7 · Consulta en lenguaje natural | ✅ *asistente sobre el nomenclador completo* |
 | 8 · Pulido y despliegue | ⚠️ desplegado, sin pulido final |
 
 En la base: **210 puestos**, 210 versiones vigentes, ~2.163 filas de puente,
-210 referencias documentales, 640+ registros de auditoría.
+210 referencias documentales, 641 registros de auditoría.
+
+**Ojo con lo que esos números no dicen:** `personas` y `asignaciones` están en
+**cero filas**. La dotación compila y está desplegada pero **nunca se ejercitó con
+datos reales**.
+
+El 17/07 se probaron los dos circuitos de punta a punta y quedaron **datos de
+prueba en producción**, todos prefijados con `ZZZ` a propósito:
+
+| Qué | Dónde | Estado |
+|---|---|---|
+| `ZZZ PRUEBA TECNICA - NO USAR` (`SG-I-0008`) | `positions` | archivado |
+| `ZZZ PRUEBA TECNICA - NO ES UNA PERSONA REAL` (leg. `TEST-0001`) | `personas` | asignada a ORDENANZA |
+
+El puesto **no se puede borrar** (`prevent_delete`): es el rastro de la prueba. Por
+eso hay 211 `positions` y 212 `position_versions` mientras el listado muestra 210.
+La persona sí se puede borrar, pero no hay UI para hacerlo.
 
 **Migraciones aplicadas:** de la `0001` a la `0008`.
 
@@ -120,6 +137,26 @@ entradas del catálogo y se agregó `risk_level_raw` con el literal impreso.
 Así nada se pierde y **la decisión sigue abierta**. Si se retoma, hablarlo con el
 autor del esquema.
 
+### Qué significa `actor_id` nulo en `audit_logs` (y qué NO significa)
+
+Nulo quiere decir **"se hizo sin sesión"**, no "es de 2016". La bitácora
+(`/auditoria`) se apoya en eso para separar lo hecho desde la app de lo demás, y
+el filtro por defecto muestra solo lo primero.
+
+La tentación es leerlo como "carga original", y es incorrecto: entre los 641
+registros sin autor está el **borrado del puesto duplicado** (COPISTA
+HELIOGRAFICO / `TEC-CON-0011`), que no es parte del original sino una corrección
+hecha por SQL directo. También los 6 updates de versiones, que son la migración
+`0006`.
+
+Por eso solo se rotula "Carga inicial del nomenclador" al **alta** de una versión
+con `is_historical_source = true`. Cualquier otra acción sin autor dice "Sin
+sesión (script o SQL directo)".
+
+**Consecuencia operativa:** todo lo que se toque desde el SQL Editor queda
+registrado pero sin autor, así que no aparece en la vista por defecto. Si se
+quiere trazabilidad real, los cambios van por la app.
+
 ### Por qué las tablas puente tienen `raw_text`
 
 Al canonizar se pierden **32 variantes de escritura en competencias y 50 en
@@ -157,6 +194,51 @@ Hoy es tolerable porque el acceso son **2 personas de Capital Humano**, que ya
 manejan datos de personal por su trabajo. **El día que entre un tercer usuario
 que no debería editar, o que no debería ver personal, hay que armar roles
 primero.** No es opcional a partir de ahí.
+
+### Que compile no significa que funcione
+
+El 17/07 se probó por primera vez el botón "Crear puesto", cinco meses después de
+escrito. **No andaba.** Aparecieron cuatro defectos, y `typecheck`, `lint` y
+`build` estaban en verde con los cuatro:
+
+1. **El asistente se comía el click.** Su contenedor
+   (`fixed bottom-5 right-5 z-40`) captura los clicks de toda su caja, incluido el
+   espacio vacío, y tapaba el botón. Era un rectángulo muerto en la esquina de
+   **todas** las pantallas. Se arregló con `pointer-events-none` en el contenedor
+   y `auto` en los hijos.
+2. **El botón redondo se superponía** con "Crear puesto". La barra del formulario
+   ahora le cede la esquina (`pr-20`).
+3. **Los `<select>` vacíos mandan `""`, no `undefined`**, y `z.uuid().optional()`
+   los rechazaba con "Invalid UUID". En `risk_level_id` no hay cartel de error, así
+   que dejar "Sin especificar" hacía que el botón "no hiciera nada" sin explicar
+   por qué. Se arregló con el helper `uuidOpcional` en el esquema.
+4. **Archivar no tenía interfaz.** `archivarPuesto` y `restaurarPuesto` existían
+   desde la Etapa 5 y **ningún componente las importaba**: no había forma de dar de
+   baja un puesto desde la app, aunque el roadmap la marcaba como hecha. Se agregó
+   `baja-puesto.tsx`.
+
+Después se probó **personas** por primera vez, que estaba igual: escrita,
+compilando, desplegada y nunca ejecutada. Cuatro defectos más:
+
+5. **El formulario de alta rompía la página.** Se renderizaba dentro del `action`
+   del `PageHeader`, que es un `shrink-0`; con el desplegable de 210 puestos exigía
+   733 px en un viewport de 722 y le sacaba scroll horizontal al documento. Ahora
+   va fuera del encabezado. *(Mismo error que el panel de baja: **no metan paneles
+   en `action`**, ese contenedor no se achica.)*
+6. **Las fechas se mostraban un día antes.** `valid_from` es `date` —un día del
+   calendario, no un instante—: `new Date("2026-07-17")` es medianoche UTC, que en
+   Argentina cae el 16.
+7. **Y se guardaban un día después.** `new Date().toISOString()` toma la fecha UTC,
+   así que toda asignación cargada pasadas las 21:00 hora argentina quedaba con la
+   fecha del día siguiente (en Vercel el server corre en UTC). Los dos se
+   arreglaron con [`src/lib/fechas.ts`](src/lib/fechas.ts): un `date` no pasa por
+   `Date` nunca.
+8. **"Fichas corregidas" contaba de más**: sumaba la versión 1 de un puesto nuevo,
+   que ya cuenta `puestosCreados`.
+
+Moraleja: **ocho defectos en dos circuitos, con `typecheck`, `lint` y `build` en
+verde los ocho**. Lo que no se ejecuta, no está probado. Lo que queda sin ejercitar
+hoy: restaurar un puesto archivado y cambiar a alguien de puesto.
 
 ### El alcance de `personas` es deliberadamente mínimo
 
@@ -224,8 +306,16 @@ antes de publicar el nomenclador digitalizado.
 - Detectar similares / duplicados con `pg_trgm` (Etapa 6). El índice GIN trigram
   sobre `position_versions.name` ya existe.
 
+**Ya ejercitado (17/07):** puestos (alta → versión → baja) y personas (alta →
+asignación → ficha). Los dos circuitos funcionan; los ocho defectos que aparecieron
+al probarlos están arreglados y listados en §4.
+
 **Deuda conocida:**
 - Roles (`lector` / `editor` / `admin`) — bloqueante si entran más usuarios
+- La bitácora muestra un evento por fila tocada, así que crear una versión aparece
+  como dos líneas ("Creó la versión N" + "Actualizó el puesto", el eco de
+  `current_version_id`). Es fiel a la base pero ruidoso.
+- El breadcrumb de `/puestos/[id]` muestra el UUID crudo en vez del nombre
 - `risk_level` como min/max sobre escala normalizada
 - `knowledge_items` como texto en vez de catálogo
 - Las 210 fichas siguen `pending` de verificación: falta la pantalla para
