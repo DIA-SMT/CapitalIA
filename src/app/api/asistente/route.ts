@@ -7,13 +7,22 @@ import { getSessionUser } from "@/lib/supabase/server";
 /**
  * Asistente de consulta sobre el nomenclador.
  *
- * Le pasa el nomenclador COMPLETO al modelo (~61k tokens) en el mensaje de
+ * Le pasa el nomenclador COMPLETO al modelo (~105k tokens) en el mensaje de
  * sistema. No usa embeddings ni base vectorial a propósito: esa maquinaria
  * existe para documentos que no entran en contexto, y este entra. Pasarlo entero
  * es más simple y más exacto — no hay chunk que se pierda.
  *
  * El nomenclador se marca con `cache_control` para que se cachee: sin eso, cada
- * pregunta paga los 61k tokens de entrada. Con caché son ~30x más baratos.
+ * pregunta paga los ~105k tokens de entrada. Con caché son ~30x más baratos.
+ * Medido el 17/07: la primera consulta escribe el caché y las siguientes reusan
+ * ~105.5k de 105.5k. Si `uso.cacheados` vuelve a dar 0 pregunta tras pregunta,
+ * el caché dejó de funcionar y cada consulta pasó a costar de más.
+ *
+ * El alcance es solo puestos, a propósito: no se le pasa la dotación aunque exista
+ * en la base. Hoy todo usuario nace admin y no hay rol de solo lectura (ver
+ * CONTEXT.md §4), así que un asistente que respondiera "¿en qué área está Fulano?"
+ * haría trivial sacar datos de personal. Decisión revisada y ratificada el 17/07;
+ * si se retoma, armar roles primero.
  */
 
 const cuerpoSchema = z.object({
@@ -38,7 +47,7 @@ REGLAS:
 - Si la pregunta implica contar o listar, sé exhaustivo: revisá los 210 puestos, no des una muestra.
 - El nomenclador es de 2016 y puede estar desactualizado. Si la pregunta sugiere que el puesto pudo haber cambiado, aclaralo.
 - Las fichas conservan las erratas del documento original (por ejemplo "TRANSPOTES" o "Strees"). No las corrijas al citarlas ni las menciones salvo que sean parte de la pregunta.
-- Este sistema es solo de puestos. No tenés datos de empleados, legajos, salarios ni licencias. Si te preguntan por personas, aclaralo.
+- Solo sabés de puestos: no tenés datos de personas, ni sus nombres, legajos, salarios o licencias. Si te preguntan quién ocupa un puesto o en qué área está alguien, decí que no tenés esos datos y aclaralo — pero no los mandes afuera del sistema: la app sí lleva la dotación, en la sección "Personas" y en el panel "Personas en este puesto" de cada ficha. Podés describir el puesto igual.
 - No des recomendaciones sobre contratación, despido ni evaluación de personas. Describís puestos, no decidís sobre gente.
 - Escribí en español rioplatense, directo y breve. Sin preámbulos.`;
 
