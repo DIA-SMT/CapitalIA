@@ -1,0 +1,70 @@
+# =============================================================================
+# Capital humanIA — Keepalive de Supabase
+#
+# El plan gratuito de Supabase pausa un proyecto tras ~7 días sin actividad de
+# API. Este workflow hace una consulta mínima a PostgREST todos los días para
+# que el proyecto nunca llegue a ese umbral.
+#
+# La consulta pega contra la tabla `levels` con la anon key. Como todas las
+# tablas tienen RLS restringido a admins autenticados, la respuesta es un `[]`
+# vacío: no expone datos, pero el pedido igual atraviesa PostgREST y Postgres,
+# que es lo que cuenta como actividad.
+#
+# Secrets a cargar en GitHub > Settings > Secrets and variables > Actions:
+#   SUPABASE_URL       -> mismo valor que NEXT_PUBLIC_SUPABASE_URL
+#   SUPABASE_ANON_KEY  -> mismo valor que NEXT_PUBLIC_SUPABASE_ANON_KEY
+# Ninguno es sensible (la anon key viaja al navegador en producción), pero
+# quedan como secrets para no publicar la referencia del proyecto.
+# =============================================================================
+
+name: Supabase keepalive
+
+on:
+  schedule:
+    # 06:15 UTC = 03:15 ART. Diario: si GitHub saltea alguna corrida por carga
+    # —los cron de Actions no son puntuales— quedan varios días de margen.
+    - cron: "15 6 * * *"
+  # Permite dispararlo a mano desde la pestaña Actions.
+  workflow_dispatch:
+
+# Si se solapan dos corridas (cron + manual), alcanza con la última.
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    name: Consulta mínima a la base
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Verificar que estén los secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::error::Faltan los secrets SUPABASE_URL y/o SUPABASE_ANON_KEY."
+            exit 1
+          fi
+
+      - name: Pedido a la API REST
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          # --fail-with-body: corta con error si el status no es 2xx, pero
+          # imprime el cuerpo para poder leer el mensaje de PostgREST.
+          # --retry 3: reintenta ante errores de red o 5xx transitorios.
+          status=$(curl \
+            --silent --show-error --fail-with-body \
+            --max-time 30 --retry 3 --retry-delay 15 --retry-all-errors \
+            --output response.json --write-out '%{http_code}' \
+            --header "apikey: $SUPABASE_ANON_KEY" \
+            --header "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/levels?select=id&limit=1")
+
+          echo "HTTP $status"
+          echo "Respuesta: $(cat response.json)"
+          echo "✅ La base respondió. Proyecto activo." >> "$GITHUB_STEP_SUMMARY"
