@@ -14,15 +14,17 @@ import { NAV_ITEMS, isActiveRoute } from "./nav-items";
 export function NavLinks({
   collapsed = false,
   onNavigate,
+  esAdmin,
 }: {
   collapsed?: boolean;
   onNavigate?: () => void;
+  esAdmin: boolean;
 }) {
   const pathname = usePathname();
 
   return (
     <nav aria-label="Navegación principal" className="flex flex-col gap-1 p-2">
-      {NAV_ITEMS.map((item) => {
+      {NAV_ITEMS.filter((item) => esAdmin || !item.adminOnly).map((item) => {
         const active = isActiveRoute(pathname, item);
         const Icon = item.icon;
 

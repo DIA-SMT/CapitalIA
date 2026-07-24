@@ -25,6 +25,7 @@ import {
   obtenerPuesto,
   type ItemFicha,
 } from "@/features/puestos/data/puestos";
+import { getSessionRole } from "@/lib/supabase/server";
 
 // Next.js 16: `params` es una Promesa y hay que await-earla.
 type Props = { params: Promise<{ id: string }> };
@@ -95,6 +96,8 @@ export default async function PuestoPage({ params }: Props) {
   ]);
   if (!p) notFound();
 
+  const esAdmin = (await getSessionRole()) === "admin";
+
   return (
     <>
       <PageHeader
@@ -108,11 +111,13 @@ export default async function PuestoPage({ params }: Props) {
               <ArrowLeft className="h-4 w-4" aria-hidden />
               Volver
             </Button>
-            <BajaPuesto positionId={p.id} estado={p.estado} />
-            <Button render={<Link href={`/puestos/${p.id}/editar`} />}>
-              <Pencil className="h-4 w-4" aria-hidden />
-              Editar
-            </Button>
+            {esAdmin && <BajaPuesto positionId={p.id} estado={p.estado} />}
+            {esAdmin && (
+              <Button render={<Link href={`/puestos/${p.id}/editar`} />}>
+                <Pencil className="h-4 w-4" aria-hidden />
+                Editar
+              </Button>
+            )}
           </div>
         }
       />
@@ -228,6 +233,7 @@ export default async function PuestoPage({ params }: Props) {
             positionId={p.id}
             personas={personas}
             disponibles={disponibles}
+            puedeEditar={esAdmin}
           />
 
           {historial.length > 0 && <HistorialPuesto versiones={historial} />}

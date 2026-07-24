@@ -7,7 +7,13 @@ import { Logo, LogoMark } from "@/components/brand/logo";
 import { NavLinks } from "./nav-links";
 
 /** Sidebar de escritorio, colapsable. Oculto en móvil (usa el Sheet del header). */
-export function AppSidebar({ collapsed }: { collapsed: boolean }) {
+export function AppSidebar({
+  collapsed,
+  esAdmin,
+}: {
+  collapsed: boolean;
+  esAdmin: boolean;
+}) {
   return (
     <aside
       className={cn(
@@ -31,7 +37,7 @@ export function AppSidebar({ collapsed }: { collapsed: boolean }) {
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        <NavLinks collapsed={collapsed} />
+        <NavLinks collapsed={collapsed} esAdmin={esAdmin} />
       </div>
     </aside>
   );

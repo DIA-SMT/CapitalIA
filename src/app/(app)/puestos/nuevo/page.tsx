@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { FormularioPuesto } from "@/features/puestos/components/formulario-puesto";
 import { obtenerOpciones } from "@/features/puestos/data/opciones";
+import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Nuevo puesto" };
 
 export default async function NuevoPuestoPage() {
+  if ((await getSessionRole()) !== "admin") redirect("/puestos");
   const opciones = await obtenerOpciones();
 
   return (
