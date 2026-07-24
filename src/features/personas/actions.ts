@@ -53,7 +53,7 @@ export async function crearPersona(values: unknown): Promise<ResultadoPersona> {
       legajo: parsed.data.legajo,
       full_name: parsed.data.full_name,
       email: parsed.data.email ?? null,
-      area: parsed.data.area ?? null,
+      reparticion_id: parsed.data.reparticion_id ?? null,
     })
     .select("id")
     .single();

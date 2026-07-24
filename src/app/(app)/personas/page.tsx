@@ -15,13 +15,15 @@ import {
 import { AltaPersona } from "@/features/personas/components/alta-persona";
 import { listarPersonas } from "@/features/personas/data/personas";
 import { listarPuestosParaSelector } from "@/features/puestos/data/puestos";
+import { listarReparticiones } from "@/features/reparticiones/data/reparticiones";
 
 export const metadata: Metadata = { title: "Personas" };
 
 export default async function PersonasPage() {
-  const [personas, puestos] = await Promise.all([
+  const [personas, puestos, reparticiones] = await Promise.all([
     listarPersonas(),
     listarPuestosParaSelector(),
+    listarReparticiones(),
   ]);
   const sinPuesto = personas.filter((p) => !p.puesto && p.activa).length;
 
@@ -36,7 +38,7 @@ export default async function PersonasPage() {
           que no deja achicar el panel, y el desplegable de 210 puestos lo estiraba
           hasta sacarle scroll horizontal a la página entera. */}
       <div className="mb-6">
-        <AltaPersona puestos={puestos} />
+        <AltaPersona puestos={puestos} reparticiones={reparticiones} />
       </div>
 
       {personas.length === 0 ? (
@@ -57,7 +59,7 @@ export default async function PersonasPage() {
                 <TableRow>
                   <TableHead>Legajo</TableHead>
                   <TableHead>Nombre</TableHead>
-                  <TableHead>Área</TableHead>
+                  <TableHead>Repartición</TableHead>
                   <TableHead>Puesto que ocupa</TableHead>
                   <TableHead>Estado</TableHead>
                 </TableRow>
@@ -70,7 +72,7 @@ export default async function PersonasPage() {
                     </TableCell>
                     <TableCell className="font-medium">{p.nombre}</TableCell>
                     <TableCell className="text-sm text-muted-foreground">
-                      {p.area ?? "—"}
+                      {p.reparticion ?? "—"}
                     </TableCell>
                     <TableCell>
                       {p.puesto ? (

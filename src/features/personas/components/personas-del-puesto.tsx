@@ -150,7 +150,7 @@ export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) 
                   <p className="truncate text-sm font-medium">{p.nombre}</p>
                   <p className="text-xs text-muted-foreground">
                     Legajo {p.legajo}
-                    {p.area && ` · ${p.area}`} · desde {formatearFecha(p.desde)}
+                    {p.reparticion && ` · ${p.reparticion}`} · desde {formatearFecha(p.desde)}
                   </p>
                 </div>
                 <Button

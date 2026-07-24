@@ -10,6 +10,7 @@ import { UserPlus } from "lucide-react";
 import { crearPersona } from "../actions";
 import { personaSchema, type PersonaFormValues } from "../schemas/persona";
 import type { PuestoOpcion } from "@/features/puestos/data/puestos";
+import type { Secretaria } from "@/features/reparticiones/data/reparticiones";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,7 +25,13 @@ type Valores = PersonaFormValues;
  * desde la ficha del puesto. Pero el caso normal es saber a qué puesto va, y
  * obligar a ir a otra pantalla para eso no tenía sentido.
  */
-export function AltaPersona({ puestos }: { puestos: PuestoOpcion[] }) {
+export function AltaPersona({
+  puestos,
+  reparticiones,
+}: {
+  puestos: PuestoOpcion[];
+  reparticiones: Secretaria[];
+}) {
   const router = useRouter();
   const [abierto, setAbierto] = useState(false);
   const [pendiente, startTransition] = useTransition();
@@ -92,8 +99,24 @@ export function AltaPersona({ puestos }: { puestos: PuestoOpcion[] }) {
               )}
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="area">Área / repartición</Label>
-              <Input id="area" {...register("area")} />
+              <Label htmlFor="reparticion_id">Repartición</Label>
+              <select
+                id="reparticion_id"
+                className="flex h-9 w-full rounded-md border border-border bg-transparent px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                {...register("reparticion_id")}
+              >
+                <option value="">Sin repartición</option>
+                {reparticiones.map((s) => (
+                  <optgroup key={s.id} label={s.nombre}>
+                    <option value={s.id}>{s.nombre} (secretaría)</option>
+                    {s.direcciones.map((d) => (
+                      <option key={d.id} value={d.id}>
+                        {d.nombre}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
