@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
+import { ChevronRight } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/states";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { listarReparticiones } from "@/features/reparticiones/data/reparticiones";
 
 export const metadata: Metadata = { title: "Reparticiones" };
@@ -40,26 +34,34 @@ export default async function ReparticionesPage() {
     <>
       <PageHeader
         title="Reparticiones"
-        description={`Organigrama de la Municipalidad: ${secretarias.length} secretarías y ${totalDirecciones} direcciones. Datos provisionales del POA 2026, hasta la integración con Civitas.`}
+        description={`Organigrama de la Municipalidad: ${secretarias.length} secretarías y ${totalDirecciones} direcciones. Tocá una secretaría para ver sus direcciones. Datos provisionales del POA 2026, hasta la integración con Civitas.`}
       />
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      {/* Cada secretaría es un <details> nativo: se abre/cierra sin JS y arranca
+          colapsado para que la página no ocupe tanto scroll. */}
+      <div className="space-y-2">
         {secretarias.map((s) => (
-          <Card key={s.id}>
-            <CardHeader>
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <CardTitle className="text-base">{s.nombre}</CardTitle>
-                  <CardDescription className="mt-1 font-mono text-xs">
-                    {s.code}
-                  </CardDescription>
-                </div>
-                <Badge variant="secondary" className="shrink-0 tabular-nums">
-                  {s.direcciones.length}
-                </Badge>
+          <details
+            key={s.id}
+            className="group rounded-xl border border-border bg-card"
+          >
+            <summary className="flex cursor-pointer list-none items-center gap-3 rounded-xl px-4 py-3 transition-colors hover:bg-secondary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+              <ChevronRight
+                className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-90"
+                aria-hidden
+              />
+              <div className="min-w-0 flex-1">
+                <span className="font-medium text-foreground">{s.nombre}</span>
+                <span className="ml-2 font-mono text-xs text-muted-foreground">
+                  {s.code}
+                </span>
               </div>
-            </CardHeader>
-            <CardContent>
+              <Badge variant="secondary" className="shrink-0 tabular-nums">
+                {s.direcciones.length}
+              </Badge>
+            </summary>
+
+            <div className="border-t border-border px-4 py-3">
               {s.direcciones.length === 0 ? (
                 <p className="text-sm italic text-muted-foreground">
                   Sin direcciones cargadas.
@@ -84,8 +86,8 @@ export default async function ReparticionesPage() {
                   ))}
                 </ul>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </details>
         ))}
       </div>
     </>
