@@ -15,7 +15,7 @@ export type PersonaEnPuesto = {
   personaId: string;
   legajo: string;
   nombre: string;
-  area: string | null;
+  reparticion: string | null;
   desde: string;
   hasta: string | null;
   activa: boolean;
@@ -26,7 +26,7 @@ export type PersonaListado = {
   legajo: string;
   nombre: string;
   email: string | null;
-  area: string | null;
+  reparticion: string | null;
   activa: boolean;
   puesto: { id: string; nombre: string; internalCode: string } | null;
 };
@@ -42,7 +42,7 @@ export async function listarPersonasDePuesto(
     .from("asignaciones")
     .select(
       `id, valid_from, valid_until,
-       personas ( id, legajo, full_name, area, is_active )`,
+       personas ( id, legajo, full_name, is_active, reparticiones ( nombre ) )`,
     )
     .eq("position_id", positionId)
     .order("valid_until", { ascending: true, nullsFirst: true })
@@ -62,8 +62,8 @@ export async function listarPersonasDePuesto(
       id: string;
       legajo: string;
       full_name: string;
-      area: string | null;
       is_active: boolean;
+      reparticiones: { nombre: string } | null;
     } | null;
   };
 
@@ -74,7 +74,7 @@ export async function listarPersonasDePuesto(
       personaId: f.personas!.id,
       legajo: f.personas!.legajo,
       nombre: f.personas!.full_name,
-      area: f.personas!.area,
+      reparticion: f.personas!.reparticiones?.nombre ?? null,
       desde: f.valid_from,
       hasta: f.valid_until,
       activa: f.personas!.is_active,
@@ -89,7 +89,8 @@ export async function listarPersonas(): Promise<PersonaListado[]> {
   const { data, error } = await supabase
     .from("personas")
     .select(
-      `id, legajo, full_name, email, area, is_active,
+      `id, legajo, full_name, email, is_active,
+       reparticiones ( nombre ),
        asignaciones ( valid_until,
          positions ( id, internal_code,
            current_version:position_versions!positions_current_version_fk ( name )
@@ -108,8 +109,8 @@ export async function listarPersonas(): Promise<PersonaListado[]> {
     legajo: string;
     full_name: string;
     email: string | null;
-    area: string | null;
     is_active: boolean;
+    reparticiones: { nombre: string } | null;
     asignaciones: {
       valid_until: string | null;
       positions: {
@@ -128,7 +129,7 @@ export async function listarPersonas(): Promise<PersonaListado[]> {
       legajo: p.legajo,
       nombre: p.full_name,
       email: p.email,
-      area: p.area,
+      reparticion: p.reparticiones?.nombre ?? null,
       activa: p.is_active,
       puesto: vigente?.positions
         ? {

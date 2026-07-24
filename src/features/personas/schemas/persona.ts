@@ -17,10 +17,8 @@ export const personaSchema = z.object({
     .union([z.email("Email inválido"), z.literal("")])
     .optional()
     .transform((v) => (v === "" ? undefined : v)),
-  area: z
-    .string()
-    .trim()
-    .max(200)
+  reparticion_id: z
+    .union([z.uuid(), z.literal("")])
     .optional()
     .transform((v) => (v === "" ? undefined : v)),
   /**
