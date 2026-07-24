@@ -13,9 +13,11 @@ import type { SessionUser } from "./user-menu";
  */
 export function AppShell({
   user,
+  esAdmin,
   children,
 }: {
   user: SessionUser;
+  esAdmin: boolean;
   children: ReactNode;
 }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -23,7 +25,7 @@ export function AppShell({
 
   return (
     <div className="flex min-h-svh bg-background">
-      <AppSidebar collapsed={collapsed} />
+      <AppSidebar collapsed={collapsed} esAdmin={esAdmin} />
 
       <div className="flex min-w-0 flex-1 flex-col">
         <AppHeader
@@ -32,6 +34,7 @@ export function AppShell({
           onToggleCollapse={() => setCollapsed((value) => !value)}
           mobileOpen={mobileOpen}
           onMobileOpenChange={setMobileOpen}
+          esAdmin={esAdmin}
         />
 
         <main

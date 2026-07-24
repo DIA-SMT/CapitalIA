@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FormularioPuesto } from "@/features/puestos/components/formulario-puesto";
 import { obtenerOpciones } from "@/features/puestos/data/opciones";
 import { obtenerPuestoParaEditar } from "@/features/puestos/data/puestos";
+import { getSessionRole } from "@/lib/supabase/server";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -19,6 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EditarPuestoPage({ params }: Props) {
   const { id } = await params;
+  if ((await getSessionRole()) !== "admin") redirect(`/puestos/${id}`);
   const [puesto, opciones] = await Promise.all([
     obtenerPuestoParaEditar(id),
     obtenerOpciones(),

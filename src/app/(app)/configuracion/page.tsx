@@ -11,12 +11,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { getSessionUser } from "@/lib/supabase/server";
+import { getSessionRole, getSessionUser } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Configuración" };
 
 export default async function ConfiguracionPage() {
   const user = await getSessionUser();
+  const role = await getSessionRole();
   const configured = isSupabaseConfigured();
 
   return (
@@ -39,7 +40,7 @@ export default async function ConfiguracionPage() {
             </div>
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Rol</span>
-              <Badge variant="secondary">admin</Badge>
+              <Badge variant="secondary">{role ?? "—"}</Badge>
             </div>
           </CardContent>
         </Card>

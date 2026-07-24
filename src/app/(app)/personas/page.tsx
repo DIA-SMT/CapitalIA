@@ -16,6 +16,7 @@ import { AltaPersona } from "@/features/personas/components/alta-persona";
 import { listarPersonas } from "@/features/personas/data/personas";
 import { listarPuestosParaSelector } from "@/features/puestos/data/puestos";
 import { listarReparticiones } from "@/features/reparticiones/data/reparticiones";
+import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Personas" };
 
@@ -26,6 +27,7 @@ export default async function PersonasPage() {
     listarReparticiones(),
   ]);
   const sinPuesto = personas.filter((p) => !p.puesto && p.activa).length;
+  const esAdmin = (await getSessionRole()) === "admin";
 
   return (
     <>
@@ -37,9 +39,11 @@ export default async function PersonasPage() {
       {/* Fuera del `action` del PageHeader a propósito: ahí vive en un `shrink-0`
           que no deja achicar el panel, y el desplegable de 210 puestos lo estiraba
           hasta sacarle scroll horizontal a la página entera. */}
-      <div className="mb-6">
-        <AltaPersona puestos={puestos} reparticiones={reparticiones} />
-      </div>
+      {esAdmin && (
+        <div className="mb-6">
+          <AltaPersona puestos={puestos} reparticiones={reparticiones} />
+        </div>
+      )}
 
       {personas.length === 0 ? (
         <EmptyState

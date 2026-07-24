@@ -14,16 +14,18 @@ export function AppHeader({
   onToggleCollapse,
   mobileOpen,
   onMobileOpenChange,
+  esAdmin,
 }: {
   user: SessionUser;
   collapsed: boolean;
   onToggleCollapse: () => void;
   mobileOpen: boolean;
   onMobileOpenChange: (open: boolean) => void;
+  esAdmin: boolean;
 }) {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-2 border-b border-border bg-card/95 px-3 backdrop-blur supports-[backdrop-filter]:bg-card/80 sm:px-4">
-      <MobileNav open={mobileOpen} onOpenChange={onMobileOpenChange} />
+      <MobileNav open={mobileOpen} onOpenChange={onMobileOpenChange} esAdmin={esAdmin} />
 
       <Button
         variant="ghost"

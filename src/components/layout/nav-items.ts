@@ -17,18 +17,20 @@ export type NavItem = {
   icon: LucideIcon;
   /** Si es true, la ruta se considera activa solo con coincidencia exacta. */
   exact?: boolean;
+  /** Si es true, el ítem solo lo ve el rol admin. */
+  adminOnly?: boolean;
 };
 
 /** Navegación principal del layout privado. */
 export const NAV_ITEMS: NavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Nomenclador", href: "/puestos", icon: FileStack, exact: true },
-  { title: "Nuevo puesto", href: "/puestos/nuevo", icon: FilePlus2 },
+  { title: "Nuevo puesto", href: "/puestos/nuevo", icon: FilePlus2, adminOnly: true },
   { title: "Personas", href: "/personas", icon: Users },
   { title: "Reparticiones", href: "/reparticiones", icon: Building2 },
-  { title: "Bitácora", href: "/auditoria", icon: History },
-  { title: "Catálogos", href: "/catalogos", icon: Library },
-  { title: "Documentos", href: "/documentos", icon: FolderOpen },
+  { title: "Bitácora", href: "/auditoria", icon: History, adminOnly: true },
+  { title: "Catálogos", href: "/catalogos", icon: Library, adminOnly: true },
+  { title: "Documentos", href: "/documentos", icon: FolderOpen, adminOnly: true },
   { title: "Configuración", href: "/configuracion", icon: Settings },
 ];
 

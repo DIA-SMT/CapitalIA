@@ -16,9 +16,11 @@ import { NavLinks } from "./nav-links";
 export function MobileNav({
   open,
   onOpenChange,
+  esAdmin,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  esAdmin: boolean;
 }) {
   const close = () => onOpenChange(false);
 
@@ -42,7 +44,7 @@ export function MobileNav({
             <Logo />
           </SheetTitle>
         </SheetHeader>
-        <NavLinks onNavigate={close} />
+        <NavLinks onNavigate={close} esAdmin={esAdmin} />
       </SheetContent>
     </Sheet>
   );

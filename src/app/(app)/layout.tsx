@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { Asistente } from "@/features/asistente/components/asistente";
-import { getSessionUser } from "@/lib/supabase/server";
+import { getSessionRole, getSessionUser } from "@/lib/supabase/server";
 
 // La sesión se valida en cada request: nunca se sirve contenido privado
 // prerenderizado sin comprobar la autenticación.
@@ -25,8 +25,10 @@ export default async function AppLayout({
       ? user.user_metadata.full_name
       : (user.email?.split("@")[0] ?? "Usuario");
 
+  const esAdmin = (await getSessionRole()) === "admin";
+
   return (
-    <AppShell user={{ name: fullName, email: user.email ?? "" }}>
+    <AppShell user={{ name: fullName, email: user.email ?? "" }} esAdmin={esAdmin}>
       {children}
       {/* Flotante sobre todas las pantallas privadas: la gracia es poder
           preguntarle mientras se está mirando otra cosa. */}

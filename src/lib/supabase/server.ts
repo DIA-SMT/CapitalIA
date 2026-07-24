@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
@@ -35,7 +36,7 @@ export async function createClient() {
  * Devuelve el usuario autenticado validado contra el servidor de Auth, o `null`.
  * Nunca lanza: si Supabase no está configurado o no hay sesión, retorna `null`.
  */
-export async function getSessionUser(): Promise<User | null> {
+export const getSessionUser = cache(async (): Promise<User | null> => {
   if (!isSupabaseConfigured()) return null;
 
   try {
@@ -47,4 +48,28 @@ export async function getSessionUser(): Promise<User | null> {
   } catch {
     return null;
   }
-}
+});
+
+/**
+ * Rol de aplicación del usuario actual ('admin' | 'director') o null. Cacheado por
+ * request: se puede llamar desde el layout y varias páginas sin repetir la consulta.
+ * La RLS de profiles permite a cada usuario leer su propia fila.
+ */
+export const getSessionRole = cache(
+  async (): Promise<"admin" | "director" | null> => {
+    const user = await getSessionUser();
+    if (!user) return null;
+    try {
+      const supabase = await createClient();
+      const { data } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+      const role = data?.role;
+      return role === "admin" || role === "director" ? role : null;
+    } catch {
+      return null;
+    }
+  },
+);

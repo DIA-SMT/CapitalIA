@@ -23,13 +23,20 @@ type Props = {
   personas: PersonaEnPuesto[];
   /** Personas activas sin puesto asignado. */
   disponibles: { id: string; nombre: string; legajo: string }[];
+  /** Si es false (director), se ocultan las acciones de asignar/quitar. */
+  puedeEditar: boolean;
 };
 
 /**
  * Quién ocupa este puesto. Muestra las asignaciones vigentes y las que
  * terminaron: la dotación histórica también es parte del nomenclador.
  */
-export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) {
+export function PersonasDelPuesto({
+  positionId,
+  personas,
+  disponibles,
+  puedeEditar,
+}: Props) {
   const router = useRouter();
   const [pendiente, startTransition] = useTransition();
   const [abriendo, setAbriendo] = useState(false);
@@ -83,7 +90,7 @@ export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) 
                 : `${vigentes.length} persona${vigentes.length === 1 ? "" : "s"} ocupando el puesto.`}
             </CardDescription>
           </div>
-          {!abriendo && (
+          {puedeEditar && !abriendo && (
             <Button size="sm" variant="outline" onClick={() => setAbriendo(true)}>
               <UserPlus className="h-4 w-4" aria-hidden />
               Asignar
@@ -153,15 +160,17 @@ export function PersonasDelPuesto({ positionId, personas, disponibles }: Props) 
                     {p.reparticion && ` · ${p.reparticion}`} · desde {formatearFecha(p.desde)}
                   </p>
                 </div>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => quitar(p.personaId, p.nombre)}
-                  disabled={pendiente}
-                  aria-label={`Quitar a ${p.nombre} del puesto`}
-                >
-                  <UserMinus className="h-4 w-4" aria-hidden />
-                </Button>
+                {puedeEditar && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => quitar(p.personaId, p.nombre)}
+                    disabled={pendiente}
+                    aria-label={`Quitar a ${p.nombre} del puesto`}
+                  >
+                    <UserMinus className="h-4 w-4" aria-hidden />
+                  </Button>
+                )}
               </li>
             ))}
           </ul>
