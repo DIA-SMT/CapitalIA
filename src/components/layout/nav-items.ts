@@ -1,4 +1,5 @@
 import {
+  Building2,
   FilePlus2,
   FileStack,
   FolderOpen,
@@ -24,6 +25,7 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Nomenclador", href: "/puestos", icon: FileStack, exact: true },
   { title: "Nuevo puesto", href: "/puestos/nuevo", icon: FilePlus2 },
   { title: "Personas", href: "/personas", icon: Users },
+  { title: "Reparticiones", href: "/reparticiones", icon: Building2 },
   { title: "Bitácora", href: "/auditoria", icon: History },
   { title: "Catálogos", href: "/catalogos", icon: Library },
   { title: "Documentos", href: "/documentos", icon: FolderOpen },
@@ -37,6 +39,7 @@ export const ROUTE_LABELS: Record<string, string> = {
   nuevo: "Nuevo puesto",
   editar: "Editar",
   personas: "Personas",
+  reparticiones: "Reparticiones",
   auditoria: "Bitácora",
   catalogos: "Catálogos",
   documentos: "Documentos",
