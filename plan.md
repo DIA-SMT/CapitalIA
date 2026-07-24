@@ -127,24 +127,26 @@ Políticas objetivo:
 
 ---
 
-## 5. Trabajo por bloques (con dependencias)
+## 5. Trabajo por bloques — estado (al 2026-07-24)
 
-- **Bloque 0 · Pre-vuelo.** Resolver el **historial de migraciones desincronizado**
-  (`CONTEXT.md` §4: las `0006`–`0008` se pegaron a mano en el SQL Editor; Supabase
-  puede no tener registro y un `db push` fallaría). Acordar cómo se aplican de acá
-  en más. Generar `database.types.ts` o seguir tipando a mano. **Checkpoint con el
-  autor del esquema** (normalizar `personas.area` y tocar autorización revierte
-  criterios explícitos del diseño; `CONTEXT.md` lo pide).
-- **Bloque 1 · Reparticiones.** Migración de la tabla + ABM mínimo (admin) + carga
-  provisional (ver Decisión 4).
-- **Bloque 2 · Roles.** Enum + `handle_new_user` + `getRole()` + exponer rol en la
-  app + gestión mínima de usuarios (asignar rol/repartición).
-- **Bloque 3 · Vínculo + personas.** Usuario↔repartición + `personas.reparticion_id`.
-- **Bloque 4 · RLS.** Helpers + políticas por rol/repartición. **Reescribir, no
-  parchear.**
-- **Bloque 5 · Ejercitar de punta a punta.** Crear un `director` de prueba,
-  asignarle una repartición, loguear y verificar que **solo ve lo suyo** (nomenclador
-  lectura, su gente, nada más). Limpiar el dato `ZZZ` de producción.
+Migraciones aplicadas: `0009`–`0012`. Todo commiteado en la rama `matias`.
+
+- **Bloque 0 · Pre-vuelo.** ✅ Resuelto: el SQL se pega a mano en el editor (no se
+  usa `db push`), así que no hay historial que reparar; seguimos numerando archivos.
+- **Bloque 1 · Reparticiones.** ✅ Tabla `reparticiones` (`0010`) + carga del
+  organigrama del POA 2026 (`0011`: 9 secretarías + 53 direcciones) + página
+  `/reparticiones`. Pendiente: el ABM (crear/editar desde la UI).
+- **Bloque 2 · Roles.** ✅ Rol `director` (`0009`); `handle_new_user` deja de crear
+  admins (`0010`); helper `getSessionRole()` + gateo de la UI por rol.
+- **Bloque 3 · Vínculo + personas.** ✅ `perfil_reparticiones` (N:N) +
+  `personas.reparticion_id` + selector de repartición en el alta de personas.
+- **Bloque 4 · RLS.** ✅ `0012`: el director lee el nomenclador y ve **solo** las
+  personas de su repartición; sin escritura. Pasó revisión adversarial (se corrigió
+  un oráculo `SECURITY DEFINER` que filtraba la repartición de cualquier persona).
+- **Bloque 5 · Ejercitar de punta a punta.** 🔶 En curso: se creó un director de
+  prueba (`matiaslujanw@gmail.com`, Dirección de IA) + una persona en esa
+  repartición. Falta confirmar, logueado como director, que ve **solo su gente** y
+  no puede escribir. Limpiar los datos de prueba (`ZZZ`) al cerrar.
 
 > Regla del proyecto que respetamos: *"que compile no significa que funciona"*
 > (`CONTEXT.md` §4 — aparecieron 8 defectos la primera vez que se ejercitaron los
@@ -156,7 +158,7 @@ Políticas objetivo:
 
 ## 6. Decisiones (esto es lo que hay que definir)
 
-Decisiones **1–4 confirmadas el 2026-07-24**; 5–8 quedan abiertas (con sugerencia).
+Decisiones 1–4 y 6 confirmadas; 5, 7 y 8 en curso o diferidas.
 
 | # | Decisión | Definición | Estado |
 |---|---|---|---|
@@ -164,10 +166,10 @@ Decisiones **1–4 confirmadas el 2026-07-24**; 5–8 quedan abiertas (con suger
 | 2 | Cardinalidad usuario↔repartición | **N:N** — tabla puente `perfil_reparticiones` | ✅ Decidido |
 | 3 | Alcance de "personal dependiente" | **Solo su repartición** (plano); `parent_id` queda preparado para el organigrama de Civitas | ✅ Decidido |
 | 4 | Reparticiones sin Civitas | **ABM y las cargan ellos**; para construir/probar uso datos de prueba mientras tanto | ✅ Decidido |
-| 5 | Gestión de roles/repartición por usuario | UI mínima de admin · o por SQL por ahora | ⏳ Pendiente — sugerido: SQL para arrancar, UI pronto |
-| 6 | Nombre del rol | `director` / `consulta_solicitud` / `solicitante` | ⏳ Pendiente — sugerido `director` |
+| 5 | Gestión de roles/repartición por usuario | **SQL/dashboard por ahora**; panel de admin en la app pendiente (próxima sesión) | 🔶 En uso (SQL) |
+| 6 | Nombre del rol | **`director`** | ✅ Decidido |
 | 7 | ¿Separar evaluación técnica de aprobación? | admin hace las dos · o sumar `analista` | ⏳ Diferible — sugerido: no sobre-diseñar |
-| 8 | `personas.area` | eliminar y usar solo `reparticion_id` · o conservar como nota | ⏳ Pendiente — sugerido eliminar |
+| 8 | `personas.area` | se agregó `reparticion_id` y la app usa eso; `area` quedó **sin uso** | 🔶 Migrado; falta el `drop` de `area` |
 
 ---
 
@@ -198,4 +200,27 @@ Decisiones **1–4 confirmadas el 2026-07-24**; 5–8 quedan abiertas (con suger
 
 ---
 
-*Última actualización: 2026-07-24. Decisiones §6 (1–4) confirmadas; (5–8) abiertas.*
+## 9. Próxima sesión — por dónde seguir
+
+Las fundaciones (roles + reparticiones + RLS + gateo de la UI) están hechas y
+aplicadas. Lo que sigue, en orden:
+
+1. **Cerrar el Bloque 5:** confirmar el test del director (ve solo su gente, no
+   escribe). Después, limpiar los datos de prueba `ZZZ`.
+2. **Escritura del director (Etapa 2 en serio):**
+   - Que el director **asigne puestos a su gente** — adaptar `asignar_persona`, que
+     hoy exige `is_admin()`, para aceptar al director acotado a su repartición.
+   - **Solicitudes de puestos nuevos:** tabla `solicitudes` (nombre + descripción +
+     estado pendiente/aprobada/rechazada + repartición + solicitante) + pantalla de
+     alta para el director.
+3. **Panel de gestión de usuarios (admin):** que Capital Humano cree los directores
+   y les asigne repartición **desde la app**, sin Supabase ni SQL (decisión 5).
+4. **Etapa 3:** bandeja de solicitudes + evaluar (el formulario técnico de 10 campos
+   ya existe) + aprobar (llama a `crear_puesto`) / rechazar con motivo.
+5. Cuando quieras: **ABM de reparticiones** (editar el organigrama desde la UI) y,
+   más adelante, **Civitas** (Etapa 1).
+
+---
+
+*Última actualización: 2026-07-24. Fundaciones (Bloques 0–4) hechas; Bloque 5 en
+verificación. Migraciones 0009–0012 aplicadas.*
