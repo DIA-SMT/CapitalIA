@@ -1,31 +1,22 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
+import isotipo from "../../../public/logoMuni-sm.png";
 
 /**
- * Isotipo de Capital humanIA.
- *
- * Aproximación institucional construida con los tokens de marca
- * (`--brand-azul`, `--brand-celeste`, `--brand-amarillo`). Cuando esté
- * disponible el archivo oficial en `public/brand/`, puede reemplazarse por un
- * <Image> sin cambiar los consumidores del componente.
+ * Isotipo oficial de la Municipalidad de San Miguel de Tucumán
+ * (`public/logoMuni-sm.png`). Reemplaza el placeholder SVG que aproximaba la
+ * marca con los tokens de color. Todos los consumidores (sidebar, header móvil,
+ * login) lo usan a través de este componente.
  */
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <svg
-      viewBox="0 0 48 48"
-      role="img"
-      aria-label="Capital humanIA"
-      className={cn("h-8 w-8", className)}
-    >
-      <path
-        d="M24 45C6 37 5 15 21 6c0 14 0 25 3 39Z"
-        fill="var(--brand-azul)"
-      />
-      <path
-        d="M24 45c18-8 19-29 4-38-2 13-3 24-4 38Z"
-        fill="var(--brand-celeste)"
-      />
-      <circle cx="32" cy="8" r="5.5" fill="var(--brand-amarillo)" />
-    </svg>
+    <Image
+      src={isotipo}
+      alt="Municipalidad de San Miguel de Tucumán"
+      priority
+      className={cn("h-8 w-8 object-contain", className)}
+    />
   );
 }
 
