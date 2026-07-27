@@ -73,6 +73,27 @@ export async function listarSolicitudes(): Promise<Solicitud[]> {
   }));
 }
 
+/**
+ * Cuántas solicitudes esperan respuesta, para el dashboard. El alcance lo
+ * resuelve la RLS igual que en el listado: el admin ve todas, el director las de
+ * su repartición.
+ */
+export async function contarSolicitudesPendientes(): Promise<number> {
+  if (!isSupabaseConfigured()) return 0;
+
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("solicitudes")
+    .select("*", { count: "exact", head: true })
+    .eq("estado", "pendiente");
+
+  if (error) {
+    console.error("[solicitudes] contarSolicitudesPendientes:", error.message);
+    return 0;
+  }
+  return count ?? 0;
+}
+
 /** Una solicitud puntual, para precargar el formulario al evaluarla. */
 export async function obtenerSolicitud(id: string): Promise<Solicitud | null> {
   const todas = await listarSolicitudes();

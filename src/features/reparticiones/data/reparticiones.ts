@@ -87,6 +87,61 @@ export async function listarReparticiones(): Promise<NodoReparticion[]> {
   return construirArbol(await traerFilas());
 }
 
+export type ResumenOrganigrama = {
+  secretarias: number;
+  subsecretarias: number;
+  direcciones: number;
+  /** Cuántas unidades cuelgan de cada secretaría, de mayor a menor. */
+  porSecretaria: { id: string; nombre: string; unidades: number }[];
+};
+
+/**
+ * El organigrama en números, para el dashboard.
+ *
+ * ⚠️ `reparticiones` no guarda el tipo de unidad: lo único que hay es la relación
+ * padre-hijo, así que el tipo se deduce de la forma del árbol —raíz = secretaría,
+ * con dependientes = subsecretaría, sin dependientes = dirección—. Con los datos
+ * del POA 2026 da exacto (9 / 7 / 53), incluidas las 13 direcciones que cuelgan
+ * directo de su secretaría y que contar por profundidad clasificaría mal. Pero es
+ * una deducción, no un dato: si mañana una dirección pasa a tener unidades a
+ * cargo, va a contar como subsecretaría. Si el tipo llega a importar de verdad,
+ * corresponde una columna en la tabla y no una heurística acá.
+ *
+ * Los totales se calculan sobre todas las unidades, activas o no, para que el
+ * número coincida con el que muestra `/reparticiones`.
+ */
+export async function resumenOrganigrama(): Promise<ResumenOrganigrama> {
+  const secretarias = construirArbol(await traerFilas());
+
+  let subsecretarias = 0;
+  let direcciones = 0;
+
+  function contar(nodos: NodoReparticion[]) {
+    for (const n of nodos) {
+      if (n.hijos.length > 0) {
+        subsecretarias += 1;
+        contar(n.hijos);
+      } else {
+        direcciones += 1;
+      }
+    }
+  }
+  for (const s of secretarias) contar(s.hijos);
+
+  return {
+    secretarias: secretarias.length,
+    subsecretarias,
+    direcciones,
+    porSecretaria: secretarias
+      .map((s) => ({
+        id: s.id,
+        nombre: s.nombre,
+        unidades: s.totalDescendientes,
+      }))
+      .sort((a, b) => b.unidades - a.unidades),
+  };
+}
+
 /**
  * El mismo árbol aplanado en orden de lectura, con la profundidad de cada fila.
  * Es lo que consumen los selectores, que necesitan una lista y no un árbol.
