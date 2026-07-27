@@ -21,9 +21,14 @@ import {
 type Props = {
   positionId: string;
   personas: PersonaEnPuesto[];
-  /** Personas activas sin puesto asignado. */
+  /** Personas activas sin puesto asignado. Ya viene acotado por RLS. */
   disponibles: { id: string; nombre: string; legajo: string }[];
-  /** Si es false (director), se ocultan las acciones de asignar/quitar. */
+  /**
+   * Si es false (sin rol), se ocultan las acciones de asignar/quitar. Desde la
+   * 0018 el director y el secretario también asignan: no hace falta filtrar acá
+   * quién es de su repartición, porque `disponibles` y `personas` ya llegan
+   * acotados por RLS y `asignar_persona` rechaza lo que no sea de su alcance.
+   */
   puedeEditar: boolean;
 };
 

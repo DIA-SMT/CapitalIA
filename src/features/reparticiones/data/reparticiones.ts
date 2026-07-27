@@ -161,6 +161,48 @@ export async function listarReparticionesPlanas(): Promise<ReparticionPlana[]> {
   return salida;
 }
 
+/**
+ * Las reparticiones en las que el usuario puede cargar personal.
+ *
+ * El admin, todas. El director y el secretario, solo su alcance — y ese alcance
+ * sale de `mis_reparticiones()` en la base y no de leer `perfil_reparticiones`
+ * derecho, porque para un secretario incluye todo lo que cuelga de su secretaría.
+ * Es la misma función que usa la RLS, así que lo que ofrece el formulario y lo que
+ * acepta la base no se pueden desincronizar: si acá apareciera una de más, la
+ * `personas_insert_director` de la 0018 la rechaza igual.
+ */
+export async function listarReparticionesQuePuedoGestionar(
+  esAdmin: boolean,
+): Promise<ReparticionPlana[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const planas = await listarReparticionesPlanas();
+  if (esAdmin) return planas;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("mis_reparticiones");
+  if (error) {
+    console.error("[reparticiones] mis_reparticiones:", error.message);
+    return [];
+  }
+
+  // `mis_reparticiones()` es `returns setof uuid`. PostgREST devuelve eso como
+  // array de strings, pero se acepta también la forma objeto: sin
+  // `database.types.ts` generado no hay nada que fije la forma, y equivocarse acá
+  // dejaría al director sin ninguna repartición para elegir.
+  const mias = new Set(
+    ((data ?? []) as unknown[])
+      .map((f) =>
+        typeof f === "string"
+          ? f
+          : (f as Record<string, string> | null)?.mis_reparticiones,
+      )
+      .filter((id): id is string => typeof id === "string"),
+  );
+
+  return planas.filter((p) => mias.has(p.id));
+}
+
 /** Una repartición puntual, para precargar el formulario de edición. */
 export async function obtenerReparticion(id: string): Promise<{
   id: string;

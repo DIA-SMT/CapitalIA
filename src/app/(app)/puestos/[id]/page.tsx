@@ -96,7 +96,13 @@ export default async function PuestoPage({ params }: Props) {
   ]);
   if (!p) notFound();
 
-  const esAdmin = (await getSessionRole()) === "admin";
+  const rol = await getSessionRole();
+  const esAdmin = rol === "admin";
+  // Editar y archivar el puesto sigue siendo solo del admin; mover gente de puesto
+  // lo puede hacer también el director/secretario desde la 0018. Lo que ve y lo que
+  // puede tocar ya viene acotado por RLS: `personas` y `disponibles` traen solo su
+  // gente, y `asignar_persona` rechaza a quien no sea de su alcance.
+  const puedeAsignar = rol !== null;
 
   return (
     <>
@@ -233,7 +239,7 @@ export default async function PuestoPage({ params }: Props) {
             positionId={p.id}
             personas={personas}
             disponibles={disponibles}
-            puedeEditar={esAdmin}
+            puedeEditar={puedeAsignar}
           />
 
           {historial.length > 0 && <HistorialPuesto versiones={historial} />}
