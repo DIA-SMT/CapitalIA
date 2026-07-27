@@ -31,6 +31,8 @@ type Props = {
   valoresIniciales: PuestoFormValues;
   /** Código interno, solo informativo al editar (no se puede cambiar). */
   internalCode?: string;
+  /** Si viene, el alta aprueba esa solicitud en la misma transacción. */
+  solicitudId?: string;
 };
 
 function Seccion({
@@ -63,6 +65,7 @@ export function FormularioPuesto({
   positionId,
   valoresIniciales,
   internalCode,
+  solicitudId,
 }: Props) {
   const router = useRouter();
   const [pendiente, startTransition] = useTransition();
@@ -92,14 +95,18 @@ export function FormularioPuesto({
     startTransition(async () => {
       const r = esEdicion
         ? await crearVersion(positionId!, values)
-        : await crearPuesto(values);
+        : await crearPuesto(values, solicitudId);
 
       if ("error" in r) {
         setErrorGeneral(r.error);
         return;
       }
       toast.success(
-        esEdicion ? "Se creó una versión nueva del puesto." : "Puesto creado.",
+        esEdicion
+          ? "Se creó una versión nueva del puesto."
+          : solicitudId
+            ? "Solicitud aprobada: el puesto ya está en el nomenclador."
+            : "Puesto creado.",
       );
       if (esEdicion) router.push(`/puestos/${positionId}`);
     });

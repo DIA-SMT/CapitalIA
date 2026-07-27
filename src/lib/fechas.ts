@@ -43,3 +43,21 @@ export function formatearFecha(fecha: string): string {
   const [, y, mes, d] = m;
   return `${d}/${mes}/${y}`;
 }
+
+/**
+ * Formatea un `timestamptz` (`created_at`) como `DD/MM/AAAA` en hora de Tucumán.
+ *
+ * A diferencia de un `date`, esto SÍ es un instante y pasa por `Date`. La zona va
+ * explícita porque el servidor corre en UTC: sin ella, todo lo creado después de
+ * las 21:00 hora argentina se mostraría con la fecha del día siguiente.
+ */
+export function formatearInstante(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return new Intl.DateTimeFormat("es-AR", {
+    timeZone: ZONA,
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(d);
+}

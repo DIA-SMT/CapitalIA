@@ -92,8 +92,17 @@ export async function crearVersion(
   return { ok: true, id: positionId };
 }
 
-/** Da de alta un puesto nuevo. El código interno lo genera la base. */
-export async function crearPuesto(values: unknown): Promise<ResultadoAccion> {
+/**
+ * Da de alta un puesto nuevo. El código interno lo genera la base.
+ *
+ * Si viene `solicitudId`, el alta es la APROBACIÓN de esa solicitud: se usa
+ * `aprobar_solicitud`, que crea el puesto y resuelve la solicitud en una sola
+ * transacción (no puede quedar el puesto creado con la solicitud pendiente).
+ */
+export async function crearPuesto(
+  values: unknown,
+  solicitudId?: string,
+): Promise<ResultadoAccion> {
   if (!isSupabaseConfigured()) return { error: SIN_CONFIG };
 
   const parsed = puestoSchema.safeParse(values);
@@ -102,12 +111,18 @@ export async function crearPuesto(values: unknown): Promise<ResultadoAccion> {
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.rpc("crear_puesto", parametros(parsed.data));
+  const { data, error } = solicitudId
+    ? await supabase.rpc("aprobar_solicitud", {
+        p_solicitud_id: solicitudId,
+        ...parametros(parsed.data),
+      })
+    : await supabase.rpc("crear_puesto", parametros(parsed.data));
 
   if (error) return { error: mensajeDeError(error) };
 
   revalidatePath("/puestos");
   revalidatePath("/dashboard");
+  if (solicitudId) revalidatePath("/solicitudes");
   redirect(`/puestos/${data as string}`);
 }
 
