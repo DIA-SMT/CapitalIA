@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Library,
   Settings,
+  ShieldCheck,
   Users,
   type LucideIcon,
 } from "lucide-react";
@@ -33,6 +34,7 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Bitácora", href: "/auditoria", icon: History, adminOnly: true },
   { title: "Catálogos", href: "/catalogos", icon: Library, adminOnly: true },
   { title: "Documentos", href: "/documentos", icon: FolderOpen, adminOnly: true },
+  { title: "Usuarios", href: "/usuarios", icon: ShieldCheck, adminOnly: true },
   { title: "Configuración", href: "/configuracion", icon: Settings },
 ];
 
@@ -48,6 +50,7 @@ export const ROUTE_LABELS: Record<string, string> = {
   auditoria: "Bitácora",
   catalogos: "Catálogos",
   documentos: "Documentos",
+  usuarios: "Usuarios",
   configuracion: "Configuración",
 };
 
