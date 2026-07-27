@@ -43,6 +43,7 @@ export const ROUTE_LABELS: Record<string, string> = {
   dashboard: "Dashboard",
   puestos: "Nomenclador",
   nuevo: "Nuevo puesto",
+  nueva: "Nueva repartición",
   editar: "Editar",
   solicitudes: "Solicitudes",
   personas: "Personas",

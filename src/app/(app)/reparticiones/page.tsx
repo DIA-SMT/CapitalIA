@@ -1,29 +1,62 @@
 import type { Metadata } from "next";
-import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { ChevronRight, Pencil, Plus } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/states";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   listarReparticiones,
   type NodoReparticion,
 } from "@/features/reparticiones/data/reparticiones";
+import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Reparticiones" };
+
+/** Lápiz de edición. Solo para admin; navega, así que no necesita JS. */
+function Editar({ nodo }: { nodo: NodoReparticion }) {
+  return (
+    <Link
+      href={`/reparticiones/${nodo.id}/editar`}
+      aria-label={`Editar ${nodo.nombre}`}
+      title="Editar"
+      className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+    >
+      <Pencil className="h-3.5 w-3.5" aria-hidden />
+    </Link>
+  );
+}
 
 /**
  * Una unidad sin dependencias. Como línea, salvo que sea una secretaría sin nada
  * colgando (Contaduría General): ahí va con tarjeta, para que no quede suelta
  * entre las demás secretarías.
  */
-function Hoja({ nodo, raiz }: { nodo: NodoReparticion; raiz: boolean }) {
+function Hoja({
+  nodo,
+  raiz,
+  esAdmin,
+}: {
+  nodo: NodoReparticion;
+  raiz: boolean;
+  esAdmin: boolean;
+}) {
   if (raiz) {
     return (
       <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-3">
         {/* Espacio del chevron, para que el nombre alinee con el de las demás. */}
         <span className="h-4 w-4 shrink-0" aria-hidden />
         <div className="min-w-0 flex-1">
-          <span className="font-medium text-foreground">{nodo.nombre}</span>
+          <span
+            className={
+              nodo.activa
+                ? "font-medium text-foreground"
+                : "font-medium text-muted-foreground line-through"
+            }
+          >
+            {nodo.nombre}
+          </span>
           <span className="ml-2 font-mono text-xs text-muted-foreground">
             {nodo.code}
           </span>
@@ -31,6 +64,7 @@ function Hoja({ nodo, raiz }: { nodo: NodoReparticion; raiz: boolean }) {
         <span className="shrink-0 text-xs text-muted-foreground">
           Sin dependencias
         </span>
+        {esAdmin && <Editar nodo={nodo} />}
       </div>
     );
   }
@@ -47,6 +81,7 @@ function Hoja({ nodo, raiz }: { nodo: NodoReparticion; raiz: boolean }) {
       >
         {nodo.nombre}
       </span>
+      {esAdmin && <Editar nodo={nodo} />}
     </div>
   );
 }
@@ -57,9 +92,19 @@ function Hoja({ nodo, raiz }: { nodo: NodoReparticion; raiz: boolean }) {
  * pantalla; las subsecretarías, abiertas, así al desplegar una secretaría se ve
  * todo lo que cuelga de ella de una vez.
  */
-function Rama({ nodo, nivel }: { nodo: NodoReparticion; nivel: number }) {
+function Rama({
+  nodo,
+  nivel,
+  esAdmin,
+}: {
+  nodo: NodoReparticion;
+  nivel: number;
+  esAdmin: boolean;
+}) {
   const raiz = nivel === 0;
-  if (nodo.hijos.length === 0) return <Hoja nodo={nodo} raiz={raiz} />;
+  if (nodo.hijos.length === 0) {
+    return <Hoja nodo={nodo} raiz={raiz} esAdmin={esAdmin} />;
+  }
 
   return (
     <details
@@ -79,9 +124,9 @@ function Rama({ nodo, nivel }: { nodo: NodoReparticion; nivel: number }) {
         />
         <div className="min-w-0 flex-1">
           <span
-            className={
-              raiz ? "font-medium text-foreground" : "text-sm font-medium text-foreground"
-            }
+            className={`${raiz ? "font-medium" : "text-sm font-medium"} ${
+              nodo.activa ? "text-foreground" : "text-muted-foreground line-through"
+            }`}
           >
             {nodo.nombre}
           </span>
@@ -89,6 +134,7 @@ function Rama({ nodo, nivel }: { nodo: NodoReparticion; nivel: number }) {
             {nodo.code}
           </span>
         </div>
+        {esAdmin && <Editar nodo={nodo} />}
         <Badge variant="secondary" className="shrink-0 tabular-nums">
           {nodo.totalDescendientes}
         </Badge>
@@ -102,7 +148,7 @@ function Rama({ nodo, nivel }: { nodo: NodoReparticion; nivel: number }) {
         }
       >
         {nodo.hijos.map((h) => (
-          <Rama key={h.id} nodo={h} nivel={nivel + 1} />
+          <Rama key={h.id} nodo={h} nivel={nivel + 1} esAdmin={esAdmin} />
         ))}
       </div>
     </details>
@@ -110,12 +156,12 @@ function Rama({ nodo, nivel }: { nodo: NodoReparticion; nivel: number }) {
 }
 
 export default async function ReparticionesPage() {
-  const secretarias = await listarReparticiones();
-
-  const totales = secretarias.reduce(
-    (acc, s) => acc + s.totalDescendientes,
-    0,
-  );
+  const [secretarias, rol] = await Promise.all([
+    listarReparticiones(),
+    getSessionRole(),
+  ]);
+  const esAdmin = rol === "admin";
+  const totales = secretarias.reduce((acc, s) => acc + s.totalDescendientes, 0);
 
   if (secretarias.length === 0) {
     return (
@@ -136,12 +182,20 @@ export default async function ReparticionesPage() {
     <>
       <PageHeader
         title="Reparticiones"
-        description={`Organigrama de la Municipalidad: ${secretarias.length} secretarías y ${totales} unidades dependientes. Tocá una secretaría para desplegarla. Datos provisionales del POA 2026.`}
+        description={`Organigrama de la Municipalidad: ${secretarias.length} secretarías y ${totales} unidades dependientes. Tocá una secretaría para desplegarla.`}
+        action={
+          esAdmin ? (
+            <Button render={<Link href="/reparticiones/nueva" />}>
+              <Plus className="h-4 w-4" aria-hidden />
+              Nueva repartición
+            </Button>
+          ) : undefined
+        }
       />
 
       <div className="space-y-2">
         {secretarias.map((s) => (
-          <Rama key={s.id} nodo={s} nivel={0} />
+          <Rama key={s.id} nodo={s} nivel={0} esAdmin={esAdmin} />
         ))}
       </div>
     </>

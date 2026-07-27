@@ -105,3 +105,54 @@ export async function listarReparticionesPlanas(): Promise<ReparticionPlana[]> {
   recorrer(arbol, 0);
   return salida;
 }
+
+/** Una repartición puntual, para precargar el formulario de edición. */
+export async function obtenerReparticion(id: string): Promise<{
+  id: string;
+  code: string;
+  nombre: string;
+  parentId: string | null;
+  activa: boolean;
+} | null> {
+  const fila = (await traerFilas()).find((f) => f.id === id);
+  if (!fila) return null;
+  return {
+    id: fila.id,
+    code: fila.code,
+    nombre: fila.nombre,
+    parentId: fila.parent_id,
+    activa: fila.is_active,
+  };
+}
+
+/**
+ * Posibles "padres" para una repartición.
+ *
+ * Al editar hay que excluir a la propia unidad y a todo lo que cuelga de ella:
+ * elegir una descendiente como padre armaría un ciclo y las dejaría a todas fuera
+ * del organigrama. La base igual lo rechaza (trigger de la 0017); esto es para que
+ * ni siquiera aparezca como opción.
+ */
+export async function listarPosiblesPadres(
+  excluirId?: string,
+): Promise<ReparticionPlana[]> {
+  const planas = await listarReparticionesPlanas();
+  if (!excluirId) return planas;
+
+  const filas = await traerFilas();
+  const vedados = new Set<string>([excluirId]);
+  // Las filas vienen en orden de código, así que puede hacer falta más de una
+  // pasada para arrastrar la exclusión hasta las hojas.
+  let cambio = true;
+  while (cambio) {
+    cambio = false;
+    for (const f of filas) {
+      if (f.parent_id && vedados.has(f.parent_id) && !vedados.has(f.id)) {
+        vedados.add(f.id);
+        cambio = true;
+      }
+    }
+  }
+
+  return planas.filter((p) => !vedados.has(p.id));
+}
