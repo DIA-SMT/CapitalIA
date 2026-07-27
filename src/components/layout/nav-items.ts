@@ -3,7 +3,6 @@ import {
   ClipboardList,
   FilePlus2,
   FileStack,
-  FolderOpen,
   History,
   LayoutDashboard,
   Library,
@@ -33,7 +32,6 @@ export const NAV_ITEMS: NavItem[] = [
   { title: "Reparticiones", href: "/reparticiones", icon: Building2 },
   { title: "Bitácora", href: "/auditoria", icon: History, adminOnly: true },
   { title: "Catálogos", href: "/catalogos", icon: Library, adminOnly: true },
-  { title: "Documentos", href: "/documentos", icon: FolderOpen, adminOnly: true },
   { title: "Usuarios", href: "/usuarios", icon: ShieldCheck, adminOnly: true },
   { title: "Configuración", href: "/configuracion", icon: Settings },
 ];
@@ -50,7 +48,6 @@ export const ROUTE_LABELS: Record<string, string> = {
   reparticiones: "Reparticiones",
   auditoria: "Bitácora",
   catalogos: "Catálogos",
-  documentos: "Documentos",
   usuarios: "Usuarios",
   configuracion: "Configuración",
 };
