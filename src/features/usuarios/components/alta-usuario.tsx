@@ -7,13 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { KeyRound, UserPlus } from "lucide-react";
 
+import { ROLES, ROL_ETIQUETA } from "@/lib/roles";
 import { crearUsuario } from "../actions";
-import {
-  ROLES,
-  ROL_ETIQUETA,
-  usuarioSchema,
-  type UsuarioFormValues,
-} from "../schemas/usuario";
+import { usuarioSchema, type UsuarioFormValues } from "../schemas/usuario";
 import {
   SelectorReparticiones,
   type OpcionReparticion,

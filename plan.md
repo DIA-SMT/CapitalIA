@@ -1,226 +1,206 @@
-# Plan — Fundaciones: Roles + Reparticiones
+# Plan de trabajo — Capital humanIA
 
-> Base para las **Etapas 1–3 de la propuesta de Capital Humano** (integración
-> Civitas → asignación de funciones y solicitudes → evaluación y aprobación).
-> Este documento aterriza **solo las fundaciones**: el modelo de roles y las
-> reparticiones. Todo lo demás se apoya encima y se diseña acá para soportarlo.
+> Plan vivo: **dónde estamos, qué falta y por qué**. Se actualiza a medida que se
+> cierra cada punto.
 >
-> ⚠️ Cuidado con la numeración: la propuesta de Capital Humano habla de
-> "Etapas 1/2/3", que **no** son las Etapas del [`roadmap.md`](docs/roadmap.md)
-> interno (0–8). Cuando digo "Etapa 2/3" acá, es la de Capital Humano.
+> Este documento cubre la **propuesta de Capital Humano** (Etapas 1–3: integración
+> Civitas → asignación de funciones → evaluación y aprobación) y el trabajo que se
+> apoya encima. Para el estado general del proyecto y las trampas conocidas,
+> [`CONTEXT.md`](CONTEXT.md); para el plan original por etapas técnicas,
+> [`docs/roadmap.md`](docs/roadmap.md).
+>
+> ⚠️ **Cuidado con la numeración.** La propuesta de Capital Humano habla de
+> "Etapas 1/2/3", que **no** son las Etapas del `roadmap.md` interno (0–8). Cuando
+> acá dice "Etapa 2/3" sin aclarar, es la de Capital Humano.
 
 ---
 
-## 1. Por qué esto va primero
+## 1. Dónde estamos
 
-- Es lo **transversal**: sin roles ni reparticiones, no se puede empezar ni la
-  Etapa 2 (directores con acceso acotado) ni la Etapa 3 (separar solicitante de
-  administrador). Todo lo demás depende de esto.
-- **El proyecto ya lo tenía anotado como el próximo paso obligado**, en tres
-  lugares: cabecera de la migración `0008`, [`CONTEXT.md`](CONTEXT.md) §4 ("el día
-  que entre un tercer usuario… hay que armar roles primero. No es opcional a
-  partir de ahí") y `roadmap.md` Etapa 5.
-- **No depende de Civitas.** Construimos las reparticiones localmente y dejamos el
-  hueco (`external_id`) para que Civitas las alimente cuando haya acceso.
-- **El momento es bueno:** `personas` y `asignaciones` están en **0 filas reales**
-  (solo el registro de prueba `ZZZ`/`TEST-0001`). Normalizar `personas.area` a una
-  FK **no tiene migración de datos dolorosa** — es prácticamente hoja en blanco.
+**Migraciones aplicadas: `0001`–`0018`.** Todo en la rama `matias`.
 
----
-
-## 2. Alcance de este plan
-
-**Entra:**
-- Modelo de roles (más allá de `admin`).
-- `reparticiones` como entidad (con lugar para el organigrama y para Civitas).
-- Vínculo usuario ↔ repartición.
-- Reescritura de la RLS: de `is_admin()` todo-o-nada → por rol y por repartición.
-- Cambiar `handle_new_user()` (hoy hace admin a todos).
-- Normalizar `personas.area` → `reparticion_id`.
-- Mínimo de gestión de usuarios/roles para poder operar.
-
-**No entra** (se construye encima, en su propia etapa, pero se diseña para que
-encaje):
-- Tabla y flujo de **solicitudes** (Etapa 2/3 de Capital Humano).
-- **Asignación self-service** por directores.
-- **Sync con Civitas** (Etapa 1).
-
----
-
-## 3. De dónde partimos (estado real, verificado en código)
-
-| Pieza | Hoy | Archivo |
-|---|---|---|
-| Roles | `user_role` tiene **un solo valor**: `'admin'` | `migrations/…0001_init.sql:13` |
-| Alta de usuario | Todo usuario nuevo nace **admin** | `…0003_positions.sql:308` (`handle_new_user`) |
-| Autorización | Toda la RLS es `is_admin()` → **todo o nada** | `…0004_rls.sql` |
-| Repartición | No existe como entidad; solo `personas.area` (texto libre) | `…0008_personas.sql:25` |
-| Vínculo usuario↔repartición | No existe | `profiles` no tiene la columna |
-| Rol en la app | No se lee; `/configuracion` lo muestra **hardcodeado** | `src/app/(app)/configuracion/page.tsx` |
-| Dotación real | `personas`/`asignaciones` en **0 filas** | `CONTEXT.md` §1 |
-| Migraciones | `0001`–`0008` aplicadas | `supabase/migrations/` |
-
-Nota: **`architecture.md` §5 ya había propuesto** roles `lector`/`editor`/`admin`
-con RLS en dos capas. Nunca se implementó. Lo reconciliamos abajo — el director de
-la propuesta no encaja como `lector`/`editor` (esos editaban el nomenclador; el
-director **no** edita el nomenclador).
-
----
-
-## 4. Diseño propuesto
-
-### 4.1 Roles
-
-Para lo que pide Capital Humano alcanzan **dos roles** (el enum queda extensible):
-
-| Rol | Qué puede hacer |
+| Etapa (Capital Humano) | Estado |
 |---|---|
-| `admin` (Capital Humano) | Todo: nomenclador (alta/versión/baja), **aprobar/rechazar** solicitudes, gestión de usuarios y reparticiones, ve **todo** el personal. |
-| `director` *(nombre a definir)* | Acotado a **su(s) repartición(es)**: consulta el nomenclador **vigente** (solo lectura), ve y gestiona la **dotación de su gente**, **crea solicitudes** de puestos nuevos. **No** edita el nomenclador. |
+| 1 · Integración con Civitas | ⏸️ **Diferida** — no hay acceso al sistema todavía |
+| 2 · Asignación de funciones | ✅ El director/secretario carga y asigna su personal |
+| 3 · Solicitudes y aprobación | ✅ Alta, bandeja, evaluar, aprobar y rechazar con motivo |
 
-Cambios que implica:
-- `ALTER TYPE public.user_role ADD VALUE 'director';` (el enum ya se pensó
-  extensible, ver comentario en `0001_init.sql:11`).
-- Reescribir `handle_new_user()`: dejar de asignar `admin` por defecto → rol
-  mínimo, sin repartición, hasta que un admin lo habilite. **Los 2 admins actuales
-  no se tocan** (el trigger solo dispara en usuarios nuevos).
-- Leer el rol en la app: un helper `getSessionProfile()`/`getRole()` en
-  `lib/supabase/server.ts`, y `/configuracion` deja de hardcodear el badge.
+Civitas es privado y Capital Humano todavía no dio acceso; recién ahí se verá si
+se puede integrar por API. Por eso la Etapa 1 quedó para el final y las
+fundaciones se construyeron localmente, dejando `reparticiones.external_id` y
+`personas.legajo` (único) como enganches para el *upsert* futuro.
 
-### 4.2 Reparticiones
+---
 
-```
-reparticiones
-  id            uuid pk
-  code          text unique          -- código corto / interno
-  nombre        text
-  parent_id     uuid null → reparticiones.id   -- organigrama (jerarquía opcional)
-  external_id   text null unique     -- ⟵ hueco reservado para el ID de Civitas
-  is_active     boolean
-  created_at / updated_at
-```
+## 2. Lo que está hecho
 
-- `parent_id` deja el organigrama **modelable** aunque al principio scopeemos
-  plano (ver Decisión 3).
-- `external_id` es el enganche para que Civitas haga *upsert* sin duplicar.
-- `personas.area` (texto) → se agrega `personas.reparticion_id` FK. Como no hay
-  datos reales, es limpio.
+### Fundaciones — roles, reparticiones y RLS ✅
 
-### 4.3 Vínculo usuario ↔ repartición
+Eran el bloqueo transversal: sin roles ni reparticiones no arrancaba ni la
+Etapa 2 ni la Etapa 3. El proyecto ya lo tenía anotado como próximo paso obligado
+en tres lugares (cabecera de la `0008`, `CONTEXT.md` §4, `roadmap.md` Etapa 5).
 
-**Decidido: N:N** — tabla puente `perfil_reparticiones (perfil_id, reparticion_id)`,
-para que un director pueda tener varias reparticiones a cargo (ver Decisión 2).
+- **Reparticiones** (`0010`, `0011`, `0016`, `0017`): organigrama de tres niveles
+  —secretaría → subsecretaría → dirección— cargado del POA 2026. Hoy: **9
+  secretarías, 7 subsecretarías, 53 direcciones**. ABM completo desde la app, con
+  un trigger que impide ciclos en la jerarquía (`0017`): un ciclo no da error
+  visible, simplemente hace desaparecer del árbol a las unidades involucradas y
+  vuelve poco confiable el alcance del secretario.
+- **Roles** (`0009`, `0014`): `admin`, `secretario` y `director`.
+  `handle_new_user()` dejó de crear admins. Panel de gestión de usuarios en la
+  app, así que Capital Humano ya no depende de SQL para dar de alta a alguien.
+- **Vínculo usuario ↔ repartición**: `perfil_reparticiones` (N:N) — un director
+  puede tener varias reparticiones a cargo.
+- **RLS por repartición** (`0012`, `0015`): el director ve el nomenclador entero
+  (lectura) y **solo las personas de su repartición**. El secretario, lo mismo
+  pero con alcance a toda su secretaría, resuelto con un `with recursive` sobre el
+  organigrama dentro de `mis_reparticiones()`. Pasó revisión adversarial: se
+  corrigió un oráculo `SECURITY DEFINER` que filtraba la repartición de cualquier
+  persona.
 
-### 4.4 RLS nueva (el corazón, y lo más delicado)
+### Etapa 2 — asignación de funciones ✅
 
-Helpers `SECURITY DEFINER` (evitan recursión de RLS, como el `is_admin()` actual):
-- `is_admin()` — ya existe.
-- `mis_reparticiones()` — devuelve el set de `reparticion_id` del usuario actual.
+- El director y el secretario **asignan y desasignan puestos** a su gente
+  (`0018`). Antes `asignar_persona` exigía `is_admin()`, así que veían a su
+  personal y no lo podían mover: lo seguía haciendo Capital Humano a mano.
+- También **dan de alta personas**, acotado a su repartición por la base
+  (`personas_insert_director`). Se habilitó porque Civitas está diferido: sin eso
+  no hay ninguna vía de carga y la asignación self-service queda inerte por falta
+  de a quién asignar.
 
-Políticas objetivo:
+### Etapa 3 — solicitudes ✅
 
-| Tabla | `admin` | `director` |
+Tabla `solicitudes` (`0013`), alta para el director, bandeja para Capital Humano,
+evaluación reusando el formulario técnico de 10 campos que ya existía, aprobación
+que llama a `crear_puesto` y rechazo con motivo.
+
+### Dashboard y correcciones
+
+- Dashboard con puestos, fichas, organigrama, dotación y solicitudes pendientes,
+  más el reparto por secretaría y por agrupamiento.
+- Se sacó la tarjeta "Pendientes de verificar": las 210 fichas siguen en
+  `pending`, pero **todavía no existe la pantalla para marcarlas verificadas**, y
+  anunciarlas como pendientes era reclamar una tarea que no se puede hacer. Vuelve
+  cuando exista esa pantalla, y como progreso (`12/210`), no como reclamo.
+- **Bug de roles** (`40f31f8`): `getSessionRole()` no reconocía `secretario` y
+  devolvía `null`, así que `/configuracion` le mostraba "—" y la app no lo podía
+  distinguir de un director. La causa era tener la lista de roles escrita en dos
+  lados; ahora hay una sola en `src/lib/roles.ts`.
+- **Bug de conteo** (`5be9042`): el reparto por agrupamiento sumaba 211 bajo el
+  título "los 210 puestos vigentes". Un puesto archivado conserva su versión
+  vigente y se colaba el puesto de prueba `ZZZ`. Corregido, y ahora coincide
+  exacto con el reparto documentado de la ingesta.
+
+---
+
+## 3. Lo que falta
+
+En orden de valor, acordado el 2026-07-27.
+
+### 3. Dashboard por rol + cobertura 🔜 *(el que sigue)*
+
+El dashboard es de admin. Un director entra y ve "9 secretarías · 7
+subsecretarías · 53 direcciones · 210 fichas históricas": cuatro tarjetas sobre un
+municipio que él no gestiona. Le falta lo único que le importa —su repartición:
+cuánta gente tiene, cuántos con puesto y cuántos sin, sus solicitudes abiertas—, y
+todo eso ya sale con lo que hay (`getSessionRole()` + RLS).
+
+Y hay un cruce que **nunca se hizo**: `positions` × `asignaciones`. La pregunta
+que Capital Humano se hace todos los días —"¿qué puestos están cubiertos y cuáles
+vacantes?"— el sistema la puede contestar y no la contesta. Hoy daría "2 de 210
+con dotación cargada", y ese número *es* la métrica de avance del proyecto.
+
+De paso: dos tarjetas dicen el mismo 210 (Puestos y Fichas históricas) y se leen
+como un error. Compactar.
+
+### 4. Actividad reciente en el dashboard
+
+`resumenAuditoria()` y `listarAuditoria()` **ya están escritas** y devuelven
+eventos legibles con autor y link; solo las usa `/auditoria`. Cinco líneas de
+"últimos movimientos" en el dashboard es código ya hecho.
+
+### 5. Verificación de fichas
+
+Las 210 están en `verification_status = 'pending'` porque nadie las contrastó
+contra el papel, y **no hay pantalla para marcarlas**. Es tarea de Capital Humano,
+que son los usuarios que tenemos. Botón "Verificada contra el papel" en la ficha
+(las columnas `verified_by` / `verified_at` ya existen) y el número vuelve al
+dashboard como progreso.
+
+### Más adelante
+
+- **Etapa 6 del roadmap:** comparar puestos campo a campo y detectar similares con
+  `pg_trgm`. El índice GIN trigram sobre `position_versions.name` ya existe.
+- **El asistente no conoce el organigrama.** Le pasamos los 210 puestos y nada
+  más. Dejar personas afuera está bien y es deliberado, pero las reparticiones no
+  son dato sensible —lo dice la propia RLS— y son ~2k tokens: habilita "¿qué
+  direcciones dependen de la Secretaría de Gobierno?".
+- **Etapa 1 · Civitas**, cuando haya acceso: *upsert* de reparticiones por
+  `external_id` y de legajos por `personas.legajo`.
+
+---
+
+## 4. Verificaciones pendientes
+
+> Regla del proyecto: *"que compile no significa que funciona"* (`CONTEXT.md` §4 —
+> ocho defectos aparecieron la primera vez que se ejercitaron dos circuitos, con
+> `lint`, `typecheck` y `build` en verde los ocho). Cada bloque se **ejercita**, no
+> solo se compila. Y en RLS un error no es cosmético: es fuga de datos de personal.
+
+Del test del director (usuario `matiaslujanw@gmail.com`, Dirección de IA):
+
+| Qué | Estado |
+|---|---|
+| `/personas` muestra solo su gente (1 de 2) | ✅ Verificado en pantalla |
+| Las rutas de admin (`/usuarios`, `/puestos/nuevo`) redirigen de verdad | ✅ Verificado |
+| El sidebar oculta lo de admin | ✅ Verificado |
+| La ficha de un puesto con gente ajena no la muestra | 🔶 Leído del SQL (`asignaciones_select_director`), no observado |
+| **Escritura**: cargar y asignar personal de su repartición | ⏳ Pendiente — es lo que habilitó la `0018` |
+
+Y sigue sin resolverse:
+
+- **Datos de prueba `ZZZ` en producción.** El puesto `ZZZ PRUEBA TECNICA`
+  (`SG-I-0008`) no se puede borrar (`prevent_delete`, a propósito), pero la
+  persona `TEST-0001` sí. Limpiar al cerrar el test del director.
+
+---
+
+## 5. Decisiones tomadas
+
+| # | Decisión | Definición |
 |---|---|---|
-| `positions` / `position_versions` / catálogos | todo | **solo SELECT** (nomenclador vigente) |
-| `personas` / `asignaciones` | todo | solo filas de **sus** reparticiones |
-| `solicitudes` *(se agrega después)* | todo | crear + ver las de **su** repartición |
+| 1 | Modelo de roles | `admin` + `secretario` + `director`, enum extensible |
+| 2 | Cardinalidad usuario↔repartición | N:N (`perfil_reparticiones`) |
+| 3 | Alcance del director | Solo su repartición |
+| 3b | Alcance del secretario | Su secretaría entera, recursivo por el organigrama |
+| 4 | Reparticiones sin Civitas | ABM en la app; las cargan ellos |
+| 5 | Gestión de usuarios | Panel en la app, sin SQL |
+| 6 | Nombre del rol | `director` |
+| 7 | ¿Separar evaluación técnica de aprobación? | No se separó: el admin hace las dos. No sobre-diseñar |
+| 8 | `personas.area` | Reemplazado por `reparticion_id`; falta el `drop` de la columna vieja |
+| 9 | ¿El director da de alta personas, o solo asigna? | **Las dos.** Sin Civitas no hay otra vía de carga |
+| 10 | ¿El director edita o da de baja personas? | **No.** Carga y asigna; corregir o dar de baja es de Capital Humano |
+| 11 | ¿Se acota a qué puesto puede asignar? | **No.** El nomenclador es municipal; lo acotado es sobre *quién* se opera |
+| 12 | Fichas pendientes de verificar en el dashboard | Fuera hasta que exista la pantalla para verificarlas |
 
 ---
 
-## 5. Trabajo por bloques — estado (al 2026-07-24)
+## 6. Riesgos y trampas
 
-Migraciones aplicadas: `0009`–`0012`. Todo commiteado en la rama `matias`.
-
-- **Bloque 0 · Pre-vuelo.** ✅ Resuelto: el SQL se pega a mano en el editor (no se
-  usa `db push`), así que no hay historial que reparar; seguimos numerando archivos.
-- **Bloque 1 · Reparticiones.** ✅ Tabla `reparticiones` (`0010`) + carga del
-  organigrama del POA 2026 (`0011`: 9 secretarías + 53 direcciones) + página
-  `/reparticiones`. Pendiente: el ABM (crear/editar desde la UI).
-- **Bloque 2 · Roles.** ✅ Rol `director` (`0009`); `handle_new_user` deja de crear
-  admins (`0010`); helper `getSessionRole()` + gateo de la UI por rol.
-- **Bloque 3 · Vínculo + personas.** ✅ `perfil_reparticiones` (N:N) +
-  `personas.reparticion_id` + selector de repartición en el alta de personas.
-- **Bloque 4 · RLS.** ✅ `0012`: el director lee el nomenclador y ve **solo** las
-  personas de su repartición; sin escritura. Pasó revisión adversarial (se corrigió
-  un oráculo `SECURITY DEFINER` que filtraba la repartición de cualquier persona).
-- **Bloque 5 · Ejercitar de punta a punta.** 🔶 En curso: se creó un director de
-  prueba (`matiaslujanw@gmail.com`, Dirección de IA) + una persona en esa
-  repartición. Falta confirmar, logueado como director, que ve **solo su gente** y
-  no puede escribir. Limpiar los datos de prueba (`ZZZ`) al cerrar.
-
-> Regla del proyecto que respetamos: *"que compile no significa que funciona"*
-> (`CONTEXT.md` §4 — aparecieron 8 defectos la primera vez que se ejercitaron los
-> circuitos, con `lint`/`typecheck`/`build` en verde). Cada bloque se **ejercita**,
-> no solo se compila. Y en RLS, un error no es un bug cosmético: es **fuga de datos
-> de personal**.
+- **RLS mal escrita = fuga de datos de personal.** Es el punto más sensible del
+  proyecto y ahora también hay escritura. Se prueba con un usuario `director`
+  real, no leyendo el SQL.
+- **Las migraciones se pegan a mano** en el SQL Editor; no se usa `db push`. Si
+  alguien lo corre por primera vez, va a intentar aplicarlas todas de nuevo.
+- **Datos personales.** El alcance mínimo de `personas` (legajo, nombre, email,
+  repartición) sigue vigente: sin DNI, CUIL, salario, licencias ni evaluaciones.
+  Ver la cabecera de la `0008`.
+- **`database.types.ts` no está generado**: las consultas tipan sus formas a mano
+  en cada archivo de `data/`.
+- **Next.js 16 no es el que conocés**: `params`/`searchParams` son Promesas y el
+  middleware se llama `proxy`. Leer `node_modules/next/dist/docs/`.
 
 ---
 
-## 6. Decisiones (esto es lo que hay que definir)
-
-Decisiones 1–4 y 6 confirmadas; 5, 7 y 8 en curso o diferidas.
-
-| # | Decisión | Definición | Estado |
-|---|---|---|---|
-| 1 | Forma del modelo de roles | **`admin` + `director`** — dos roles, enum extensible | ✅ Decidido |
-| 2 | Cardinalidad usuario↔repartición | **N:N** — tabla puente `perfil_reparticiones` | ✅ Decidido |
-| 3 | Alcance de "personal dependiente" | **Solo su repartición** (plano); `parent_id` queda preparado para el organigrama de Civitas | ✅ Decidido |
-| 4 | Reparticiones sin Civitas | **ABM y las cargan ellos**; para construir/probar uso datos de prueba mientras tanto | ✅ Decidido |
-| 5 | Gestión de roles/repartición por usuario | **SQL/dashboard por ahora**; panel de admin en la app pendiente (próxima sesión) | 🔶 En uso (SQL) |
-| 6 | Nombre del rol | **`director`** | ✅ Decidido |
-| 7 | ¿Separar evaluación técnica de aprobación? | admin hace las dos · o sumar `analista` | ⏳ Diferible — sugerido: no sobre-diseñar |
-| 8 | `personas.area` | se agregó `reparticion_id` y la app usa eso; `area` quedó **sin uso** | 🔶 Migrado; falta el `drop` de `area` |
-
----
-
-## 7. Riesgos y trampas conocidas
-
-- **RLS mal escrita = fuga de datos de personal.** Es el punto más sensible. Se
-  prueba con un usuario `director` real, no solo leyendo el SQL.
-- **Historial de migraciones desincronizado** (`CONTEXT.md` §4). Resolver en el
-  Bloque 0 antes de agregar la `0009`.
-- **Datos personales.** Recién con roles se habilita exponer personal a no-admins.
-  Mantener el alcance mínimo de `personas` (sin DNI/CUIL/salario) — sigue vigente.
-- **`database.types.ts` no está generado**: las tablas nuevas se tipan a mano en
-  `data/` hasta generarlo.
-- **Next.js 16**: `params`/`searchParams` son Promesas; el middleware es `proxy`.
-
----
-
-## 8. Lo que esto habilita después (fuera de este plan)
-
-- **Etapa 2 (Capital Humano):** asignación self-service por directores (reusa
-  `asignar_persona`, ya existe) + crear solicitudes.
-- **Etapa 3:** bandeja de solicitudes + evaluación (el formulario técnico de 10
-  campos **ya existe**) + aprobar (llama a `crear_puesto`, ya existe) / rechazar
-  con motivo.
-- **Etapa 1:** sync con Civitas — *upsert* de reparticiones por `external_id` y de
-  legajos por `personas.legajo` (ya es único). El modelo queda preparado para
-  recibirlo.
-
----
-
-## 9. Próxima sesión — por dónde seguir
-
-Las fundaciones (roles + reparticiones + RLS + gateo de la UI) están hechas y
-aplicadas. Lo que sigue, en orden:
-
-1. **Cerrar el Bloque 5:** confirmar el test del director (ve solo su gente, no
-   escribe). Después, limpiar los datos de prueba `ZZZ`.
-2. **Escritura del director (Etapa 2 en serio):**
-   - Que el director **asigne puestos a su gente** — adaptar `asignar_persona`, que
-     hoy exige `is_admin()`, para aceptar al director acotado a su repartición.
-   - **Solicitudes de puestos nuevos:** tabla `solicitudes` (nombre + descripción +
-     estado pendiente/aprobada/rechazada + repartición + solicitante) + pantalla de
-     alta para el director.
-3. **Panel de gestión de usuarios (admin):** que Capital Humano cree los directores
-   y les asigne repartición **desde la app**, sin Supabase ni SQL (decisión 5).
-4. **Etapa 3:** bandeja de solicitudes + evaluar (el formulario técnico de 10 campos
-   ya existe) + aprobar (llama a `crear_puesto`) / rechazar con motivo.
-5. Cuando quieras: **ABM de reparticiones** (editar el organigrama desde la UI) y,
-   más adelante, **Civitas** (Etapa 1).
-
----
-
-*Última actualización: 2026-07-24. Fundaciones (Bloques 0–4) hechas; Bloque 5 en
-verificación. Migraciones 0009–0012 aplicadas.*
+*Última actualización: 2026-07-27. Migraciones `0001`–`0018` aplicadas. Etapas 2 y
+3 de Capital Humano cerradas; falta ejercitar la escritura del director.*

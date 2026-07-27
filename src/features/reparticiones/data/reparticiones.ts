@@ -87,6 +87,61 @@ export async function listarReparticiones(): Promise<NodoReparticion[]> {
   return construirArbol(await traerFilas());
 }
 
+export type ResumenOrganigrama = {
+  secretarias: number;
+  subsecretarias: number;
+  direcciones: number;
+  /** Cuántas unidades cuelgan de cada secretaría, de mayor a menor. */
+  porSecretaria: { id: string; nombre: string; unidades: number }[];
+};
+
+/**
+ * El organigrama en números, para el dashboard.
+ *
+ * ⚠️ `reparticiones` no guarda el tipo de unidad: lo único que hay es la relación
+ * padre-hijo, así que el tipo se deduce de la forma del árbol —raíz = secretaría,
+ * con dependientes = subsecretaría, sin dependientes = dirección—. Con los datos
+ * del POA 2026 da exacto (9 / 7 / 53), incluidas las 13 direcciones que cuelgan
+ * directo de su secretaría y que contar por profundidad clasificaría mal. Pero es
+ * una deducción, no un dato: si mañana una dirección pasa a tener unidades a
+ * cargo, va a contar como subsecretaría. Si el tipo llega a importar de verdad,
+ * corresponde una columna en la tabla y no una heurística acá.
+ *
+ * Los totales se calculan sobre todas las unidades, activas o no, para que el
+ * número coincida con el que muestra `/reparticiones`.
+ */
+export async function resumenOrganigrama(): Promise<ResumenOrganigrama> {
+  const secretarias = construirArbol(await traerFilas());
+
+  let subsecretarias = 0;
+  let direcciones = 0;
+
+  function contar(nodos: NodoReparticion[]) {
+    for (const n of nodos) {
+      if (n.hijos.length > 0) {
+        subsecretarias += 1;
+        contar(n.hijos);
+      } else {
+        direcciones += 1;
+      }
+    }
+  }
+  for (const s of secretarias) contar(s.hijos);
+
+  return {
+    secretarias: secretarias.length,
+    subsecretarias,
+    direcciones,
+    porSecretaria: secretarias
+      .map((s) => ({
+        id: s.id,
+        nombre: s.nombre,
+        unidades: s.totalDescendientes,
+      }))
+      .sort((a, b) => b.unidades - a.unidades),
+  };
+}
+
 /**
  * El mismo árbol aplanado en orden de lectura, con la profundidad de cada fila.
  * Es lo que consumen los selectores, que necesitan una lista y no un árbol.
@@ -104,6 +159,48 @@ export async function listarReparticionesPlanas(): Promise<ReparticionPlana[]> {
 
   recorrer(arbol, 0);
   return salida;
+}
+
+/**
+ * Las reparticiones en las que el usuario puede cargar personal.
+ *
+ * El admin, todas. El director y el secretario, solo su alcance — y ese alcance
+ * sale de `mis_reparticiones()` en la base y no de leer `perfil_reparticiones`
+ * derecho, porque para un secretario incluye todo lo que cuelga de su secretaría.
+ * Es la misma función que usa la RLS, así que lo que ofrece el formulario y lo que
+ * acepta la base no se pueden desincronizar: si acá apareciera una de más, la
+ * `personas_insert_director` de la 0018 la rechaza igual.
+ */
+export async function listarReparticionesQuePuedoGestionar(
+  esAdmin: boolean,
+): Promise<ReparticionPlana[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const planas = await listarReparticionesPlanas();
+  if (esAdmin) return planas;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("mis_reparticiones");
+  if (error) {
+    console.error("[reparticiones] mis_reparticiones:", error.message);
+    return [];
+  }
+
+  // `mis_reparticiones()` es `returns setof uuid`. PostgREST devuelve eso como
+  // array de strings, pero se acepta también la forma objeto: sin
+  // `database.types.ts` generado no hay nada que fije la forma, y equivocarse acá
+  // dejaría al director sin ninguna repartición para elegir.
+  const mias = new Set(
+    ((data ?? []) as unknown[])
+      .map((f) =>
+        typeof f === "string"
+          ? f
+          : (f as Record<string, string> | null)?.mis_reparticiones,
+      )
+      .filter((id): id is string => typeof id === "string"),
+  );
+
+  return planas.filter((p) => mias.has(p.id));
 }
 
 /** Una repartición puntual, para precargar el formulario de edición. */

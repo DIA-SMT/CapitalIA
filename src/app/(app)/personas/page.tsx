@@ -6,18 +6,25 @@ import { AltaPersona } from "@/features/personas/components/alta-persona";
 import { TablaPersonas } from "@/features/personas/components/tabla-personas";
 import { listarPersonas } from "@/features/personas/data/personas";
 import { listarPuestosParaSelector } from "@/features/puestos/data/puestos";
-import { listarReparticionesPlanas } from "@/features/reparticiones/data/reparticiones";
+import { listarReparticionesQuePuedoGestionar } from "@/features/reparticiones/data/reparticiones";
 import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Personas" };
 
 export default async function PersonasPage() {
+  // El rol va primero porque decide qué reparticiones se pueden ofrecer.
+  // `getSessionRole` está cacheado por request, así que no cuesta una consulta más.
+  const rol = await getSessionRole();
+  const esAdmin = rol === "admin";
+  // Desde la 0018 el director y el secretario también cargan personal, acotado a
+  // su repartición. El listado ya venía acotado por RLS.
+  const puedeCargar = rol !== null;
+
   const [personas, puestos, reparticiones] = await Promise.all([
     listarPersonas(),
     listarPuestosParaSelector(),
-    listarReparticionesPlanas(),
+    listarReparticionesQuePuedoGestionar(esAdmin),
   ]);
-  const esAdmin = (await getSessionRole()) === "admin";
 
   return (
     <>
@@ -26,9 +33,15 @@ export default async function PersonasPage() {
         description="Empleados municipales y el puesto que ocupan."
       />
 
-      {esAdmin && (
+      {puedeCargar && (
         <div className="mb-6">
-          <AltaPersona puestos={puestos} reparticiones={reparticiones} />
+          <AltaPersona
+            puestos={puestos}
+            reparticiones={reparticiones}
+            // El admin puede cargar a alguien sin repartición; para el resto es
+            // obligatoria, y la base la exige igual (personas_insert_director).
+            reparticionObligatoria={!esAdmin}
+          />
         </div>
       )}
 

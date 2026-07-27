@@ -142,6 +142,46 @@ export async function listarPersonas(): Promise<PersonaListado[]> {
   });
 }
 
+export type ResumenDotacion = {
+  /** Personas activas. */
+  personas: number;
+  /** Cuántas de ellas tienen un puesto vigente. */
+  conPuesto: number;
+};
+
+/**
+ * La dotación en dos números, para el dashboard. Van con `head: true`: Postgres
+ * devuelve el total y ninguna fila.
+ *
+ * `conPuesto` cuenta asignaciones abiertas, no personas, pero
+ * `uq_asig_una_vigente_por_persona` garantiza una sola vigente por persona, así
+ * que es el mismo número.
+ */
+export async function resumenDotacion(): Promise<ResumenDotacion> {
+  const vacio: ResumenDotacion = { personas: 0, conPuesto: 0 };
+  if (!isSupabaseConfigured()) return vacio;
+
+  const supabase = await createClient();
+  const [personas, asignadas] = await Promise.all([
+    supabase
+      .from("personas")
+      .select("*", { count: "exact", head: true })
+      .eq("is_active", true),
+    supabase
+      .from("asignaciones")
+      .select("*", { count: "exact", head: true })
+      .is("valid_until", null),
+  ]);
+
+  if (personas.error) {
+    // La 0008 puede no estar aplicada: el dashboard no debe romperse por eso.
+    console.error("[personas] resumenDotacion:", personas.error.message);
+    return vacio;
+  }
+
+  return { personas: personas.count ?? 0, conPuesto: asignadas.count ?? 0 };
+}
+
 /** Personas sin puesto asignado, para el selector de la ficha. */
 export async function listarPersonasSinPuesto(): Promise<
   { id: string; nombre: string; legajo: string }[]

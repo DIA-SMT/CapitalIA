@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Pencil } from "lucide-react";
 
+import { ROLES, ROL_ETIQUETA } from "@/lib/roles";
 import { actualizarUsuario } from "../actions";
-import { ROLES, ROL_ETIQUETA } from "../schemas/usuario";
 import type { UsuarioListado } from "../data/usuarios";
 import {
   SelectorReparticiones,
