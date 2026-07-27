@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import type { User } from "@supabase/supabase-js";
 
+import { esRol, type Rol } from "../roles";
 import { SUPABASE_ANON_KEY, SUPABASE_URL, isSupabaseConfigured } from "./config";
 
 /**
@@ -51,25 +52,26 @@ export const getSessionUser = cache(async (): Promise<User | null> => {
 });
 
 /**
- * Rol de aplicación del usuario actual ('admin' | 'director') o null. Cacheado por
- * request: se puede llamar desde el layout y varias páginas sin repetir la consulta.
- * La RLS de profiles permite a cada usuario leer su propia fila.
+ * Rol de aplicación del usuario actual, o null si no hay sesión. Cacheado por
+ * request: se puede llamar desde el layout y varias páginas sin repetir la
+ * consulta. La RLS de profiles permite a cada usuario leer su propia fila.
+ *
+ * La lista de roles válidos sale de `lib/roles.ts` y no se repite acá: tenerla
+ * escrita dos veces es lo que dejó a `secretario` afuera.
  */
-export const getSessionRole = cache(
-  async (): Promise<"admin" | "director" | null> => {
-    const user = await getSessionUser();
-    if (!user) return null;
-    try {
-      const supabase = await createClient();
-      const { data } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", user.id)
-        .single();
-      const role = data?.role;
-      return role === "admin" || role === "director" ? role : null;
-    } catch {
-      return null;
-    }
-  },
-);
+export const getSessionRole = cache(async (): Promise<Rol | null> => {
+  const user = await getSessionUser();
+  if (!user) return null;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    const role = data?.role;
+    return esRol(role) ? role : null;
+  } catch {
+    return null;
+  }
+});

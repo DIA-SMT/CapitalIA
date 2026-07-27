@@ -1,21 +1,17 @@
 import { z } from "zod";
 
+import { ROLES } from "@/lib/roles";
+
 /**
  * Esquemas de la gestión de usuarios. Fuente de verdad única: los usa el
  * formulario en el cliente y las Server Actions en el servidor.
  *
  * Van en su propio archivo y NO en actions.ts: un archivo con "use server" solo
  * puede exportar funciones async.
+ *
+ * Los roles vienen de `lib/roles.ts`, que es la única lista: acá había una copia
+ * y se desincronizó con la de `getSessionRole()`.
  */
-
-/** Roles que un admin puede asignar desde el panel. */
-export const ROLES = ["admin", "secretario", "director"] as const;
-
-export const ROL_ETIQUETA: Record<(typeof ROLES)[number], string> = {
-  admin: "Administrador (Capital Humano)",
-  secretario: "Secretario (toda su secretaría)",
-  director: "Director (su repartición)",
-};
 
 export const usuarioSchema = z
   .object({

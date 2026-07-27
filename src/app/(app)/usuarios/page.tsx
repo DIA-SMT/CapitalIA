@@ -11,7 +11,7 @@ import { AltaUsuario } from "@/features/usuarios/components/alta-usuario";
 import { EditarUsuario } from "@/features/usuarios/components/editar-usuario";
 import { listarReparticionesPlanas } from "@/features/reparticiones/data/reparticiones";
 import { listarUsuarios } from "@/features/usuarios/data/usuarios";
-import { ROL_ETIQUETA } from "@/features/usuarios/schemas/usuario";
+import { ROL_ETIQUETA, esRol } from "@/lib/roles";
 import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Usuarios" };
@@ -58,7 +58,7 @@ export default async function UsuariosPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-medium">{u.nombre ?? u.email}</span>
                     <Badge variant="secondary">
-                      {ROL_ETIQUETA[u.rol as keyof typeof ROL_ETIQUETA] ?? u.rol}
+                      {esRol(u.rol) ? ROL_ETIQUETA[u.rol] : u.rol}
                     </Badge>
                     {!u.activo && <Badge variant="outline">Sin acceso</Badge>}
                   </div>

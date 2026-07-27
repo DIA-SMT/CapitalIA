@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ROL_ETIQUETA } from "@/lib/roles";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { getSessionRole, getSessionUser } from "@/lib/supabase/server";
 
@@ -40,7 +41,9 @@ export default async function ConfiguracionPage() {
             </div>
             <div className="flex justify-between gap-4">
               <span className="text-muted-foreground">Rol</span>
-              <Badge variant="secondary">{role ?? "—"}</Badge>
+              <Badge variant="secondary">
+                {role ? ROL_ETIQUETA[role] : "Sin rol asignado"}
+              </Badge>
             </div>
           </CardContent>
         </Card>
