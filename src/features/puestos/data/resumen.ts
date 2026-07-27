@@ -33,10 +33,18 @@ export async function obtenerResumen(): Promise<ResumenNomenclador | null> {
     supabase
       .from("source_references")
       .select("*", { count: "exact", head: true }),
+    // `validity_status = 'current'` no alcanza: un puesto archivado conserva su
+    // versión vigente, así que el puesto de prueba ZZZ se colaba y el reparto
+    // sumaba 211 abajo del título "los 210 puestos vigentes". El `!inner` sobre
+    // `positions` es lo que hace que el filtro descarte la fila entera y no solo
+    // el embed. El hint `!position_id` es obligatorio: hay dos FK entre las dos
+    // tablas (esta y `positions_current_version_fk`) y sin él PostgREST no sabe
+    // por cuál embeber.
     supabase
       .from("position_versions")
-      .select("groupings ( name )")
-      .eq("validity_status", "current"),
+      .select("groupings ( name ), positions!position_id!inner ( status )")
+      .eq("validity_status", "current")
+      .neq("positions.status", "archived"),
   ]);
 
   if (versiones.error) {
