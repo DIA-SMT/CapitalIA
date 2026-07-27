@@ -9,10 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { AltaUsuario } from "@/features/usuarios/components/alta-usuario";
 import { EditarUsuario } from "@/features/usuarios/components/editar-usuario";
-import {
-  listarReparticionesPlanas,
-  listarUsuarios,
-} from "@/features/usuarios/data/usuarios";
+import { listarReparticionesPlanas } from "@/features/reparticiones/data/reparticiones";
+import { listarUsuarios } from "@/features/usuarios/data/usuarios";
 import { ROL_ETIQUETA } from "@/features/usuarios/schemas/usuario";
 import { getSessionRole } from "@/lib/supabase/server";
 

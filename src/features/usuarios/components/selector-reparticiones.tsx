@@ -1,17 +1,15 @@
 "use client";
 
-export type OpcionReparticion = {
-  id: string;
-  nombre: string;
-  esSecretaria: boolean;
-};
+import type { ReparticionPlana } from "@/features/reparticiones/data/reparticiones";
+
+export type OpcionReparticion = ReparticionPlana;
 
 /**
  * Elección de las reparticiones a cargo de un usuario.
  *
- * Lista con casillas en vez de un `<select multiple>`: son 62 opciones y el
- * multiselect nativo obliga a hacer ctrl+click, que nadie descubre solo. Las
- * direcciones van indentadas bajo su secretaría para que se lea el organigrama.
+ * Lista con casillas en vez de un `<select multiple>`: son casi 70 opciones y el
+ * multiselect nativo obliga a hacer ctrl+click, que nadie descubre solo. Cada
+ * unidad va sangrada según su nivel para que se lea el organigrama.
  */
 export function SelectorReparticiones({
   opciones,
@@ -35,8 +33,13 @@ export function SelectorReparticiones({
       {opciones.map((r) => (
         <label
           key={r.id}
-          className={`flex cursor-pointer items-center gap-2 rounded px-2 py-1 text-sm hover:bg-secondary/50 ${
-            r.esSecretaria ? "font-medium text-foreground" : "pl-6 text-muted-foreground"
+          style={{ paddingLeft: `${0.5 + r.nivel * 1.25}rem` }}
+          className={`flex cursor-pointer items-center gap-2 rounded py-1 pr-2 text-sm hover:bg-secondary/50 ${
+            r.nivel === 0
+              ? "font-medium text-foreground"
+              : r.nivel === 1
+                ? "text-foreground"
+                : "text-muted-foreground"
           }`}
         >
           <input

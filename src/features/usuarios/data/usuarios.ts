@@ -62,25 +62,6 @@ export async function listarUsuarios(): Promise<UsuarioListado[]> {
   }));
 }
 
-/** Reparticiones para el selector del panel: todas, con su secretaría. */
-export async function listarReparticionesPlanas(): Promise<
-  { id: string; nombre: string; esSecretaria: boolean }[]
-> {
-  if (!isSupabaseConfigured()) return [];
-
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("reparticiones")
-    .select("id, code, nombre, parent_id")
-    .eq("is_active", true)
-    .order("code");
-
-  if (error) {
-    console.error("[usuarios] listarReparticionesPlanas:", error.message);
-    return [];
-  }
-
-  return ((data ?? []) as { id: string; nombre: string; parent_id: string | null }[]).map(
-    (r) => ({ id: r.id, nombre: r.nombre, esSecretaria: r.parent_id === null }),
-  );
-}
+// El selector de reparticiones del panel usa `listarReparticionesPlanas` de
+// features/reparticiones: es el mismo árbol aplanado que consume el alta de
+// personas, y tenerlo en un solo lugar evita que se desincronicen.

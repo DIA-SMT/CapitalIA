@@ -6,7 +6,7 @@ import { AltaPersona } from "@/features/personas/components/alta-persona";
 import { TablaPersonas } from "@/features/personas/components/tabla-personas";
 import { listarPersonas } from "@/features/personas/data/personas";
 import { listarPuestosParaSelector } from "@/features/puestos/data/puestos";
-import { listarReparticiones } from "@/features/reparticiones/data/reparticiones";
+import { listarReparticionesPlanas } from "@/features/reparticiones/data/reparticiones";
 import { getSessionRole } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Personas" };
@@ -15,7 +15,7 @@ export default async function PersonasPage() {
   const [personas, puestos, reparticiones] = await Promise.all([
     listarPersonas(),
     listarPuestosParaSelector(),
-    listarReparticiones(),
+    listarReparticionesPlanas(),
   ]);
   const esAdmin = (await getSessionRole()) === "admin";
 
