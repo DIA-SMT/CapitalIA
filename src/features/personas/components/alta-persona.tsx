@@ -10,7 +10,7 @@ import { UserPlus } from "lucide-react";
 import { crearPersona } from "../actions";
 import { personaSchema, type PersonaFormValues } from "../schemas/persona";
 import type { PuestoOpcion } from "@/features/puestos/data/puestos";
-import type { Secretaria } from "@/features/reparticiones/data/reparticiones";
+import type { ReparticionPlana } from "@/features/reparticiones/data/reparticiones";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,7 @@ export function AltaPersona({
   reparticiones,
 }: {
   puestos: PuestoOpcion[];
-  reparticiones: Secretaria[];
+  reparticiones: ReparticionPlana[];
 }) {
   const router = useRouter();
   const [abierto, setAbierto] = useState(false);
@@ -106,15 +106,14 @@ export function AltaPersona({
                 {...register("reparticion_id")}
               >
                 <option value="">Sin repartición</option>
-                {reparticiones.map((s) => (
-                  <optgroup key={s.id} label={s.nombre}>
-                    <option value={s.id}>{s.nombre} (secretaría)</option>
-                    {s.direcciones.map((d) => (
-                      <option key={d.id} value={d.id}>
-                        {d.nombre}
-                      </option>
-                    ))}
-                  </optgroup>
+                {/* El organigrama es un árbol y esto es una lista: la jerarquía se
+                    marca sangrando con espacios duros, que es lo único que respeta
+                    un <select> nativo. */}
+                {reparticiones.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {" ".repeat(r.nivel * 4)}
+                    {r.nombre}
+                  </option>
                 ))}
               </select>
             </div>
