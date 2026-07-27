@@ -17,7 +17,11 @@ export function AppSidebar({
   return (
     <aside
       className={cn(
+        // `sticky` + `self-start` + alto exacto de viewport: sin `self-start` el
+        // flex lo estira hasta el alto del contenido y sticky no tiene margen
+        // donde pegarse, así que la barra se iría scrolleando con la página.
         "hidden shrink-0 border-r border-border bg-card transition-[width] duration-200 md:flex md:flex-col motion-reduce:transition-none",
+        "sticky top-0 h-svh self-start",
         collapsed ? "md:w-16" : "md:w-64",
       )}
     >
