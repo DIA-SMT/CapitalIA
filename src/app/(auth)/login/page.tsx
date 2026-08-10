@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { LoginForm } from "@/features/auth/login-form";
+import { SolicitarAcceso } from "@/features/solicitudes-acceso/components/solicitar-acceso";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import logoBlanco from "../../../../public/Logo_SMT_blanco.png";
 
@@ -85,9 +86,15 @@ export default function LoginPage() {
             </CardContent>
           </Card>
 
+          {configured && (
+            <div className="mt-6">
+              <SolicitarAcceso />
+            </div>
+          )}
+
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            El acceso es exclusivo para usuarios habilitados. No hay registro
-            público.
+            El acceso lo habilita un administrador. Si no tenés cuenta, solicitala
+            y la van a revisar.
           </p>
         </div>
       </div>

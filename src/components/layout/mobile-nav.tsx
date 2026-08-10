@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NavLinks } from "./nav-links";
+import { SignOutButton } from "./sign-out-button";
 
 export function MobileNav({
   open,
@@ -38,13 +39,18 @@ export function MobileNav({
       >
         <Menu className="h-5 w-5" aria-hidden />
       </SheetTrigger>
-      <SheetContent side="left" className="w-72 p-0">
+      <SheetContent side="left" className="flex w-72 flex-col p-0">
         <SheetHeader className="h-16 justify-center border-b border-border px-4">
           <SheetTitle>
             <Logo />
           </SheetTitle>
         </SheetHeader>
-        <NavLinks onNavigate={close} esAdmin={esAdmin} />
+        <div className="flex-1 overflow-y-auto">
+          <NavLinks onNavigate={close} esAdmin={esAdmin} />
+        </div>
+        <div className="border-t border-border p-2">
+          <SignOutButton onNavigate={close} />
+        </div>
       </SheetContent>
     </Sheet>
   );

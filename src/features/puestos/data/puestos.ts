@@ -87,12 +87,14 @@ function normalizar(s: string): string {
  * de cada ficha para poder buscar por contenido. Si el nomenclador crece mucho,
  * el criterio del mismo documento es migrar el filtrado al servidor.
  */
-export async function listarPuestos(): Promise<PuestoListado[]> {
+export async function listarPuestos(
+  opts: { incluirArchivados?: boolean } = {},
+): Promise<PuestoListado[]> {
   if (!isSupabaseConfigured()) return [];
 
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  const consulta = supabase
     .from("positions")
     .select(
       `id, internal_code, status,
@@ -111,9 +113,13 @@ export async function listarPuestos(): Promise<PuestoListado[]> {
          position_version_knowledge ( knowledge_items ( name ) ),
          source_references ( printed_page_number, verification_status )
        )`,
-    )
-    .neq("status", "archived")
-    .order("internal_code");
+    );
+
+  // Por defecto solo los vigentes (el listado histórico son 210). El nomenclador
+  // pide `incluirArchivados` para poder consultarlos con un filtro en la tabla.
+  const { data, error } = await (
+    opts.incluirArchivados ? consulta : consulta.neq("status", "archived")
+  ).order("internal_code");
 
   if (error) {
     // La página muestra el estado de error; acá se deja rastro para el servidor.

@@ -11,7 +11,9 @@ export const metadata: Metadata = { title: "Nomenclador" };
 // RLS y no se puede cachear. Sin `use cache` a propósito; loading.tsx cubre la
 // espera. El estado vacío queda para cuando de verdad no haya puestos.
 export default async function PuestosPage() {
-  const puestos = await listarPuestos();
+  // Trae también los archivados: la tabla filtra a "Vigentes" por defecto y deja
+  // consultarlos con el selector de estado.
+  const puestos = await listarPuestos({ incluirArchivados: true });
 
   return (
     <>

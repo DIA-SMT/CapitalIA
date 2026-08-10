@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Logo, LogoMark } from "@/components/brand/logo";
 import { NavLinks } from "./nav-links";
+import { SignOutButton } from "./sign-out-button";
 
 /** Sidebar de escritorio, colapsable. Oculto en móvil (usa el Sheet del header). */
 export function AppSidebar({
@@ -42,6 +43,10 @@ export function AppSidebar({
 
       <div className="flex-1 overflow-y-auto">
         <NavLinks collapsed={collapsed} esAdmin={esAdmin} />
+      </div>
+
+      <div className="border-t border-border p-2">
+        <SignOutButton collapsed={collapsed} />
       </div>
     </aside>
   );

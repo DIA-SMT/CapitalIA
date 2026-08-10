@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { CheckCircle2, XCircle } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, KeyRound, XCircle } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -44,6 +46,16 @@ export default async function ConfiguracionPage() {
               <Badge variant="secondary">
                 {role ? ROL_ETIQUETA[role] : "Sin rol asignado"}
               </Badge>
+            </div>
+            <div className="pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                render={<Link href="/cambiar-clave" />}
+              >
+                <KeyRound className="h-4 w-4" aria-hidden />
+                Cambiar contraseña
+              </Button>
             </div>
           </CardContent>
         </Card>

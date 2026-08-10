@@ -75,3 +75,28 @@ export const getSessionRole = cache(async (): Promise<Rol | null> => {
     return null;
   }
 });
+
+/**
+ * ¿El usuario tiene que cambiar su contraseña temporal antes de seguir?
+ *
+ * Cacheado por request. **Falla ABIERTO**: si la columna todavía no existe
+ * (migración 0019 sin aplicar) o la consulta falla, devuelve `false` y no bloquea
+ * a nadie. El gate es una comodidad de onboarding, no un control de seguridad,
+ * así que ante la duda deja pasar en vez de dejar afuera a todos.
+ */
+export const debeCambiarClave = cache(async (): Promise<boolean> => {
+  const user = await getSessionUser();
+  if (!user) return false;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("must_change_password")
+      .eq("id", user.id)
+      .single();
+    if (error) return false;
+    return data?.must_change_password === true;
+  } catch {
+    return false;
+  }
+});
