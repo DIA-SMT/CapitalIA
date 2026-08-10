@@ -17,7 +17,7 @@
 
 ## 1. Dónde estamos
 
-**Migraciones aplicadas: `0001`–`0018`.** Todo en la rama `matias`.
+**Migraciones aplicadas: `0001`–`0020`.** Todo en la rama `matias`.
 
 | Etapa (Capital Humano) | Estado |
 |---|---|
@@ -91,6 +91,30 @@ que llama a `crear_puesto` y rechazo con motivo.
   vigente y se colaba el puesto de prueba `ZZZ`. Corregido, y ahora coincide
   exacto con el reparto documentado de la ingesta.
 
+### Correcciones del primer testeo con usuarios (2026-08-10) ✅
+
+Capital Humano probó el sistema y mandó cuatro cosas. Las cuatro están hechas
+—código + migraciones `0019`/`0020`—; falta **ejercitarlas con un login real**,
+que es donde el proyecto encontró sus ocho defectos (ver §4 y `CONTEXT.md` §4).
+
+- **Cerrar sesión no se encontraba.** Estaba solo en el menú del avatar. Se sumó
+  al pie del sidebar y del menú móvil, con un chevron en el avatar como pista de
+  que es un desplegable.
+- **La contraseña temporal no se podía cambiar.** No existía la pantalla. Ahora
+  `must_change_password` (`0019`) obliga a cambiarla en el primer ingreso
+  (`/cambiar-clave`), con enlace voluntario desde Configuración. El helper
+  `debeCambiarClave()` **falla abierto**: sin la migración aplicada no bloquea a
+  nadie, así que el deploy del código no depende del orden con el SQL.
+- **No se sabía dónde ver los archivados.** El nomenclador los filtraba a
+  propósito. Se agregó el filtro Estado (Vigentes / Archivados / Todos) con badge
+  "Archivado"; el link lleva a la ficha, donde el admin ya restaura.
+- **Registro desde el login.** Una persona sin cuenta pide acceso (nombre,
+  apellido, mail, legajo) y el pedido queda pendiente en `/solicitudes-acceso`,
+  donde un admin lo aprueba —crea el usuario reusando el alta— o lo rechaza. La
+  escritura es pública (rol anónimo) por la función `solicitar_acceso` (`0020`),
+  con índice único parcial para que no se apilen pedidos del mismo mail y sin
+  revelar si el email ya tiene cuenta.
+
 ---
 
 ## 3. Lo que falta
@@ -157,6 +181,16 @@ Del test del director (usuario `matiaslujanw@gmail.com`, Dirección de IA):
 | La ficha de un puesto con gente ajena no la muestra | 🔶 Leído del SQL (`asignaciones_select_director`), no observado |
 | **Escritura**: cargar y asignar personal de su repartición | ⏳ Pendiente — es lo que habilitó la `0018` |
 
+Del testeo con usuarios (2026-08-10), hecho en código pero **sin ejercitar con
+login real**:
+
+| Qué | Estado |
+|---|---|
+| Cerrar sesión desde el sidebar y el menú móvil | ⏳ Pendiente de probar |
+| Forzar el cambio de la contraseña temporal en el primer ingreso | ⏳ Pendiente — depende de la `0019` |
+| Filtro de archivados en el nomenclador | ⏳ Pendiente de probar |
+| Solicitar acceso desde el login → aprobar/rechazar en la bandeja | ⏳ Pendiente — depende de la `0020` |
+
 Y sigue sin resolverse:
 
 - **Datos de prueba `ZZZ` en producción.** El puesto `ZZZ PRUEBA TECNICA`
@@ -202,5 +236,6 @@ Y sigue sin resolverse:
 
 ---
 
-*Última actualización: 2026-07-27. Migraciones `0001`–`0018` aplicadas. Etapas 2 y
-3 de Capital Humano cerradas; falta ejercitar la escritura del director.*
+*Última actualización: 2026-08-10. Migraciones `0001`–`0020` aplicadas. Etapas 2 y
+3 de Capital Humano cerradas; se sumaron las correcciones del primer testeo con
+usuarios (§2), pendientes de ejercitar con login real (§4).*

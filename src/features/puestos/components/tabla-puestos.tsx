@@ -47,11 +47,15 @@ const TONO_RIESGO: Record<string, string> = {
   Severo: "bg-red-50 text-red-700 border-red-200",
 };
 
+/** Vigentes por defecto: el listado histórico son los 210 no archivados. */
+type EstadoFiltro = "vigentes" | "archivados" | "todos";
+
 type Filtros = {
   agrupamiento: string | null;
   riesgo: string | null;
   nivelArea: string | null;
   verificacion: string | null;
+  estado: EstadoFiltro;
 };
 
 const SIN_FILTROS: Filtros = {
@@ -59,6 +63,7 @@ const SIN_FILTROS: Filtros = {
   riesgo: null,
   nivelArea: null,
   verificacion: null,
+  estado: "vigentes",
 };
 
 function Selector({
@@ -112,6 +117,9 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
   const filtrados = useMemo(() => {
     const terminos = normalizar(busqueda.trim()).split(/\s+/).filter(Boolean);
     return puestos.filter((p) => {
+      const archivado = p.estado === "archived";
+      if (f.estado === "vigentes" && archivado) return false;
+      if (f.estado === "archivados" && !archivado) return false;
       if (f.agrupamiento && p.agrupamiento !== f.agrupamiento) return false;
       if (f.riesgo && p.riesgo !== f.riesgo) return false;
       if (f.verificacion && p.verificacion !== f.verificacion) return false;
@@ -161,6 +169,14 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
             {row.original.variante && (
               <Badge variant="outline" className="text-[10px]">
                 {row.original.variante}
+              </Badge>
+            )}
+            {row.original.estado === "archived" && (
+              <Badge
+                variant="outline"
+                className="border-amber-200 bg-amber-50 text-[10px] text-amber-700"
+              >
+                Archivado
               </Badge>
             )}
           </div>
@@ -233,7 +249,24 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
     initialState: { pagination: { pageSize: 25 } },
   });
 
-  const hayFiltro = busqueda !== "" || Object.values(f).some(Boolean);
+  // `estado` siempre tiene valor, así que no entra en el `.some(Boolean)`: cuenta
+  // como filtro activo solo cuando se aparta del default "vigentes".
+  const hayFiltro =
+    busqueda !== "" ||
+    f.agrupamiento !== null ||
+    f.riesgo !== null ||
+    f.nivelArea !== null ||
+    f.verificacion !== null ||
+    f.estado !== "vigentes";
+
+  // Total del estado elegido (sin los demás filtros), para que el contador no
+  // diga "210 de 211" en la vista por defecto solo porque existe un archivado.
+  const totalEstado = useMemo(() => {
+    if (f.estado === "todos") return puestos.length;
+    const buscoArchivado = f.estado === "archivados";
+    return puestos.filter((p) => (p.estado === "archived") === buscoArchivado)
+      .length;
+  }, [puestos, f.estado]);
 
   return (
     <div className="space-y-4">
@@ -284,6 +317,21 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
           </select>
         </label>
 
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          Estado
+          <select
+            value={f.estado}
+            onChange={(e) =>
+              setF({ ...f, estado: e.target.value as EstadoFiltro })
+            }
+            className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground"
+          >
+            <option value="vigentes">Vigentes</option>
+            <option value="archivados">Archivados</option>
+            <option value="todos">Todos</option>
+          </select>
+        </label>
+
         {hayFiltro && (
           <Button
             size="sm"
@@ -300,9 +348,9 @@ export function TablaPuestos({ puestos }: { puestos: PuestoListado[] }) {
       </div>
 
       <p className="text-sm text-muted-foreground" aria-live="polite">
-        {filtrados.length === puestos.length
-          ? `${puestos.length} puestos`
-          : `${filtrados.length} de ${puestos.length} puestos`}
+        {filtrados.length === totalEstado
+          ? `${totalEstado} puestos`
+          : `${filtrados.length} de ${totalEstado} puestos`}
       </p>
 
       {filtrados.length === 0 ? (

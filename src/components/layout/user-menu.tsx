@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, UserRound } from "lucide-react";
+import { ChevronDown, LogOut, UserRound } from "lucide-react";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -45,6 +45,10 @@ export function UserMenu({ user }: { user: SessionUser }) {
         <span className="hidden max-w-[10rem] truncate text-sm font-medium sm:inline">
           {user.name}
         </span>
+        <ChevronDown
+          className="h-4 w-4 text-muted-foreground"
+          aria-hidden
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">

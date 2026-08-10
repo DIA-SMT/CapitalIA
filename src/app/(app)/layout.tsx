@@ -2,7 +2,11 @@ import { redirect } from "next/navigation";
 
 import { AppShell } from "@/components/layout/app-shell";
 import { Asistente } from "@/features/asistente/components/asistente";
-import { getSessionRole, getSessionUser } from "@/lib/supabase/server";
+import {
+  debeCambiarClave,
+  getSessionRole,
+  getSessionUser,
+} from "@/lib/supabase/server";
 
 // La sesión se valida en cada request: nunca se sirve contenido privado
 // prerenderizado sin comprobar la autenticación.
@@ -18,6 +22,12 @@ export default async function AppLayout({
   const user = await getSessionUser();
   if (!user) {
     redirect("/login");
+  }
+
+  // Contraseña temporal sin cambiar: no se entra a la app hasta elegir una nueva.
+  // La página vive fuera de este grupo, así que no entra en bucle con el redirect.
+  if (await debeCambiarClave()) {
+    redirect("/cambiar-clave");
   }
 
   const fullName =

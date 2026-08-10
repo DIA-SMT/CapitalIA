@@ -121,10 +121,15 @@ export async function crearUsuario(values: unknown): Promise<ResultadoUsuario> {
   if (!nuevoId) return { error: "No se pudo crear el usuario." };
 
   // El perfil ya existe (lo creó el trigger) con rol 'director' por defecto.
+  // `must_change_password` obliga a cambiar la temporal en el primer ingreso.
   const supabase = await createClient();
   const { error: errorPerfil } = await supabase
     .from("profiles")
-    .update({ role: parsed.data.role, full_name: parsed.data.full_name })
+    .update({
+      role: parsed.data.role,
+      full_name: parsed.data.full_name,
+      must_change_password: true,
+    })
     .eq("id", nuevoId);
   if (errorPerfil) {
     return {
