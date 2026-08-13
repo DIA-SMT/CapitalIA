@@ -46,7 +46,9 @@ export function EditarUsuario({
         toast.error(r.error);
         return;
       }
-      toast.success("Usuario actualizado.");
+      // Se guardó, pero puede que no se le haya podido cerrar la sesión abierta.
+      if (r.aviso) toast.warning(r.aviso);
+      else toast.success("Usuario actualizado.");
       setAbierto(false);
       router.refresh();
     });

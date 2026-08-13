@@ -22,7 +22,9 @@ import { cambioUsuarioSchema, usuarioSchema } from "./schemas/usuario";
 
 export type ResultadoUsuario =
   | { error: string }
-  | { ok: true; clave?: string };
+  // `aviso`: la operación se aplicó, pero algo secundario no salió y el admin
+  // tiene que enterarse. No es un error: el perfil ya quedó como se pidió.
+  | { ok: true; clave?: string; aviso?: string };
 
 const SIN_CONFIG = "La conexión con Supabase no está configurada.";
 
@@ -190,6 +192,47 @@ export async function actualizarUsuario(
   );
   if (errorRep) return { error: errorRep };
 
+  const avisoSesion = await sincronizarAccesoAuth(usuarioId, parsed.data.is_active);
+
   revalidatePath("/usuarios");
-  return { ok: true };
+  return avisoSesion ? { ok: true, aviso: avisoSesion } : { ok: true };
+}
+
+/**
+ * Refleja el `is_active` del perfil en la cuenta de Auth, baneándola o
+ * levantándole el baneo.
+ *
+ * Por qué hace falta: `is_active` cierra la puerta de los datos (la RLS ya no le
+ * devuelve nada, migración 0021), pero NO invalida el JWT que el usuario ya tiene
+ * en el navegador. Sin este baneo, alguien recién desactivado sigue con sesión
+ * abierta hasta que el token expire.
+ *
+ * Devuelve un aviso —no un error— si no se pudo: el perfil ya quedó desactivado
+ * y eso es lo que gobierna el acceso a los datos. Fallar acá degrada "además le
+ * cortamos la sesión" a "se le cae sola cuando expire", y eso no justifica
+ * abortar una operación que ya se aplicó.
+ */
+async function sincronizarAccesoAuth(
+  usuarioId: string,
+  activo: boolean,
+): Promise<string | null> {
+  if (!isAdminApiConfigured()) {
+    return activo
+      ? null
+      : "Se desactivó el perfil, pero falta la clave de servicio para cerrarle la sesión: si la tiene abierta, le va a durar hasta que venza.";
+  }
+  try {
+    const admin = createAdminClient();
+    const { error } = await admin.auth.admin.updateUserById(usuarioId, {
+      // "none" levanta el baneo; el plazo largo equivale a indefinido.
+      ban_duration: activo ? "none" : "876000h",
+    });
+    if (error) throw error;
+    return null;
+  } catch (e) {
+    console.error("[usuarios] sincronizarAccesoAuth:", e);
+    return activo
+      ? "Se reactivó el perfil, pero no se pudo levantar el bloqueo de la cuenta. Revisá que pueda entrar."
+      : "Se desactivó el perfil y ya no accede a ningún dato, pero no se pudo cerrar su sesión actual.";
+  }
 }
