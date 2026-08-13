@@ -27,7 +27,11 @@ export type ReparticionPlana = {
   id: string;
   code: string;
   nombre: string;
-  /** 0 = secretaría, 1 = subsecretaría, 2 = dirección. */
+  /**
+   * Profundidad en el árbol, para sangrar en los selectores. NO es el tipo de
+   * unidad: el organigrama que viene tiene cuatro escalones y una dirección
+   * puede colgar directo de su secretaría. Para saber qué es cada una, `tipo`.
+   */
   nivel: number;
 };
 
@@ -37,6 +41,7 @@ type Fila = {
   nombre: string;
   parent_id: string | null;
   is_active: boolean;
+  tipo: TipoReparticion | null;
 };
 
 async function traerFilas(): Promise<Fila[]> {
@@ -45,14 +50,27 @@ async function traerFilas(): Promise<Fila[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("reparticiones")
-    .select("id, code, nombre, parent_id, is_active")
+    .select("id, code, nombre, parent_id, is_active, tipo")
     .order("code");
 
-  if (error) {
-    console.error("[reparticiones] traerFilas:", error.message);
-    return [];
+  if (!error) return (data ?? []) as Fila[];
+
+  // 42703 = la columna no existe: la 0025 todavía no se aplicó. Se reintenta sin
+  // ella en vez de devolver vacío, porque de estas filas dependen el organigrama,
+  // el dashboard y TODOS los selectores de repartición: sin ellas un director no
+  // puede ni cargar personal. El tipo se deduce después, como se hacía antes.
+  if (error.code === "42703") {
+    const { data: viejo, error: error2 } = await supabase
+      .from("reparticiones")
+      .select("id, code, nombre, parent_id, is_active")
+      .order("code");
+    if (!error2) {
+      return ((viejo ?? []) as Omit<Fila, "tipo">[]).map((f) => ({ ...f, tipo: null }));
+    }
   }
-  return (data ?? []) as Fila[];
+
+  console.error("[reparticiones] traerFilas:", error.message);
+  return [];
 }
 
 /** Arma el árbol a partir de las filas planas. */
@@ -87,10 +105,19 @@ export async function listarReparticiones(): Promise<NodoReparticion[]> {
   return construirArbol(await traerFilas());
 }
 
+/** Los cuatro escalones del organigrama, tal como los nombra el origen. */
+export type TipoReparticion =
+  | "secretaria"
+  | "subsecretaria"
+  | "direccion"
+  | "subdireccion";
+
 export type ResumenOrganigrama = {
   secretarias: number;
   subsecretarias: number;
   direcciones: number;
+  /** Cuarto nivel. Es 0 hasta que se importe el organigrama de sueldos. */
+  subdirecciones: number;
   /** Cuántas unidades cuelgan de cada secretaría, de mayor a menor. */
   porSecretaria: { id: string; nombre: string; unidades: number }[];
 };
@@ -98,40 +125,49 @@ export type ResumenOrganigrama = {
 /**
  * El organigrama en números, para el dashboard.
  *
- * ⚠️ `reparticiones` no guarda el tipo de unidad: lo único que hay es la relación
- * padre-hijo, así que el tipo se deduce de la forma del árbol —raíz = secretaría,
- * con dependientes = subsecretaría, sin dependientes = dirección—. Con los datos
- * del POA 2026 da exacto (9 / 7 / 53), incluidas las 13 direcciones que cuelgan
- * directo de su secretaría y que contar por profundidad clasificaría mal. Pero es
- * una deducción, no un dato: si mañana una dirección pasa a tener unidades a
- * cargo, va a contar como subsecretaría. Si el tipo llega a importar de verdad,
- * corresponde una columna en la tabla y no una heurística acá.
+ * El tipo sale de la columna `tipo` (migración 0025), no de la forma del árbol.
+ * Antes se deducía —raíz = secretaría, con dependientes = subsecretaría, sin
+ * dependientes = dirección—, lo que daba exacto con los datos del POA 2026
+ * (9 / 7 / 53). Con el organigrama de sueldos, que tiene cuatro escalones, esa
+ * deducción cruza categorías por construcción: una dirección con subdirecciones
+ * a cargo contaría como subsecretaría, y sus subdirecciones como direcciones.
+ * Los totales quedarían mal y la suma igual cerraría.
+ *
+ * Las filas sin `tipo` caen a la heurística vieja para que el total siga
+ * cerrando —puede pasar durante la importación, o si la 0025 no está aplicada—.
  *
  * Los totales se calculan sobre todas las unidades, activas o no, para que el
  * número coincida con el que muestra `/reparticiones`.
  */
 export async function resumenOrganigrama(): Promise<ResumenOrganigrama> {
-  const secretarias = construirArbol(await traerFilas());
+  const filas = await traerFilas();
+  const secretarias = construirArbol(filas);
 
-  let subsecretarias = 0;
-  let direcciones = 0;
+  const porTipo: Record<TipoReparticion, number> = {
+    secretaria: 0,
+    subsecretaria: 0,
+    direccion: 0,
+    subdireccion: 0,
+  };
+  const tipoDe = new Map(filas.map((f) => [f.id, f.tipo]));
 
-  function contar(nodos: NodoReparticion[]) {
+  function contar(nodos: NodoReparticion[], esRaiz: boolean) {
     for (const n of nodos) {
-      if (n.hijos.length > 0) {
-        subsecretarias += 1;
-        contar(n.hijos);
-      } else {
-        direcciones += 1;
-      }
+      const tipo =
+        tipoDe.get(n.id) ??
+        // Sin dato: la deducción de siempre.
+        (esRaiz ? "secretaria" : n.hijos.length > 0 ? "subsecretaria" : "direccion");
+      porTipo[tipo] += 1;
+      contar(n.hijos, false);
     }
   }
-  for (const s of secretarias) contar(s.hijos);
+  contar(secretarias, true);
 
   return {
-    secretarias: secretarias.length,
-    subsecretarias,
-    direcciones,
+    secretarias: porTipo.secretaria,
+    subsecretarias: porTipo.subsecretaria,
+    direcciones: porTipo.direccion,
+    subdirecciones: porTipo.subdireccion,
     porSecretaria: secretarias
       .map((s) => ({
         id: s.id,
