@@ -270,32 +270,48 @@ export async function resumenDotacion(): Promise<ResumenDotacion> {
   return { personas: personas.count ?? 0, conPuesto: asignadas.count ?? 0 };
 }
 
-/** Personas sin puesto asignado, para el selector de la ficha. */
-export async function listarPersonasSinPuesto(): Promise<
-  { id: string; nombre: string; legajo: string }[]
-> {
-  if (!isSupabaseConfigured()) return [];
+/** Cuántos candidatos se ofrecen de una. Por encima de eso, hay que buscar. */
+export const MAX_SIN_PUESTO = 100;
+
+export type CandidatosSinPuesto = {
+  personas: { id: string; nombre: string; legajo: string }[];
+  /** Cuántos hay dentro del alcance del usuario, no cuántos vinieron. */
+  total: number;
+};
+
+/**
+ * Candidatos para asignar a un puesto: personas activas sin asignación abierta.
+ *
+ * El filtro y el recorte los hace la base (`personas_sin_puesto`, migración
+ * 0024). Antes traía las personas sin límite y descartaba en JS a las que ya
+ * tenían puesto, con lo cual el corte de 1.000 filas de PostgREST pegaba ANTES
+ * del filtro: el selector ofrecía un tramo del abecedario como si fuera todo, y
+ * si esas primeras mil ya estaban asignadas imprimía "No hay personas activas
+ * sin puesto asignado" siendo falso.
+ *
+ * `total` viene de la base para que la UI pueda decir que está mostrando un
+ * recorte. Un recorte anunciado es utilizable; uno silencioso es una mentira.
+ */
+export async function listarPersonasSinPuesto(q = ""): Promise<CandidatosSinPuesto> {
+  const vacio: CandidatosSinPuesto = { personas: [], total: 0 };
+  if (!isSupabaseConfigured()) return vacio;
 
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("personas")
-    .select("id, legajo, full_name, asignaciones ( valid_until )")
-    .eq("is_active", true)
-    .order("full_name");
+  const { data, error } = await supabase.rpc("personas_sin_puesto", {
+    q: normalizarBusqueda(q),
+    limite: MAX_SIN_PUESTO,
+  });
 
   if (error) {
     console.error("[personas] listarPersonasSinPuesto:", error.message);
-    return [];
+    return vacio;
   }
 
-  type Fila = {
-    id: string;
-    legajo: string;
-    full_name: string;
-    asignaciones: { valid_until: string | null }[];
-  };
+  type Fila = { id: string; legajo: string; full_name: string; total: number };
+  const filas = (data ?? []) as Fila[];
 
-  return ((data ?? []) as unknown as Fila[])
-    .filter((p) => !p.asignaciones?.some((a) => a.valid_until === null))
-    .map((p) => ({ id: p.id, nombre: p.full_name, legajo: p.legajo }));
+  return {
+    personas: filas.map((p) => ({ id: p.id, nombre: p.full_name, legajo: p.legajo })),
+    total: filas[0]?.total ?? 0,
+  };
 }

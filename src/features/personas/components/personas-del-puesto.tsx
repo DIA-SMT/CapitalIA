@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { UserMinus, UserPlus, Users } from "lucide-react";
 
-import type { PersonaEnPuesto } from "../data/personas";
-import { asignarPersona, desasignarPersona } from "../actions";
+import type { CandidatosSinPuesto, PersonaEnPuesto } from "../data/personas";
+import { asignarPersona, buscarSinPuesto, desasignarPersona } from "../actions";
+import { Input } from "@/components/ui/input";
 import { formatearFecha } from "@/lib/fechas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,8 +22,12 @@ import {
 type Props = {
   positionId: string;
   personas: PersonaEnPuesto[];
-  /** Personas activas sin puesto asignado. Ya viene acotado por RLS. */
-  disponibles: { id: string; nombre: string; legajo: string }[];
+  /**
+   * Candidatos sin puesto y **cuántos hay en total**. Ya viene acotado por RLS.
+   * El total importa: el selector muestra los primeros y sin ese número un
+   * recorte se leería como la lista completa.
+   */
+  disponibles: CandidatosSinPuesto;
   /**
    * Si es false (sin rol), se ocultan las acciones de asignar/quitar. Desde la
    * 0018 el director y el secretario también asignan: no hace falta filtrar acá
@@ -47,8 +52,40 @@ export function PersonasDelPuesto({
   const [abriendo, setAbriendo] = useState(false);
   const [elegida, setElegida] = useState("");
 
+  const [busqueda, setBusqueda] = useState("");
+  /** Resultado de la última búsqueda, junto al término que lo produjo. */
+  const [resultados, setResultados] = useState<
+    { termino: string; datos: CandidatosSinPuesto } | null
+  >(null);
+
+  const termino = busqueda.trim();
+  /**
+   * Sin término manda lo que trajo el servidor —que se renueva solo con cada
+   * `router.refresh()` de asignar o quitar—; con término, la última búsqueda.
+   * Derivado y no copiado a estado: copiarlo obligaba a resincronizarlo desde un
+   * efecto, que es la cascada de renders que React desaconseja.
+   */
+  const candidatos = termino === "" ? disponibles : (resultados?.datos ?? null);
+  const buscando = termino !== "" && resultados?.termino !== termino;
+
+  // Búsqueda con espera, para no consultar en cada tecla. `cancelado` evita que
+  // una respuesta lenta pise a una más nueva.
+  useEffect(() => {
+    if (!abriendo || termino === "") return;
+    let cancelado = false;
+    const id = setTimeout(async () => {
+      const datos = await buscarSinPuesto(termino);
+      if (!cancelado) setResultados({ termino, datos });
+    }, 300);
+    return () => {
+      cancelado = true;
+      clearTimeout(id);
+    };
+  }, [termino, abriendo]);
+
   const vigentes = personas.filter((p) => !p.hasta);
   const pasadas = personas.filter((p) => p.hasta);
+  const hayMas = !!candidatos && candidatos.total > candidatos.personas.length;
 
   function asignar() {
     if (!elegida) return;
@@ -107,10 +144,32 @@ export function PersonasDelPuesto({
       <CardContent className="space-y-4">
         {abriendo && (
           <div className="space-y-2 rounded-lg border border-border bg-secondary/30 p-3">
-            {disponibles.length === 0 ? (
+            {/* El buscador aparece en cuanto hay alguien: es la única vía de
+                llegar a quien no entró en el primer tramo. */}
+            {(disponibles.total > 0 || termino !== "") && (
+              <Input
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                placeholder="Buscar por nombre o legajo…"
+                aria-label="Buscar entre las personas sin puesto"
+                className="h-9"
+              />
+            )}
+
+            {!candidatos ? (
+              <p className="text-sm text-muted-foreground" aria-live="polite">
+                Buscando…
+              </p>
+            ) : candidatos.personas.length === 0 ? (
               <p className="text-sm text-muted-foreground">
-                No hay personas activas sin puesto asignado. Cargá una desde{" "}
-                <strong>Personas</strong>, o quitá a alguien de su puesto actual.
+                {termino !== "" ? (
+                  <>Ninguna persona sin puesto coincide con “{termino}”.</>
+                ) : (
+                  <>
+                    No hay personas activas sin puesto asignado. Cargá una desde{" "}
+                    <strong>Personas</strong>, o quitá a alguien de su puesto actual.
+                  </>
+                )}
               </p>
             ) : (
               <>
@@ -124,12 +183,21 @@ export function PersonasDelPuesto({
                   className="flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm"
                 >
                   <option value="">Elegir…</option>
-                  {disponibles.map((p) => (
+                  {candidatos.personas.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.nombre} — legajo {p.legajo}
                     </option>
                   ))}
                 </select>
+                {/* Decir que es un recorte, y cuánto falta. Un recorte anunciado
+                    se sortea buscando; uno callado es una mentira. */}
+                <p className="text-xs text-muted-foreground" aria-live="polite">
+                  {buscando
+                    ? "Buscando…"
+                    : hayMas
+                      ? `Mostrando ${candidatos.personas.length} de ${candidatos.total.toLocaleString("es-AR")} sin puesto. Buscá para encontrar al resto.`
+                      : `${candidatos.total.toLocaleString("es-AR")} sin puesto asignado.`}
+                </p>
               </>
             )}
             <div className="flex justify-end gap-2 pt-1">

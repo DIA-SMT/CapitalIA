@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { hoy } from "@/lib/fechas";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
+import { listarPersonasSinPuesto, type CandidatosSinPuesto } from "./data/personas";
 import { asignacionSchema, personaSchema } from "./schemas/persona";
 
 /**
@@ -28,6 +29,19 @@ function mensaje(e: { code?: string; message: string }): string {
   if (e.message.includes("no existe") || e.message.includes("archivado")) return e.message;
   console.error("[personas] acción:", e.code, e.message);
   return "No se pudo guardar. Intentá de nuevo.";
+}
+
+/**
+ * Busca candidatos para asignar, sin recargar la ficha entera.
+ *
+ * Existe porque el selector no puede ofrecer 4.771 opciones de una: muestra las
+ * primeras y el resto se alcanza buscando. No valida permisos a propósito —es
+ * una lectura, y el alcance lo pone la RLS de `personas` a través de
+ * `personas_sin_puesto`, que corre con los permisos de quien llama.
+ */
+export async function buscarSinPuesto(q: string): Promise<CandidatosSinPuesto> {
+  if (!isSupabaseConfigured()) return { personas: [], total: 0 };
+  return listarPersonasSinPuesto(q);
 }
 
 /**
