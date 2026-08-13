@@ -17,10 +17,20 @@ Las de Supabase salen de `.env.local`, que está en `.gitignore`.
 
 ## Los scripts
 
-Todos esperan dos CSV exportados de GRH en este mismo directorio:
+Todos esperan los CSV exportados de GRH en este mismo directorio. **Ninguno se
+commitea**: el `.gitignore` de esta carpeta bloquea `*.csv`, porque traen nombres
+y legajos de 4.771 empleados municipales.
 
-- `organiza.csv` — `SELECT IDORGANIZA, codigoOrganiza, N1_DESC, activo FROM ORGANIZA`
-- `sectores.csv` — dotación por sector del último período liquidado
+| Archivo | Consulta contra GRH |
+|---|---|
+| `organiza.csv` | `select IDORGANIZA, codigoOrganiza, N1_DESC, activo from ORGANIZA` |
+| `sectores.csv` | dotación por sector del último período liquidado |
+| `nomina.csv` | `select distinct LEGA_12, NOMB_12, CODI_07 from calculo_para_web where PERI_31=2026 and MES_31=7 and tipo_31='M'` |
+
+Fijate que `nomina.csv` pide **exactamente tres columnas**. El recorte de alcance
+mínimo empieza en la consulta y no después: así el CSV no puede traer DNI, CUIL
+ni haberes aunque alguien se distraiga. `preparar-staging.mjs` lo vuelve a
+verificar antes de escribir y **se planta** si aparece una columna de más.
 
 | Script | Qué hace |
 |---|---|
@@ -29,12 +39,29 @@ Todos esperan dos CSV exportados de GRH en este mismo directorio:
 | `revisar-sectores.mjs` | Los enganches sector → repartición que no son obvios, con cuánta gente arrastra cada uno |
 | `datos-confirmacion.mjs` | Emite `confirmacion.json` con las dos tablas a confirmar |
 | `armar_xlsx.py` | Convierte ese JSON en la planilla para Capital Humano (`openpyxl`) |
+| `preparar-staging.mjs` | Arma los CSV que se suben a las tablas de staging (migración 0026) |
 
 ```bash
 node scripts/importacion/equivalencias.mjs
 node scripts/importacion/revisar-sectores.mjs
 node scripts/importacion/datos-confirmacion.mjs && python scripts/importacion/armar_xlsx.py
+node scripts/importacion/preparar-staging.mjs
 ```
+
+## El paso que falta: `mapeo-sectores.json`
+
+`preparar-staging.mjs` traduce el sector de cada persona (`CODI_07`) al
+`external_id` de su repartición usando ese archivo, que es la planilla de
+confirmación **ya devuelta por Capital Humano**:
+
+```json
+{ "331": "5000", "242": "1400" }
+```
+
+Sin él, el script corre igual pero marca a **las 4.771 personas** con
+`error_mapeo` y avisa. Es a propósito: mejor que se plante ruidosamente a que
+invente reparticiones. Una persona con repartición nula no la ve ningún director
+ni secretario —solo el admin— y no hay ninguna señal de que quedó afuera.
 
 ## Por qué el matcheo es "propone y no decide"
 
