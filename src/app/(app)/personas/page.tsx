@@ -69,9 +69,11 @@ export default async function PersonasPage({
           <AltaPersona
             puestos={puestos}
             reparticiones={reparticiones}
-            // El admin puede cargar a alguien sin repartición; para el resto es
-            // obligatoria, y la base la exige igual (personas_insert_director).
-            reparticionObligatoria={!esAdmin}
+            // La repartición es obligatoria para todos, admin incluido: una
+            // persona sin repartición no la ve ningún director ni secretario
+            // —solo el admin— y no hay ninguna señal de que quedó afuera.
+            // Esto es solo para aclarar en pantalla por qué la lista viene corta.
+            alcanceAcotado={!esAdmin}
           />
         </div>
       )}

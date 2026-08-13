@@ -28,17 +28,17 @@ type Valores = PersonaFormValues;
 export function AltaPersona({
   puestos,
   reparticiones,
-  reparticionObligatoria = false,
+  alcanceAcotado = false,
 }: {
   puestos: PuestoOpcion[];
   reparticiones: ReparticionPlana[];
   /**
-   * Para el director y el secretario la repartición no es opcional: la policy
-   * `personas_insert_director` (0018) rechaza un `reparticion_id` nulo. Se saca la
-   * opción "Sin repartición" en vez de dejar que la base conteste "No tenés
-   * permisos", que no explicaría nada.
+   * El usuario no es admin, así que la lista trae solo sus reparticiones. Es
+   * únicamente para explicarlo en pantalla: la repartición es obligatoria para
+   * todos por igual, y quién puede cargar dónde lo decide la RLS
+   * (`personas_insert_director`, 0018).
    */
-  reparticionObligatoria?: boolean;
+  alcanceAcotado?: boolean;
 }) {
   const router = useRouter();
   const [abierto, setAbierto] = useState(false);
@@ -107,19 +107,17 @@ export function AltaPersona({
               )}
             </div>
             <div className="space-y-1.5">
-              <Label htmlFor="reparticion_id">
-                Repartición{reparticionObligatoria ? " *" : ""}
-              </Label>
+              <Label htmlFor="reparticion_id">Repartición *</Label>
               <select
                 id="reparticion_id"
                 className="flex h-9 w-full rounded-md border border-border bg-transparent px-3 py-1 text-sm shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 {...register("reparticion_id")}
               >
-                {/* Sin la opción vacía, el <select> arranca en la primera de la
-                    lista: así el director siempre manda una repartición suya. */}
-                {!reparticionObligatoria && (
-                  <option value="">Sin repartición</option>
-                )}
+                {/* Placeholder que NO valida (el esquema exige un uuid), en vez de
+                    arrancar preseleccionado en la primera de la lista. Con 187
+                    reparticiones, empezar elegido hace que se cargue gente en la
+                    primera del organigrama sin que nadie lo note. */}
+                <option value="">Elegí una repartición…</option>
                 {/* El organigrama es un árbol y esto es una lista: la jerarquía se
                     marca sangrando con espacios duros, que es lo único que respeta
                     un <select> nativo. */}
@@ -130,7 +128,12 @@ export function AltaPersona({
                   </option>
                 ))}
               </select>
-              {reparticionObligatoria && (
+              {errors.reparticion_id && (
+                <p className="text-xs text-destructive">
+                  {errors.reparticion_id.message}
+                </p>
+              )}
+              {alcanceAcotado && (
                 <p className="text-xs text-muted-foreground">
                   {reparticiones.length === 1
                     ? "Solo podés cargar personal en tu repartición."

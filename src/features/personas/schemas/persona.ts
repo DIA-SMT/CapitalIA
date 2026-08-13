@@ -17,10 +17,18 @@ export const personaSchema = z.object({
     .union([z.email("Email inválido"), z.literal("")])
     .optional()
     .transform((v) => (v === "" ? undefined : v)),
-  reparticion_id: z
-    .union([z.uuid(), z.literal("")])
-    .optional()
-    .transform((v) => (v === "" ? undefined : v)),
+  /**
+   * Obligatoria para TODOS, incluido el admin.
+   *
+   * `personas_select_director` (0012) filtra con
+   * `reparticion_id in (select mis_reparticiones())`, y en SQL `null in (…)` da
+   * NULL, no true: una persona sin repartición es invisible para todo director y
+   * secretario, para siempre, y solo la ve el admin. Sin error y sin señal.
+   *
+   * Mientras fueron dos altas a mano no se notaba. Al mapear 4.771 personas
+   * contra el organigrama, cada una que no enganche cae en ese pozo.
+   */
+  reparticion_id: z.uuid("Elegí la repartición"),
   /**
    * Puesto que ocupa, opcional. Se puede cargar una persona sin puesto y
    * asignarla después desde la ficha del puesto.
