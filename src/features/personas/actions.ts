@@ -4,9 +4,9 @@ import { revalidatePath } from "next/cache";
 
 import { hoy } from "@/lib/fechas";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getSessionRole } from "@/lib/supabase/server";
 import { listarPersonasSinPuesto, type CandidatosSinPuesto } from "./data/personas";
-import { asignacionSchema, personaSchema } from "./schemas/persona";
+import { asignacionSchema, edicionPersonaSchema, personaSchema } from "./schemas/persona";
 
 /**
  * Alta de personas y asignación a puestos.
@@ -125,6 +125,85 @@ export async function asignarPersona(
 }
 
 /** Cierra la asignación vigente de una persona. */
+/**
+ * Corrige una persona ya cargada: nombre, email, repartición y alta/baja.
+ *
+ * POR QUÉ EXISTE. Las 4.706 personas entraron con la repartición que dice la
+ * liquidación, y la liquidación dice dónde se le PAGA a alguien, no siempre dónde
+ * trabaja: la Dirección de IA tiene 4 personas y la liquidación imputa 2. Sin esta
+ * acción, CapitalIA es una foto de sueldos que nadie puede corregir, y la
+ * sincronización mensual no la va a arreglar porque nunca vuelve a escribir
+ * `reparticion_id` (ver scripts/importacion/importar.mjs).
+ *
+ * Solo admin, por la decisión #10 del plan: el director carga y asigna; corregir o
+ * dar de baja es de Capital Humano. No hace falta migración —`personas_admin`
+ * (0008) ya le da `for all`—, pero se chequea igual acá para dar un mensaje
+ * legible en vez de un 42501 pelado.
+ *
+ * El legajo no se toca: es la clave con la que la sincronización reconoce a la
+ * persona.
+ */
+export async function editarPersona(
+  personaId: string,
+  values: unknown,
+): Promise<ResultadoPersona> {
+  if (!isSupabaseConfigured()) return { error: SIN_CONFIG };
+
+  if ((await getSessionRole()) !== "admin") {
+    return { error: "Solo Capital Humano puede corregir o dar de baja personas." };
+  }
+
+  const parsed = edicionPersonaSchema.safeParse(values);
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Revisá los datos." };
+  }
+
+  const supabase = await createClient();
+
+  // Dar de baja a alguien que ocupa un puesto tiene que cerrar esa asignación: si
+  // no, el puesto sigue figurando ocupado por una persona que ya no presta
+  // servicios. Va ANTES del update para que un fallo acá no deje el estado a
+  // medias con la persona ya inactiva.
+  if (!parsed.data.is_active) {
+    const { data: abierta } = await supabase
+      .from("asignaciones")
+      .select("id")
+      .eq("persona_id", personaId)
+      .is("valid_until", null)
+      .maybeSingle();
+
+    if (abierta) {
+      const { error: errorCierre } = await supabase.rpc("desasignar_persona", {
+        p_persona_id: personaId,
+        p_hasta: hoy(),
+      });
+      if (errorCierre) return { error: mensaje(errorCierre) };
+    }
+  }
+
+  // `.select()` a propósito: sin él, cero filas afectadas devuelve éxito y la app
+  // dice "guardado" sin haber guardado nada. Pasa si la RLS filtró la fila o si el
+  // id no existe, y es exactamente el defecto que tiene `actualizarReparticion`.
+  const { data, error } = await supabase
+    .from("personas")
+    .update({
+      full_name: parsed.data.full_name,
+      email: parsed.data.email ?? null,
+      reparticion_id: parsed.data.reparticion_id,
+      is_active: parsed.data.is_active,
+    })
+    .eq("id", personaId)
+    .select("id");
+
+  if (error) return { error: mensaje(error) };
+  if (!data?.length) {
+    return { error: "No se encontró esa persona. Actualizá la página." };
+  }
+
+  revalidatePath("/personas");
+  return { ok: true };
+}
+
 export async function desasignarPersona(
   personaId: string,
   positionId: string,

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Search, X } from "lucide-react";
+import { Pencil, Search, X } from "lucide-react";
 
 import type { FiltrosPersonas, ListadoPersonas } from "../data/personas";
 import type { ReparticionPlana } from "@/features/reparticiones/data/reparticiones";
@@ -19,6 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { NoResultsState } from "@/components/states";
+import { EditarPersona } from "./editar-persona";
 
 /** Espera antes de ir al servidor, para no consultar en cada tecla. */
 const ESPERA_TIPEO = 300;
@@ -40,11 +41,17 @@ export function TablaPersonas({
   reparticiones,
   filtros,
   sinPuesto,
+  esAdmin = false,
 }: {
   listado: ListadoPersonas;
   reparticiones: ReparticionPlana[];
   filtros: FiltrosPersonas;
   sinPuesto: number;
+  /**
+   * Corregir o dar de baja es de Capital Humano (decisión #10 del plan), así que
+   * el lápiz solo aparece para admin. La RLS lo exige igual.
+   */
+  esAdmin?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -53,6 +60,12 @@ export function TablaPersonas({
 
   // El input se maneja solo mientras se tipea; la URL se actualiza después.
   const [texto, setTexto] = useState(filtros.q ?? "");
+
+  /**
+   * Qué fila está en edición. El formulario ocupa una fila entera, así que la
+   * apertura la maneja la tabla y no cada botón.
+   */
+  const [editando, setEditando] = useState<string | null>(null);
 
   /**
    * La query que pedimos por última vez. `useSearchParams()` no sirve de base:
@@ -210,10 +223,11 @@ export function TablaPersonas({
                   <TableHead>Repartición</TableHead>
                   <TableHead>Puesto que ocupa</TableHead>
                   <TableHead>Estado</TableHead>
+                  {esAdmin && <TableHead className="w-10 sr-only">Corregir</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {listado.personas.map((p) => (
+                {listado.personas.flatMap((p) => [
                   <TableRow key={p.id}>
                     <TableCell className="font-mono text-xs text-muted-foreground">
                       {p.legajo}
@@ -241,8 +255,33 @@ export function TablaPersonas({
                         {p.activa ? "Activa" : "Baja"}
                       </Badge>
                     </TableCell>
-                  </TableRow>
-                ))}
+                    {esAdmin && (
+                      <TableCell className="text-right">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => setEditando(editando === p.id ? null : p.id)}
+                          aria-label={`Corregir ${p.nombre}`}
+                          aria-expanded={editando === p.id}
+                        >
+                          <Pencil className="h-4 w-4" aria-hidden />
+                        </Button>
+                      </TableCell>
+                    )}
+                  </TableRow>,
+                  // El formulario va en su propia fila: no entra en una celda.
+                  esAdmin && editando === p.id ? (
+                    <TableRow key={`${p.id}-editar`}>
+                      <TableCell colSpan={6} className="bg-secondary/20">
+                        <EditarPersona
+                          persona={p}
+                          reparticiones={reparticiones}
+                          onCerrar={() => setEditando(null)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ) : null,
+                ])}
               </TableBody>
             </Table>
           </div>

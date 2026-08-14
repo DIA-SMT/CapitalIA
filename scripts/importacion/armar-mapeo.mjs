@@ -67,7 +67,7 @@ function solape(ta, tb) {
 const readCsv = (p) => fs.readFileSync(path.join(DIR, p), "utf8").trim().split(/\r?\n/).slice(1)
   .map((l) => (l.match(/"[^"]*"/g) ?? []).map((c) => c.slice(1, -1)));
 
-const unidades = readCsv("organiza.csv").map(([id, code, nombre]) => ({ id, nombre, tk: tokens(nombre) }));
+const unidades = readCsv("organiza.csv").map(([id, , nombre]) => ({ id, nombre, tk: tokens(nombre) }));
 const sectores = readCsv("sectores.csv").map(([codi, nombre, agentes]) => ({ codi, nombre, agentes: +agentes, tk: tokens(nombre) }));
 
 const CIERTO = 0.85;

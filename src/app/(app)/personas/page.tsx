@@ -92,6 +92,7 @@ export default async function PersonasPage({
           filtros={filtros}
           // Global y no de la página: es un pendiente del padrón entero.
           sinPuesto={Math.max(0, dotacion.personas - dotacion.conPuesto)}
+          esAdmin={esAdmin}
         />
       )}
     </>
