@@ -78,6 +78,9 @@ primera carga de esa persona, porque volver a correrlo no lo corrige.
 
 ## Lo que falta, y de quién depende
 
+Todo lo que queda son decisiones de personas. **No hay nada pendiente de código ni de
+verificación.**
+
 ### Necesita una definición de Capital Humano
 
 1. **65 agentes de dos sectores de Tránsito.** Se dejaron afuera a propósito.
@@ -102,15 +105,31 @@ primera carga de esa persona, porque volver a correrlo no lo corrige.
    resuelve sin tocar la base: `secretario` es un rol de **alcance recursivo desde
    el nodo asignado**, no de nivel. Definirlo **antes** de crear cuentas.
 
-### Pendiente de ejercitar
+### Nada más. Lo que estaba pendiente de ejercitar ya se ejercitó
 
-4. **La prueba negativa de la revocación de acceso.** Está escrita en
-   [`prueba-revocacion.sql`](prueba-revocacion.sql) y se corre de un solo paste.
-   Se confirmó que la migración `0021` está aplicada en producción, pero los cuatro
-   casos del test no se leyeron todavía. Lo que hay que ver: **B = 0 y D = 3**.
+**La revocación de acceso quedó probada** el 2026-08-14 con
+[`prueba-revocacion.sql`](prueba-revocacion.sql), sobre el director de la Dirección
+de IA:
 
-   (El arreglo del rol `admin` no aplica: `is_admin()` siempre chequeó `is_active`.
-   Los expuestos eran `director` y `secretario`.)
+| Caso | Resultado |
+|---|---|
+| A · con el arreglo, perfil **activo** | **3** — ve a su gente |
+| B · con el arreglo, perfil **desactivado** | **0** — la revocación funciona |
+| C · escritura estando de baja | **rechazada** |
+| D · **sin** el arreglo, desactivado | **3** — el bug que se cerró |
+
+Los cuatro juntos son la prueba: A contra B muestra que desactivar revoca, y B
+contra D muestra que **el arreglo es lo que produce el 0** y no otra cosa — con la
+función de la `0015`, el mismo usuario desactivado seguía viendo a sus 3 y podía
+escribir.
+
+Se verificó después que el test no dejó nada tocado: los 4 perfiles activos, la
+función arreglada en su lugar y ninguna fila de prueba.
+
+(El rol `admin` nunca estuvo afectado: `is_admin()` siempre chequeó `is_active`.
+Los expuestos eran `director` y `secretario`, y con el secretario era peor —al
+desactivarlo caía a la rama del director, conservaba su repartición y perdía el
+subárbol—.)
 
 ## Errores propios que aparecieron y cómo se encontraron
 
