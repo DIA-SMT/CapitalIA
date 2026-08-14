@@ -31,6 +31,10 @@ const DECIDIDOS = {
   248: "3710",
   // Ídem: la Dirección (1.02.490), no la Subdirección (1.02.491).
   249: "3730",
+  // Dirección de IA. SÍ está en ORGANIZA, como "DIRECCION DE IA" (350, 1.01.230)
+  // y colgando de Intendencia, no de Innovación Tecnológica. No la encontraba
+  // porque buscaba "INTELIGENCIA" y el nombre está abreviado.
+  1412: "350",
 };
 
 /**
@@ -40,7 +44,6 @@ const DECIDIDOS = {
 const EXCLUIDOS = {
   1717: "«dirección general de tránsito» no existe en ORGANIZA: solo están la Administrativa (14900) y la Operativa (15000), que la nómina ya trae aparte como 1731 y 1732. Falta definir qué es esta tercera unidad.",
   1716: "«dir gral transp pub, seg. vial y lic»: por el nombre parece dirección general, pero el único candidato es una subsecretaría. Sin confirmar.",
-  1412: "Dirección de Inteligencia Artificial: existe en CapitalIA (DIR36) pero no en ORGANIZA, que es de mayo-2026. Se resuelve en la importación, no acá.",
 };
 
 // --- enganches obvios --------------------------------------------------------
@@ -68,14 +71,48 @@ const unidades = readCsv("organiza.csv").map(([id, code, nombre]) => ({ id, nomb
 const sectores = readCsv("sectores.csv").map(([codi, nombre, agentes]) => ({ codi, nombre, agentes: +agentes, tk: tokens(nombre) }));
 
 const CIERTO = 0.85;
+
+/**
+ * Qué escalón es, deducido de cómo arranca el nombre.
+ *
+ * Hace falta porque `STOP` saca las palabras SECRETARIA / DIRECCION / etc. de los
+ * tokens, así que "Secretaría de Ingresos Municipales", "Dirección de Ingresos
+ * Municipales" y su despacho quedan con los MISMOS tokens y empatan en 1.000. El
+ * `.sort()` es estable, así que ganaba el primero de organiza.csv —la secretaría—
+ * y los 189 de la Dirección de Ingresos Municipales aterrizaban una capa arriba.
+ * Como el alcance del director es plano, ese director veía 0 de sus 189.
+ */
+function escalon(nombre) {
+  const n = nombre.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().trim();
+  if (/^SUBD/.test(n)) return "subdireccion";
+  if (/^(SUB\s?SEC|SUBSEC)/.test(n)) return "subsecretaria";
+  if (/^(SECRETARIA|SECR|FISCALIA|TRIBUNAL|INTENDENCIA)/.test(n)) return "secretaria";
+  if (/^(DIRECCION|DIREC|DIR|CENTRO|OFICINA|PATRULLA)/.test(n)) return "direccion";
+  return null;
+}
+
 const mapeo = {};
-let obvios = 0, sinMapear = [];
+let obvios = 0, sinMapear = [], desempatados = [];
 
 for (const s of sectores) {
   if (EXCLUIDOS[s.codi]) { sinMapear.push(s); continue; }
   if (DECIDIDOS[s.codi]) { mapeo[s.codi] = String(DECIDIDOS[s.codi]); continue; }
-  const [mejor] = unidades.map((u) => ({ u, v: solape(s.tk, u.tk) })).sort((a, b) => b.v - a.v);
-  if (mejor && mejor.v >= CIERTO) { mapeo[s.codi] = mejor.u.id; obvios++; }
+
+  const nivelSector = escalon(s.nombre);
+  const rank = unidades.map((u) => ({ u, v: solape(s.tk, u.tk) })).sort((a, b) => b.v - a.v);
+  const empatados = rank.filter((c) => c.v >= CIERTO);
+
+  // Con empate, decide el escalón: es el único dato que los distingue.
+  let elegido = empatados[0];
+  if (empatados.length > 1 && nivelSector) {
+    const mismoNivel = empatados.find((c) => escalon(c.u.nombre) === nivelSector);
+    if (mismoNivel && mismoNivel !== empatados[0]) {
+      desempatados.push({ s, antes: empatados[0].u, ahora: mismoNivel.u });
+    }
+    if (mismoNivel) elegido = mismoNivel;
+  }
+
+  if (elegido && elegido.v >= CIERTO) { mapeo[s.codi] = elegido.u.id; obvios++; }
   else sinMapear.push(s);
 }
 for (const [codi, id] of Object.entries(DECIDIDOS)) mapeo[codi] = String(id);
@@ -83,6 +120,13 @@ for (const [codi, id] of Object.entries(DECIDIDOS)) mapeo[codi] = String(id);
 fs.writeFileSync(path.join(DIR, "mapeo-sectores.json"), JSON.stringify(mapeo, null, 2), "utf8");
 
 const gente = (a) => a.reduce((t, s) => t + s.agentes, 0);
+if (desempatados.length) {
+  console.log(`DESEMPATADOS por escalon: ${desempatados.length}`);
+  for (const d of desempatados) console.log(`  ${d.s.codi} ${d.s.nombre}
+      antes -> ${d.antes.nombre}
+      ahora -> ${d.ahora.nombre}`);
+  console.log("");
+}
 console.log(`enganches obvios (>=85%) : ${obvios}`);
 console.log(`decididos a mano         : ${Object.keys(DECIDIDOS).length}`);
 console.log(`mapeados en total        : ${Object.keys(mapeo).length} de ${sectores.length} sectores`);
