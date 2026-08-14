@@ -63,7 +63,11 @@ function Indicador({
           </CardDescription>
           <Icono className={`h-4 w-4 ${acento}`} aria-hidden />
         </div>
-        <CardTitle className="text-3xl tabular-nums">{valor}</CardTitle>
+        {/* Separador de miles: con 4.706 personas, "4706" se lee como un código
+            y no como una cantidad. */}
+        <CardTitle className="text-3xl tabular-nums">
+          {typeof valor === "number" ? valor.toLocaleString("es-AR") : valor}
+        </CardTitle>
         <CardDescription className="text-xs">{detalle}</CardDescription>
       </CardHeader>
     </Card>

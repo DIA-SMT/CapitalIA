@@ -1,6 +1,11 @@
-# Los export de GRH y los CSV de staging traen nombres y legajos de 4.771
-# empleados municipales. No van al repositorio, ni siquiera "por un rato".
-*.csv
-mapeo-sectores.json
-confirmacion.json
-*.xlsx
+# Nada de lo que se genera acá va al repositorio: los export de GRH, los CSV de
+# staging y los respaldos traen nombres y legajos de 4.771 empleados municipales.
+#
+# Lista blanca en vez de lista negra, y a propósito: si mañana un script emite un
+# formato nuevo, queda ignorado por defecto en vez de colarse en un commit. Ya
+# pasó una vez con respaldo-*.json.
+*
+!.gitignore
+!README.md
+!*.mjs
+!*.py

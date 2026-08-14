@@ -27,6 +27,8 @@ export type PersonaListado = {
   nombre: string;
   email: string | null;
   reparticion: string | null;
+  /** El id, no solo el nombre: lo necesita el formulario de corrección. */
+  reparticionId: string | null;
   activa: boolean;
   puesto: { id: string; nombre: string; internalCode: string } | null;
 };
@@ -148,7 +150,7 @@ export async function listarPersonas(
   let consulta = supabase
     .from("personas")
     .select(
-      `id, legajo, full_name, email, is_active,
+      `id, legajo, full_name, email, is_active, reparticion_id,
        reparticiones ( nombre ),
        asignaciones ( valid_until,
          positions ( id, internal_code,
@@ -190,6 +192,7 @@ export async function listarPersonas(
     full_name: string;
     email: string | null;
     is_active: boolean;
+    reparticion_id: string | null;
     reparticiones: { nombre: string } | null;
     asignaciones: {
       valid_until: string | null;
@@ -210,6 +213,7 @@ export async function listarPersonas(
       nombre: p.full_name,
       email: p.email,
       reparticion: p.reparticiones?.nombre ?? null,
+      reparticionId: p.reparticion_id,
       activa: p.is_active,
       puesto: vigente?.positions
         ? {

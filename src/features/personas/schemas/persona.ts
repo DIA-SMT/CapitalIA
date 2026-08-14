@@ -39,6 +39,26 @@ export const personaSchema = z.object({
     .transform((v) => (v === "" ? undefined : v)),
 });
 
+/**
+ * Edición de una persona ya cargada. Solo admin (decisión #10 del plan: el
+ * director carga y asigna; corregir o dar de baja es de Capital Humano).
+ *
+ * El legajo NO se puede editar: es la identidad estable de la persona y la clave
+ * con la que la sincronización mensual la reconoce. Cambiarlo la convertiría en
+ * otra persona y la próxima corrida la cargaría de nuevo, duplicada.
+ */
+export const edicionPersonaSchema = z.object({
+  full_name: z.string().trim().min(3, "El nombre es obligatorio").max(200),
+  email: z
+    .union([z.email("Email inválido"), z.literal("")])
+    .optional()
+    .transform((v) => (v === "" ? undefined : v)),
+  reparticion_id: z.uuid("Elegí la repartición"),
+  is_active: z.boolean(),
+});
+
+export type EdicionPersonaFormValues = z.input<typeof edicionPersonaSchema>;
+
 export const asignacionSchema = z.object({
   persona_id: z.uuid("Elegí una persona"),
   desde: z.iso.date().optional(),
