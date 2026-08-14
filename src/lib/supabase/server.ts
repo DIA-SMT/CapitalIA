@@ -52,12 +52,19 @@ export const getSessionUser = cache(async (): Promise<User | null> => {
 });
 
 /**
- * Rol de aplicación del usuario actual, o null si no hay sesión. Cacheado por
- * request: se puede llamar desde el layout y varias páginas sin repetir la
- * consulta. La RLS de profiles permite a cada usuario leer su propia fila.
+ * Rol de aplicación del usuario actual, o null si no hay sesión **o si la cuenta
+ * está desactivada**. Cacheado por request: se puede llamar desde el layout y
+ * varias páginas sin repetir la consulta. La RLS de profiles permite a cada
+ * usuario leer su propia fila.
  *
  * La lista de roles válidos sale de `lib/roles.ts` y no se repite acá: tenerla
  * escrita dos veces es lo que dejó a `secretario` afuera.
+ *
+ * `is_active` se mira acá por el mismo motivo por el que lo mira `is_admin()` en
+ * la base: un usuario desactivado no tiene rol. Sin esto, la UI le seguía
+ * mostrando su sección aunque la RLS ya no le devolviera ni una fila —una
+ * pantalla vacía sin explicación en vez de una puerta cerrada—. La revocación
+ * real es la de la base (migración 0021); esto es que la interfaz diga lo mismo.
  */
 export const getSessionRole = cache(async (): Promise<Rol | null> => {
   const user = await getSessionUser();
@@ -66,10 +73,11 @@ export const getSessionRole = cache(async (): Promise<Rol | null> => {
     const supabase = await createClient();
     const { data } = await supabase
       .from("profiles")
-      .select("role")
+      .select("role, is_active")
       .eq("id", user.id)
       .single();
-    const role = data?.role;
+    if (!data?.is_active) return null;
+    const role = data.role;
     return esRol(role) ? role : null;
   } catch {
     return null;

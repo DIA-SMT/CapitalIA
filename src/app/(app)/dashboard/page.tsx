@@ -5,6 +5,7 @@ import {
   ClipboardList,
   FileStack,
   FileText,
+  GitBranch,
   Landmark,
   Network,
   Users,
@@ -173,10 +174,22 @@ export default async function DashboardPage() {
         <Indicador
           etiqueta="Direcciones"
           valor={org.direcciones}
-          detalle="Unidades de última línea"
+          detalle="Unidades de línea"
           icono={Building2}
           href="/reparticiones"
         />
+        {/* El cuarto escalón no existe en el organigrama del POA, así que la
+            tarjeta aparece recién cuando se importe el de sueldos. Mostrar un
+            cero permanente sería ruido. */}
+        {org.subdirecciones > 0 && (
+          <Indicador
+            etiqueta="Subdirecciones"
+            valor={org.subdirecciones}
+            detalle="Unidades de última línea"
+            icono={GitBranch}
+            href="/reparticiones"
+          />
+        )}
         <Indicador
           etiqueta="Personas"
           valor={dotacion.personas}

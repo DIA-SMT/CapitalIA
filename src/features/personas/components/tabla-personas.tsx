@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { Search, X } from "lucide-react";
 
-import type { PersonaListado } from "../data/personas";
+import type { FiltrosPersonas, ListadoPersonas } from "../data/personas";
+import type { ReparticionPlana } from "@/features/reparticiones/data/reparticiones";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,56 +20,111 @@ import {
 } from "@/components/ui/table";
 import { NoResultsState } from "@/components/states";
 
-/** Quita tildes y mayúsculas para que buscar "gomez" encuentre "Gómez". */
-function normalizar(s: string) {
-  return s
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase();
-}
+/** Espera antes de ir al servidor, para no consultar en cada tecla. */
+const ESPERA_TIPEO = 300;
 
 /**
- * Listado de personas con búsqueda de texto libre (nombre, legajo, repartición o
- * puesto) y filtros por repartición y estado. Cliente: el filtrado es sobre la
- * lista que ya trajo el servidor (aplicando RLS).
+ * Listado de personas con búsqueda y filtros **resueltos en la base**.
+ *
+ * Antes filtraba en el navegador sobre la lista completa. Con 4.771 personas eso
+ * no funciona: PostgREST corta en 1.000 filas sin avisar, así que buscar a
+ * alguien del final del abecedario contestaba "Sin coincidencias" aunque
+ * estuviera cargado. Ahora el filtro viaja en la URL, la base responde y el total
+ * sale de un `count`, no de las filas que llegaron.
+ *
+ * Que los filtros vivan en la URL también los hace compartibles y les permite
+ * sobrevivir a un refresh.
  */
-export function TablaPersonas({ personas }: { personas: PersonaListado[] }) {
-  const [busqueda, setBusqueda] = useState("");
-  const [reparticion, setReparticion] = useState<string | null>(null);
-  const [estado, setEstado] = useState<string | null>(null);
+export function TablaPersonas({
+  listado,
+  reparticiones,
+  filtros,
+  sinPuesto,
+}: {
+  listado: ListadoPersonas;
+  reparticiones: ReparticionPlana[];
+  filtros: FiltrosPersonas;
+  sinPuesto: number;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const [pendiente, startTransition] = useTransition();
 
-  const reparticiones = useMemo(
-    () =>
-      [...new Set(personas.map((p) => p.reparticion).filter(Boolean))].sort() as string[],
-    [personas],
-  );
+  // El input se maneja solo mientras se tipea; la URL se actualiza después.
+  const [texto, setTexto] = useState(filtros.q ?? "");
 
-  const filtrados = useMemo(() => {
-    const terminos = normalizar(busqueda.trim()).split(/\s+/).filter(Boolean);
-    return personas.filter((p) => {
-      if (reparticion && p.reparticion !== reparticion) return false;
-      if (estado === "activa" && !p.activa) return false;
-      if (estado === "baja" && p.activa) return false;
-      if (terminos.length === 0) return true;
-      const buscable = normalizar(
-        [
-          p.nombre,
-          p.legajo,
-          p.reparticion ?? "",
-          p.puesto?.nombre ?? "",
-          p.email ?? "",
-        ].join(" "),
-      );
-      return terminos.every((t) => buscable.includes(t));
-    });
-  }, [personas, busqueda, reparticion, estado]);
+  /**
+   * La query que pedimos por última vez. `useSearchParams()` no sirve de base:
+   * mientras la navegación está en vuelo sigue devolviendo la anterior, así que
+   * dos cambios seguidos —Limpiar y el eco de la espera de tipeo— se armarían
+   * sobre filtros que el usuario ya sacó, y los reviven.
+   */
+  const pedido = useRef(params.toString());
 
-  const sinPuesto = useMemo(
-    () => personas.filter((p) => !p.puesto && p.activa).length,
-    [personas],
-  );
+  const urlActual = params.toString();
 
-  const hayFiltro = busqueda !== "" || reparticion !== null || estado !== null;
+  /**
+   * Si la URL cambió por afuera del input —Atrás/Adelante, "Personas" en el menú,
+   * un link pegado— manda la URL. Sin esto el input sigue mostrando el término
+   * viejo y la espera de tipeo lo vuelve a empujar 300 ms después: el Atrás se
+   * deshace solo y encima agrega otra entrada al historial.
+   *
+   * Va en un efecto y no durante el render porque tocar un ref mientras se
+   * renderiza no está permitido. Declarado ANTES que la espera de tipeo para que
+   * corra primero y esa no llegue a navegar con el término viejo.
+   */
+  useEffect(() => {
+    if (urlActual === pedido.current) return;
+    pedido.current = urlActual;
+    setTexto(filtros.q ?? "");
+  }, [urlActual, filtros.q]);
+
+  /** Arma la URL cambiando solo lo que se pide y volviendo a la página 1. */
+  function navegar(cambios: Record<string, string | undefined>) {
+    const siguiente = new URLSearchParams(pedido.current);
+    for (const [clave, valor] of Object.entries(cambios)) {
+      if (valor) siguiente.set(clave, valor);
+      else siguiente.delete(clave);
+    }
+    // Cambiar un filtro y quedarse en la página 7 muestra una lista vacía que
+    // parece "no hay nada" en vez de "estás en una página que ya no existe".
+    if (!("pagina" in cambios)) siguiente.delete("pagina");
+    const qs = siguiente.toString();
+    // Antes de navegar, no después: el cambio que venga tiene que componer sobre
+    // esto y no sobre la URL que todavía devuelve useSearchParams().
+    pedido.current = qs;
+    startTransition(() => router.push(qs ? `${pathname}?${qs}` : pathname));
+  }
+
+  // Búsqueda con espera: sin esto habría una consulta por tecla. Se compara
+  // contra lo pedido, no contra `filtros.q`, que llega un render tarde.
+  useEffect(() => {
+    const id = setTimeout(() => {
+      const enUrl = new URLSearchParams(pedido.current).get("q") ?? "";
+      if (texto.trim() !== enUrl) navegar({ q: texto.trim() || undefined });
+    }, ESPERA_TIPEO);
+    return () => clearTimeout(id);
+    // `navegar` solo lee refs y valores estables; incluirlo reiniciaría la espera
+    // en cada render y la búsqueda no saldría nunca.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [texto]);
+
+  const hayFiltro = Boolean(filtros.q || filtros.rep || filtros.estado);
+
+  function limpiar() {
+    setTexto("");
+    navegar({ q: undefined, rep: undefined, estado: undefined });
+  }
+
+  /** URL de otra página conservando los filtros puestos. */
+  function hrefPagina(n: number) {
+    const siguiente = new URLSearchParams(params.toString());
+    if (n <= 1) siguiente.delete("pagina");
+    else siguiente.set("pagina", String(n));
+    const qs = siguiente.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
+  }
 
   return (
     <div className="space-y-4">
@@ -77,9 +134,12 @@ export function TablaPersonas({ personas }: { personas: PersonaListado[] }) {
           aria-hidden
         />
         <Input
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          placeholder="Buscar por nombre, legajo, repartición o puesto…"
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
+          // Ya no busca por repartición ni por puesto: esos viven en otras tablas
+          // y no entran en la columna de búsqueda. La repartición es un filtro
+          // aparte, que además es exacto.
+          placeholder="Buscar por nombre, legajo o email…"
           className="pl-9"
           aria-label="Buscar personas"
         />
@@ -89,14 +149,14 @@ export function TablaPersonas({ personas }: { personas: PersonaListado[] }) {
         <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
           Repartición
           <select
-            value={reparticion ?? ""}
-            onChange={(e) => setReparticion(e.target.value || null)}
+            value={filtros.rep ?? ""}
+            onChange={(e) => navegar({ rep: e.target.value || undefined })}
             className="h-8 max-w-[16rem] rounded-md border border-border bg-background px-2 text-xs text-foreground"
           >
             <option value="">Todas</option>
             {reparticiones.map((r) => (
-              <option key={r} value={r}>
-                {r}
+              <option key={r.id} value={r.id}>
+                {`${"— ".repeat(r.nivel)}${r.nombre}`}
               </option>
             ))}
           </select>
@@ -104,8 +164,8 @@ export function TablaPersonas({ personas }: { personas: PersonaListado[] }) {
         <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
           Estado
           <select
-            value={estado ?? ""}
-            onChange={(e) => setEstado(e.target.value || null)}
+            value={filtros.estado ?? ""}
+            onChange={(e) => navegar({ estado: e.target.value || undefined })}
             className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground"
           >
             <option value="">Todos</option>
@@ -115,79 +175,106 @@ export function TablaPersonas({ personas }: { personas: PersonaListado[] }) {
         </label>
 
         {hayFiltro && (
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => {
-              setBusqueda("");
-              setReparticion(null);
-              setEstado(null);
-            }}
-          >
+          <Button size="sm" variant="ghost" onClick={limpiar}>
             <X className="h-4 w-4" aria-hidden />
             Limpiar
           </Button>
         )}
       </div>
 
-      <p className="text-sm text-muted-foreground" aria-live="polite">
-        {filtrados.length === personas.length
-          ? `${personas.length} persona${personas.length === 1 ? "" : "s"}`
-          : `${filtrados.length} de ${personas.length} personas`}
-        {sinPuesto > 0 && ` · ${sinPuesto} sin puesto asignado`}
+      <p
+        className={`text-sm text-muted-foreground ${pendiente ? "opacity-50" : ""}`}
+        aria-live="polite"
+        aria-busy={pendiente}
+      >
+        {listado.total.toLocaleString("es-AR")}{" "}
+        {listado.total === 1 ? "persona" : "personas"}
+        {hayFiltro && (listado.total === 1 ? " que coincide" : " que coinciden")}
+        {listado.paginas > 1 && ` · página ${listado.pagina} de ${listado.paginas}`}
+        {sinPuesto > 0 && ` · ${sinPuesto.toLocaleString("es-AR")} sin puesto asignado`}
       </p>
 
-      {filtrados.length === 0 ? (
+      {listado.personas.length === 0 ? (
         <NoResultsState
           title="Sin coincidencias"
           description="Probá con otro término o quitá los filtros."
         />
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Legajo</TableHead>
-                <TableHead>Nombre</TableHead>
-                <TableHead>Repartición</TableHead>
-                <TableHead>Puesto que ocupa</TableHead>
-                <TableHead>Estado</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtrados.map((p) => (
-                <TableRow key={p.id}>
-                  <TableCell className="font-mono text-xs text-muted-foreground">
-                    {p.legajo}
-                  </TableCell>
-                  <TableCell className="font-medium">{p.nombre}</TableCell>
-                  <TableCell className="text-sm text-muted-foreground">
-                    {p.reparticion ?? "—"}
-                  </TableCell>
-                  <TableCell>
-                    {p.puesto ? (
-                      <Link
-                        href={`/puestos/${p.puesto.id}`}
-                        className="text-sm underline-offset-4 hover:underline"
-                      >
-                        {p.puesto.nombre}
-                      </Link>
-                    ) : (
-                      <span className="text-sm italic text-muted-foreground">
-                        Sin asignar
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={p.activa ? "secondary" : "outline"}>
-                      {p.activa ? "Activa" : "Baja"}
-                    </Badge>
-                  </TableCell>
+        <>
+          <div className="overflow-x-auto rounded-xl border border-border">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Legajo</TableHead>
+                  <TableHead>Nombre</TableHead>
+                  <TableHead>Repartición</TableHead>
+                  <TableHead>Puesto que ocupa</TableHead>
+                  <TableHead>Estado</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {listado.personas.map((p) => (
+                  <TableRow key={p.id}>
+                    <TableCell className="font-mono text-xs text-muted-foreground">
+                      {p.legajo}
+                    </TableCell>
+                    <TableCell className="font-medium">{p.nombre}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">
+                      {p.reparticion ?? "—"}
+                    </TableCell>
+                    <TableCell>
+                      {p.puesto ? (
+                        <Link
+                          href={`/puestos/${p.puesto.id}`}
+                          className="text-sm underline-offset-4 hover:underline"
+                        >
+                          {p.puesto.nombre}
+                        </Link>
+                      ) : (
+                        <span className="text-sm italic text-muted-foreground">
+                          Sin asignar
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={p.activa ? "secondary" : "outline"}>
+                        {p.activa ? "Activa" : "Baja"}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {listado.paginas > 1 && (
+            <nav
+              className="flex items-center justify-between border-t border-border pt-4"
+              aria-label="Paginación"
+            >
+              {listado.pagina > 1 ? (
+                <Link
+                  href={hrefPagina(listado.pagina - 1)}
+                  className="text-sm underline-offset-4 hover:underline"
+                >
+                  ← Anteriores
+                </Link>
+              ) : (
+                <span />
+              )}
+              {listado.pagina < listado.paginas ? (
+                <Link
+                  href={hrefPagina(listado.pagina + 1)}
+                  className="text-sm underline-offset-4 hover:underline"
+                >
+                  Siguientes →
+                </Link>
+              ) : (
+                <span />
+              )}
+            </nav>
+          )}
+        </>
       )}
     </div>
   );

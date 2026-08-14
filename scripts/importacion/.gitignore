@@ -1,0 +1,6 @@
+# Los export de GRH y los CSV de staging traen nombres y legajos de 4.771
+# empleados municipales. No van al repositorio, ni siquiera "por un rato".
+*.csv
+mapeo-sectores.json
+confirmacion.json
+*.xlsx
