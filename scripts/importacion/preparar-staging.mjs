@@ -22,6 +22,28 @@ const COLUMNAS = {
 
 const NIVEL = { 1: "secretaria", 2: "subsecretaria", 3: "direccion", 4: "subdireccion" };
 
+/**
+ * El escalón que el propio nombre declara, o null si no lo dice.
+ *
+ * Manda sobre el patrón del código. Hace falta porque la rama de los "despachos"
+ * está corrida un nivel respecto de la numeración:
+ *
+ *     1.03.100  DIRECCION DE DESPACHO DE GOBIERNO      el patrón diría subsecretaría
+ *     1.03.110  SUBDIRECCION DE DESPACHO DE GOBIERNO   el patrón diría dirección
+ *
+ * Son 24 unidades —cada secretaría tiene su despacho y su subdespacho— y el
+ * efecto era que las tarjetas del dashboard contaban mal, que es justo lo que la
+ * migración 0025 vino a evitar.
+ */
+function escalonDeclarado(nombre) {
+  const n = nombre.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().trim();
+  if (/^SUBDIRECC?ION\b|^SUBD\b/.test(n)) return "subdireccion";
+  if (/^(SUB\s?SECRETARIA|SUBSEC)/.test(n)) return "subsecretaria";
+  if (/^SECRETARIA\b/.test(n)) return "secretaria";
+  if (/^DIRECC?ION\b/.test(n)) return "direccion";
+  return null;
+}
+
 const readCsv = (p) => {
   if (!fs.existsSync(p)) {
     console.error(`Falta ${path.basename(p)}. Ver el README de este directorio.`);
@@ -84,7 +106,8 @@ escribir(
     code: u.code,
     nombre: u.nombre,
     parent_external_id: padreDe(u)?.id ?? "",
-    tipo: NIVEL[u.nivel],
+    // El nombre manda; el patrón del código es el respaldo.
+    tipo: escalonDeclarado(u.nombre) ?? NIVEL[u.nivel],
   })),
 );
 
