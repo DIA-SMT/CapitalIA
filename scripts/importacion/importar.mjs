@@ -146,6 +146,11 @@ const EQUIVALENCIAS = {
   DIR34: ["5500", "direccion"],      // "Empleo" = EMPLEO Y EMPRENDIMIENTO (43)
   DIR29: ["4200", "direccion"],      // "Centro de Operaciones y Monitoreo" = CENTRO DE MONITOREO MUNICIPAL (52)
   DIR54: ["16600", "subsecretaria"], // "Fiscalía Ambiental Municipal" = FISCALIA AMBIENTAL
+  // Decisión de estructura, tomada el 2026-08-14: acá era secretaría raíz y en
+  // ORGANIZA es una dirección bajo Economía y Hacienda. Se adopta la de ORGANIZA,
+  // así que DEJA DE SER RAÍZ del organigrama y recibe sus 121 personas. La
+  // alternativa era convivir con una segunda "CONTADURIA GENERAL".
+  SEC05: ["6100", "direccion"],
 };
 
 /**
@@ -154,7 +159,6 @@ const EQUIVALENCIAS = {
  */
 const SIN_EQUIVALENCIA = {
   DIR08: "Centro Integral Municipal - Casa Azul: ORGANIZA no tiene nada equivalente.",
-  SEC05: "Contaduría General: acá es secretaría raíz; en ORGANIZA es una dirección bajo Economía y Hacienda (6100). Engancharla la saca de la raíz del organigrama, y eso es una decisión de estructura, no de matcheo. Sin definir.",
 };
 
 // =============================================================================
