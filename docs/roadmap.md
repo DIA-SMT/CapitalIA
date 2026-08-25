@@ -100,6 +100,13 @@ Objetivo: explorar el nomenclador.
       estado de verificación. Cuando el literal impreso difiere del canónico del
       catálogo, se muestran los dos.
 - [x] Dashboard, Catálogos y Documentos conectados a datos reales.
+- [x] **Descarga en CSV** (`/api/puestos/csv`): las 210 fichas planas, una por
+      fila, con las cuatro listas de la ficha unidas dentro de su celda. Abre en
+      Excel en español (BOM + separador `;`) y neutraliza la inyección de
+      fórmulas; el armado vive en `lib/csv.ts`, compartido con la bitácora. Baja
+      el nomenclador completo —archivadas incluidas, con su columna de estado—
+      porque los filtros de la tabla todavía no viven en la URL y no hay con qué
+      espejarlos: cuando pasen a la URL (ítem de abajo), la descarga los toma.
 - [ ] Filtros por nivel, área, riesgo y estado; persistencia en la URL.
 - **Salida:** ✅ consulta y filtrado sobre datos reales.
 

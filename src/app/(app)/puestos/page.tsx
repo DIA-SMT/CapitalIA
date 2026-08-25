@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Download } from "lucide-react";
 
 import { PageHeader } from "@/components/layout/page-header";
 import { EmptyState } from "@/components/states";
+import { Button } from "@/components/ui/button";
 import { TablaPuestos } from "@/features/puestos/components/tabla-puestos";
 import { listarPuestos } from "@/features/puestos/data/puestos";
 
@@ -20,6 +22,17 @@ export default async function PuestosPage() {
       <PageHeader
         title="Nomenclador"
         description="Consulta de los puestos municipales."
+        action={
+          // La descarga no espeja los filtros de la tabla (son estado del cliente,
+          // no de la URL): baja el nomenclador completo y el recorte se hace en la
+          // planilla. Por eso el rótulo dice "todo".
+          puestos.length > 0 ? (
+            <Button variant="outline" render={<a href="/api/puestos/csv" />}>
+              <Download className="h-4 w-4" aria-hidden />
+              Descargar todo en CSV
+            </Button>
+          ) : undefined
+        }
       />
 
       {puestos.length === 0 ? (
