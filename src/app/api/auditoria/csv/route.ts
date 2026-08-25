@@ -1,24 +1,14 @@
 import { exportarAuditoria } from "@/features/auditoria/data/auditoria";
+import { armarCsv } from "@/lib/csv";
 import { hoy } from "@/lib/fechas";
 import { getSessionUser } from "@/lib/supabase/server";
 
 /**
  * Descarga de la bitácora en CSV, con los mismos filtros que la pantalla.
  *
- * Dos decisiones para que abra bien en Excel en español, que es donde va a
- * terminar esto:
- *
- * - **Separador `;`**. Excel usa el separador de lista del sistema, que en la
- *   configuración regional de Argentina es `;`. Con `,` mete todo en una columna.
- * - **BOM UTF-8**. Sin él, Excel asume la codificación local y los acentos salen
- *   rotos ("Archivó" → "ArchivÃ³").
+ * Lo que hace que abra bien en Excel en español —separador `;`, BOM y escape de
+ * fórmulas— está en `@/lib/csv`, compartido con la descarga del nomenclador.
  */
-
-const SEPARADOR = ";";
-// Por código y no como carácter literal: el BOM es invisible, así que escrito en el
-// fuente se pierde en cualquier edición y nadie se entera hasta ver los acentos
-// rotos en Excel. Ya pasó una vez.
-const BOM = String.fromCharCode(0xfeff);
 
 const COLUMNAS = [
   "Fecha",
@@ -31,20 +21,6 @@ const COLUMNAS = [
   "Tipo",
   "Acción",
 ] as const;
-
-/**
- * Escapa un valor para CSV.
- *
- * El `'` delante de los valores que arrancan con `= + - @` es a propósito: Excel
- * interpreta esas celdas como fórmulas, y un motivo de cambio que empiece con "="
- * se ejecutaría al abrir el archivo. Es la inyección de fórmulas en CSV, y acá el
- * texto lo escribe un usuario.
- */
-function celda(valor: string | null): string {
-  const v = (valor ?? "").replace(/\r?\n/g, " ").trim();
-  const seguro = /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
-  return `"${seguro.replace(/"/g, '""')}"`;
-}
 
 const FMT_FECHA = new Intl.DateTimeFormat("es-AR", {
   timeZone: "America/Argentina/Tucuman",
@@ -77,22 +53,19 @@ export async function GET(request: Request) {
     // se fuerza la zona de la municipalidad para no depender del server (UTC).
     const cuando = new Date(e.fecha);
     return [
-      celda(FMT_FECHA.format(cuando)),
-      celda(FMT_HORA.format(cuando)),
-      celda(e.descripcion),
-      celda(e.objeto),
-      celda(e.motivo),
-      celda(e.autor),
-      celda(e.sinSesion ? "Script o SQL directo" : "App"),
-      celda(e.tabla),
-      celda(e.accion),
-    ].join(SEPARADOR);
+      FMT_FECHA.format(cuando),
+      FMT_HORA.format(cuando),
+      e.descripcion,
+      e.objeto,
+      e.motivo,
+      e.autor,
+      e.sinSesion ? "Script o SQL directo" : "App",
+      e.tabla,
+      e.accion,
+    ];
   });
 
-  const cuerpo =
-    BOM +
-    [COLUMNAS.map(celda).join(SEPARADOR), ...filas].join("\r\n") +
-    "\r\n";
+  const cuerpo = armarCsv(COLUMNAS, filas);
 
   const nombre = `bitacora-nomenclador-${hoy()}.csv`;
 

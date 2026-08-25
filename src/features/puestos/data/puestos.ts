@@ -320,6 +320,33 @@ function aItems<T extends Puente>(filas: T[], nombre: (f: T) => string | undefin
 }
 
 /**
+ * La ficha completa, con los ítems de catálogo en su orden y la procedencia.
+ * Compartido por `obtenerPuesto` (una) y `exportarPuestos` (todas): son la misma
+ * ficha, y si se separan, la descarga empieza a decir algo distinto de la pantalla.
+ *
+ * El embed lleva el nombre del constraint porque hay dos FK entre `positions` y
+ * `position_versions`, y sin eso PostgREST no sabe cuál seguir.
+ */
+const SELECT_FICHA = `id, internal_code, status,
+   current_version:position_versions!positions_current_version_fk (
+     id, version_number, name, variant,
+     general_description, specific_description,
+     minimum_education, required_title, minimum_experience,
+     physical_requirement, working_conditions,
+     risk_level_raw, additional_notes, is_historical_source,
+     groupings ( name ), levels ( code ), technical_areas ( name ),
+     risk_levels ( name ),
+     position_version_competencies ( raw_text, notes, sort_order, competencies ( name ) ),
+     position_version_risks ( raw_text, notes, sort_order, risks ( name ) ),
+     position_version_responsibilities ( raw_text, notes, sort_order, responsibilities ( name ) ),
+     position_version_knowledge ( raw_text, notes, sort_order, knowledge_items ( name ) ),
+     source_references (
+       printed_page_number, pdf_page_number, verification_status,
+       source_documents ( title )
+     )
+   )`;
+
+/**
  * Trae una ficha completa: la versión vigente con todos sus campos, los ítems de
  * catálogo con su literal impreso, y la procedencia documental.
  * Devuelve `null` si el puesto no existe o RLS no lo deja ver.
@@ -331,26 +358,7 @@ export async function obtenerPuesto(id: string): Promise<PuestoDetalle | null> {
 
   const { data, error } = await supabase
     .from("positions")
-    .select(
-      `id, internal_code, status,
-       current_version:position_versions!positions_current_version_fk (
-         id, version_number, name, variant,
-         general_description, specific_description,
-         minimum_education, required_title, minimum_experience,
-         physical_requirement, working_conditions,
-         risk_level_raw, additional_notes, is_historical_source,
-         groupings ( name ), levels ( code ), technical_areas ( name ),
-         risk_levels ( name ),
-         position_version_competencies ( raw_text, notes, sort_order, competencies ( name ) ),
-         position_version_risks ( raw_text, notes, sort_order, risks ( name ) ),
-         position_version_responsibilities ( raw_text, notes, sort_order, responsibilities ( name ) ),
-         position_version_knowledge ( raw_text, notes, sort_order, knowledge_items ( name ) ),
-         source_references (
-           printed_page_number, pdf_page_number, verification_status,
-           source_documents ( title )
-         )
-       )`,
-    )
+    .select(SELECT_FICHA)
     .eq("id", id)
     .maybeSingle();
 
@@ -401,6 +409,125 @@ export async function obtenerPuesto(id: string): Promise<PuestoDetalle | null> {
         }
       : null,
   };
+}
+
+/** Una fila de la descarga: la ficha entera y plana, como la espera una planilla. */
+export type PuestoExportable = {
+  internalCode: string;
+  nombre: string;
+  variante: string | null;
+  agrupamiento: string;
+  nivel: string | null;
+  area: string | null;
+  descripcionGeneral: string | null;
+  descripcionEspecifica: string | null;
+  instruccion: string | null;
+  titulo: string | null;
+  experiencia: string | null;
+  requisitoFisico: string | null;
+  condicionesTrabajo: string | null;
+  /**
+   * Las cuatro listas de la ficha, en el orden en que figuran impresas. Van los
+   * nombres canónicos del catálogo y no el literal de 2016 (`raw_text`): la
+   * planilla es para filtrar y comparar, y para eso "Trabajo en equipo" tiene que
+   * escribirse igual en las 210 fichas. El literal impreso está en la ficha.
+   */
+  conocimientos: string[];
+  competencias: string[];
+  riesgos: string[];
+  responsabilidades: string[];
+  riesgo: string | null;
+  riesgoImpreso: string | null;
+  notasAdicionales: string | null;
+  estado: string;
+  versionNumero: number;
+  documento: string | null;
+  paginaImpresa: number | null;
+  paginaPdf: number | null;
+  verificacion: string | null;
+};
+
+/**
+ * Todas las fichas, planas, para la descarga en CSV.
+ *
+ * Trae también las archivadas: la planilla lleva columna "Estado" y filtrar en
+ * Excel es gratis, mientras que bajar el archivo y descubrir que faltan puestos no.
+ * Por eso tampoco espeja los filtros de la tabla —que son estado del cliente, no
+ * de la URL—: la descarga es el nomenclador completo, siempre lo mismo.
+ *
+ * Va por lotes porque PostgREST no devuelve más de mil filas de una. Hoy son 210
+ * y el lote sobra, pero una exportación cortada en silencio en la fila 1000 sería
+ * peor que no tenerla, y esto crece de a un puesto por alta.
+ */
+export async function exportarPuestos(): Promise<PuestoExportable[]> {
+  if (!isSupabaseConfigured()) return [];
+
+  const supabase = await createClient();
+
+  const LOTE = 1000;
+  const filas: FilaDetalle[] = [];
+
+  for (let desde = 0; ; desde += LOTE) {
+    const { data, error } = await supabase
+      .from("positions")
+      .select(SELECT_FICHA)
+      .order("internal_code")
+      .range(desde, desde + LOTE - 1);
+
+    if (error) {
+      console.error("[puestos] exportarPuestos:", error.message);
+      throw new Error(error.message);
+    }
+
+    const lote = (data ?? []) as unknown as FilaDetalle[];
+    filas.push(...lote);
+    if (lote.length < LOTE) break;
+  }
+
+  // Sin versión vigente no hay ficha que exportar (no debería pasar: la 0003 lo
+  // sostiene con un índice único). Se saltea antes que escribir una fila vacía.
+  return filas.flatMap((fila) => {
+    const v = fila.current_version;
+    if (!v) return [];
+
+    const ref = v.source_references?.[0];
+    const canonicos = <T extends Puente>(f: T[], n: (x: T) => string | undefined) =>
+      aItems(f, n).map((i) => i.canonico);
+
+    return [
+      {
+        internalCode: fila.internal_code,
+        nombre: v.name,
+        variante: v.variant,
+        agrupamiento: v.groupings?.name ?? "—",
+        nivel: v.levels?.code ?? null,
+        area: v.technical_areas?.name ?? null,
+        descripcionGeneral: v.general_description,
+        descripcionEspecifica: v.specific_description,
+        instruccion: v.minimum_education,
+        titulo: v.required_title,
+        experiencia: v.minimum_experience,
+        requisitoFisico: v.physical_requirement,
+        condicionesTrabajo: v.working_conditions,
+        conocimientos: canonicos(v.position_version_knowledge, (f) => f.knowledge_items?.name),
+        competencias: canonicos(v.position_version_competencies, (f) => f.competencies?.name),
+        riesgos: canonicos(v.position_version_risks, (f) => f.risks?.name),
+        responsabilidades: canonicos(
+          v.position_version_responsibilities,
+          (f) => f.responsibilities?.name,
+        ),
+        riesgo: v.risk_levels?.name ?? null,
+        riesgoImpreso: v.risk_level_raw,
+        notasAdicionales: v.additional_notes,
+        estado: fila.status,
+        versionNumero: v.version_number,
+        documento: ref?.source_documents?.title ?? null,
+        paginaImpresa: ref?.printed_page_number ?? null,
+        paginaPdf: ref?.pdf_page_number ?? null,
+        verificacion: ref?.verification_status ?? null,
+      },
+    ];
+  });
 }
 
 export type CambioEnVersion = { campo: string; antes: string | null; despues: string | null };
