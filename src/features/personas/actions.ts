@@ -126,7 +126,7 @@ export async function asignarPersona(
 
 /** Cierra la asignación vigente de una persona. */
 /**
- * Corrige una persona ya cargada: nombre, email, repartición y alta/baja.
+ * Corrige una persona ya cargada: email, repartición y alta/baja.
  *
  * POR QUÉ EXISTE. Las 4.706 personas entraron con la repartición que dice la
  * liquidación, y la liquidación dice dónde se le PAGA a alguien, no siempre dónde
@@ -141,7 +141,10 @@ export async function asignarPersona(
  * legible en vez de un 42501 pelado.
  *
  * El legajo no se toca: es la clave con la que la sincronización reconoce a la
- * persona.
+ * persona. El nombre tampoco, y por un motivo distinto: la sincronización
+ * mensual SÍ reescribe `full_name` de toda persona ya cargada, así que una
+ * corrección hecha acá se perdía en la corrida del mes siguiente sin avisar. Los
+ * dos se muestran en pantalla y ninguno se manda en el update.
  */
 export async function editarPersona(
   personaId: string,
@@ -187,7 +190,6 @@ export async function editarPersona(
   const { data, error } = await supabase
     .from("personas")
     .update({
-      full_name: parsed.data.full_name,
       email: parsed.data.email ?? null,
       reparticion_id: parsed.data.reparticion_id,
       is_active: parsed.data.is_active,
