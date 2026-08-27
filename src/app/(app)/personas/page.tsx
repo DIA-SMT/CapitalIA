@@ -47,6 +47,10 @@ export default async function PersonasPage({
   // Desde la 0018 el director y el secretario también cargan personal, acotado a
   // su repartición. El listado ya venía acotado por RLS.
   const puedeCargar = rol !== null;
+  // Misma condición que usa la ficha del puesto: asignan admin, secretario y
+  // director. Va aparte de `puedeCargar` aunque hoy valga lo mismo, porque son dos
+  // permisos distintos y el día que uno cambie no tiene que arrastrar al otro.
+  const puedeAsignar = rol !== null;
 
   const [listado, puestos, reparticiones, dotacion] = await Promise.all([
     listarPersonas(filtros, pagina),
@@ -89,10 +93,14 @@ export default async function PersonasPage({
         <TablaPersonas
           listado={listado}
           reparticiones={reparticiones}
+          // Ya están cargados para el alta: se reusan para asignar desde la fila,
+          // sin una consulta más.
+          puestos={puestos}
           filtros={filtros}
           // Global y no de la página: es un pendiente del padrón entero.
           sinPuesto={Math.max(0, dotacion.personas - dotacion.conPuesto)}
           esAdmin={esAdmin}
+          puedeAsignar={puedeAsignar}
         />
       )}
     </>

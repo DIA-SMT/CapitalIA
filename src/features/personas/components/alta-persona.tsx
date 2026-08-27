@@ -168,7 +168,8 @@ export function AltaPersona({
                 ))}
               </select>
               <p className="text-xs text-muted-foreground">
-                Se puede dejar sin asignar y hacerlo después desde la ficha del puesto.
+                Se puede dejar sin asignar y hacerlo después, desde el listado o
+                desde la ficha del puesto.
               </p>
             </div>
           </div>
