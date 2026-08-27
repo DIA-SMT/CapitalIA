@@ -17,7 +17,7 @@
 
 ## 1. Dónde estamos
 
-**Migraciones aplicadas: `0001`–`0020`.** Todo en la rama `matias`.
+**Migraciones aplicadas: `0001`–`0027`.** Todo en la rama `matias`.
 
 | Etapa (Capital Humano) | Estado |
 |---|---|
@@ -73,6 +73,40 @@ en tres lugares (cabecera de la `0008`, `CONTEXT.md` §4, `roadmap.md` Etapa 5).
 Tabla `solicitudes` (`0013`), alta para el director, bandeja para Capital Humano,
 evaluación reusando el formulario técnico de 10 campos que ya existía, aprobación
 que llama a `crear_puesto` y rechazo con motivo.
+
+### Correcciones del segundo testeo con usuarios (2026-08-27) ✅
+
+Capital Humano mandó tres cosas, y las tres apoyaban en el mismo malentendido:
+**creer que Civitas es la fuente de estos datos**. No lo es —el padrón vino de la
+liquidación y el organigrama lo ordena CapitalIA—, así que las respuestas salieron
+distintas entre sí.
+
+- **Nombre y legajo, bloqueados en la ficha de la persona.** No era solo una
+  cuestión de permisos: la sincronización mensual reescribe `full_name` de toda
+  persona ya cargada (`scripts/importacion/importar.mjs`), así que corregir un
+  nombre ahí se perdía en silencio en la corrida siguiente. El campo prometía algo
+  que el sistema no cumplía. Ahora los dos se muestran como texto con el motivo, y
+  `full_name` salió del esquema y del UPDATE, no solo de la pantalla.
+- **La repartición sigue editable, con la aclaración en pantalla** (decisión #13).
+  Es dato propio de CapitalIA: la liquidación dice dónde se le *paga* a alguien, la
+  sincronización nunca la reescribe y no existe otra fuente. Bloquearla congelaba
+  las 4.706 personas con el sector de sueldos. Se renombró el campo a "Repartición
+  donde presta servicios" y dice de dónde sale.
+- **El organigrama queda como estaba: solo admin** (decisión #14). El director y el
+  secretario nunca pudieron editarlo. Pasarlo a solo lectura dejaba a Capital
+  Humano sin forma de crear, renombrar ni desactivar una unidad sin SQL, y
+  contradice la decisión #4.
+- **"Asignar puesto" desde la fila de la persona** (decisión #15). Existía desde la
+  `0018`, pero solo desde la ficha del puesto; la consulta que llegó —"¿todavía
+  falta generar la funcionalidad?"— es la prueba de que ahí no se encuentra. Con
+  4.706 personas cargadas y 0 asignadas, el recorrido natural es persona → puesto.
+  Reusa `asignarPersona`, así que el alcance lo sigue cortando la base.
+- De paso, **`actualizarReparticion` dejó de tener el UPDATE mudo**: sin
+  `.select()` anunciaba "Repartición actualizada" sin haber guardado nada. Estaba
+  anotado como defecto vivo en `docs/estado-importacion.md`.
+
+Falta **ejercitarlo con un login real** (§4), que es donde este proyecto encuentra
+sus defectos.
 
 ### Dashboard y correcciones
 
@@ -191,6 +225,17 @@ login real**:
 | Filtro de archivados en el nomenclador | ⏳ Pendiente de probar |
 | Solicitar acceso desde el login → aprobar/rechazar en la bandeja | ⏳ Pendiente — depende de la `0020` |
 
+Del segundo testeo con usuarios (2026-08-27), hecho en código y **sin ejercitar
+con login real**:
+
+| Qué | Estado |
+|---|---|
+| Nombre y legajo ya no se pueden editar en la ficha de la persona | ⏳ Pendiente de probar |
+| Guardar una corrección (email / repartición / baja) sin mandar `full_name` | ⏳ Pendiente de probar |
+| Asignar un puesto desde la fila del agente | ⏳ Pendiente — es el circuito nuevo |
+| Cambiar de puesto desde la fila, que cierra la asignación anterior | ⏳ Pendiente — no se ejercitó por ninguna vía |
+| Editar una repartición avisa si no guardó, en vez de redirigir mudo | ⏳ Pendiente de probar |
+
 Y sigue sin resolverse:
 
 - **Datos de prueba `ZZZ` en producción.** El puesto `ZZZ PRUEBA TECNICA`
@@ -216,6 +261,9 @@ Y sigue sin resolverse:
 | 10 | ¿El director edita o da de baja personas? | **No.** Carga y asigna; corregir o dar de baja es de Capital Humano |
 | 11 | ¿Se acota a qué puesto puede asignar? | **No.** El nomenclador es municipal; lo acotado es sobre *quién* se opera |
 | 12 | Fichas pendientes de verificar en el dashboard | Fuera hasta que exista la pantalla para verificarlas |
+| 13 | ¿Se bloquea la repartición de la persona, como el nombre? | **No.** Es dato propio de CapitalIA y no hay otra vía de corrección; se aclara en pantalla |
+| 14 | ¿El organigrama pasa a solo lectura? | **No.** Sigue siendo ABM solo-admin, como la #4 |
+| 15 | ¿Asignar puesto desde el listado de personas? | **Sí**, además de la ficha del puesto. Misma acción y mismo alcance |
 
 ---
 
@@ -236,6 +284,6 @@ Y sigue sin resolverse:
 
 ---
 
-*Última actualización: 2026-08-10. Migraciones `0001`–`0020` aplicadas. Etapas 2 y
-3 de Capital Humano cerradas; se sumaron las correcciones del primer testeo con
-usuarios (§2), pendientes de ejercitar con login real (§4).*
+*Última actualización: 2026-08-27. Migraciones `0001`–`0027` aplicadas. Etapas 2 y
+3 de Capital Humano cerradas; se sumaron las correcciones del primer y del segundo
+testeo con usuarios (§2), las dos pendientes de ejercitar con login real (§4).*

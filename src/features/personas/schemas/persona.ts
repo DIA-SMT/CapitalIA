@@ -31,7 +31,7 @@ export const personaSchema = z.object({
   reparticion_id: z.uuid("Elegí la repartición"),
   /**
    * Puesto que ocupa, opcional. Se puede cargar una persona sin puesto y
-   * asignarla después desde la ficha del puesto.
+   * asignarla después, desde su fila del listado o desde la ficha del puesto.
    */
   position_id: z
     .union([z.uuid(), z.literal("")])
@@ -46,9 +46,14 @@ export const personaSchema = z.object({
  * El legajo NO se puede editar: es la identidad estable de la persona y la clave
  * con la que la sincronización mensual la reconoce. Cambiarlo la convertiría en
  * otra persona y la próxima corrida la cargaría de nuevo, duplicada.
+ *
+ * El NOMBRE tampoco, y no es una preferencia de pantalla: la sincronización
+ * mensual (`scripts/importacion/importar.mjs`) reescribe `full_name` de toda
+ * persona ya cargada con lo que dice la liquidación. Mientras el campo estuvo
+ * editable, corregir un nombre acá se perdía en silencio en la corrida del mes
+ * siguiente. Se corrige en el sistema de origen, no acá.
  */
 export const edicionPersonaSchema = z.object({
-  full_name: z.string().trim().min(3, "El nombre es obligatorio").max(200),
   email: z
     .union([z.email("Email inválido"), z.literal("")])
     .optional()

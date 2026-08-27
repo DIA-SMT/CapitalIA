@@ -195,8 +195,8 @@ Nada bloqueante. En orden de valor:
 1. **Cruce `positions` × `asignaciones`** — "qué puestos están cubiertos y cuáles
    vacantes". Es la pregunta que Capital Humano se hace todos los días, el sistema
    la puede contestar y todavía no la contesta. Hoy daría "0 de 209".
-2. **`actualizarReparticion` tiene un UPDATE mudo**: sin `.select()`, cero filas
-   afectadas devuelve éxito y la app dice "guardado" sin haber guardado. Está vivo.
-   `editarPersona` no lo copió.
+2. ~~**`actualizarReparticion` tiene un UPDATE mudo**~~ — **cerrado el
+   2026-08-27**: ahora hace `.select("id")` y avisa si no tocó ninguna fila, igual
+   que `editarPersona`.
 3. Cuatro cosas menores de la revisión de B5, ninguna oculta datos: ver
    [`revision-b5.md`](revision-b5.md).

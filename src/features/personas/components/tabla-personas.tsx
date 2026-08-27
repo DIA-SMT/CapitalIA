@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Pencil, Search, X } from "lucide-react";
+import { Briefcase, Pencil, Search, X } from "lucide-react";
 
 import type { FiltrosPersonas, ListadoPersonas } from "../data/personas";
 import type { ReparticionPlana } from "@/features/reparticiones/data/reparticiones";
+import type { PuestoOpcion } from "@/features/puestos/data/puestos";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +20,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { NoResultsState } from "@/components/states";
+import { AsignarPuesto } from "./asignar-puesto";
 import { EditarPersona } from "./editar-persona";
 
 /** Espera antes de ir al servidor, para no consultar en cada tecla. */
@@ -39,12 +41,16 @@ const ESPERA_TIPEO = 300;
 export function TablaPersonas({
   listado,
   reparticiones,
+  puestos,
   filtros,
   sinPuesto,
   esAdmin = false,
+  puedeAsignar = false,
 }: {
   listado: ListadoPersonas;
   reparticiones: ReparticionPlana[];
+  /** Los puestos vigentes, para asignar sin salir del listado. */
+  puestos: PuestoOpcion[];
   filtros: FiltrosPersonas;
   sinPuesto: number;
   /**
@@ -52,6 +58,13 @@ export function TablaPersonas({
    * el lápiz solo aparece para admin. La RLS lo exige igual.
    */
   esAdmin?: boolean;
+  /**
+   * Asignar alcanza a más gente que corregir: desde la 0018 también asignan el
+   * director y el secretario, cada uno sobre su personal. Quién puede sobre quién
+   * lo corta la base (asignar_persona); acá solo se oculta el botón para el
+   * usuario sin rol.
+   */
+  puedeAsignar?: boolean;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -62,10 +75,20 @@ export function TablaPersonas({
   const [texto, setTexto] = useState(filtros.q ?? "");
 
   /**
-   * Qué fila está en edición. El formulario ocupa una fila entera, así que la
-   * apertura la maneja la tabla y no cada botón.
+   * Qué fila tiene panel abierto y cuál de los dos. Ocupan una fila entera, así
+   * que la apertura la maneja la tabla y no cada botón; y con un solo estado para
+   * los dos, abrir uno cierra el otro y nunca quedan dos paneles desplegados bajo
+   * la misma persona.
    */
-  const [editando, setEditando] = useState<string | null>(null);
+  const [panel, setPanel] = useState<{
+    id: string;
+    modo: "corregir" | "asignar";
+  } | null>(null);
+
+  /** Abre el panel pedido, o lo cierra si ese mismo ya estaba abierto. */
+  function alternar(id: string, modo: "corregir" | "asignar") {
+    setPanel((p) => (p?.id === id && p.modo === modo ? null : { id, modo }));
+  }
 
   /**
    * La query que pedimos por última vez. `useSearchParams()` no sirve de base:
@@ -124,6 +147,14 @@ export function TablaPersonas({
   }, [texto]);
 
   const hayFiltro = Boolean(filtros.q || filtros.rep || filtros.estado);
+
+  /**
+   * Cinco columnas de datos más la de acciones, si hay alguna. Se calcula porque
+   * es el colSpan de la fila del panel: con el 6 fijo que había, la fila se pasaba
+   * de largo en cuanto la tabla no tenía las seis columnas.
+   */
+  const hayAcciones = esAdmin || puedeAsignar;
+  const columnas = 5 + (hayAcciones ? 1 : 0);
 
   function limpiar() {
     setTexto("");
@@ -223,7 +254,9 @@ export function TablaPersonas({
                   <TableHead>Repartición</TableHead>
                   <TableHead>Puesto que ocupa</TableHead>
                   <TableHead>Estado</TableHead>
-                  {esAdmin && <TableHead className="w-10 sr-only">Corregir</TableHead>}
+                  {hayAcciones && (
+                    <TableHead className="w-10 sr-only">Acciones</TableHead>
+                  )}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -244,6 +277,21 @@ export function TablaPersonas({
                         >
                           {p.puesto.nombre}
                         </Link>
+                      ) : puedeAsignar && p.activa ? (
+                        /* El botón va en esta celda y no entre las acciones a
+                           propósito: es la celda que dice que falta el puesto, y es
+                           donde se lo busca. Mientras la única vía fue la ficha del
+                           puesto, el testeo con usuarios leyó la ausencia como
+                           funcionalidad no hecha. */
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => alternar(p.id, "asignar")}
+                          aria-expanded={panel?.id === p.id && panel.modo === "asignar"}
+                        >
+                          <Briefcase className="h-3.5 w-3.5" aria-hidden />
+                          Asignar puesto
+                        </Button>
                       ) : (
                         <span className="text-sm italic text-muted-foreground">
                           Sin asignar
@@ -255,29 +303,56 @@ export function TablaPersonas({
                         {p.activa ? "Activa" : "Baja"}
                       </Badge>
                     </TableCell>
-                    {esAdmin && (
-                      <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setEditando(editando === p.id ? null : p.id)}
-                          aria-label={`Corregir ${p.nombre}`}
-                          aria-expanded={editando === p.id}
-                        >
-                          <Pencil className="h-4 w-4" aria-hidden />
-                        </Button>
+                    {hayAcciones && (
+                      <TableCell className="whitespace-nowrap text-right">
+                        {/* Cambiar de puesto: para quien ya tiene uno, el botón de
+                            la otra celda no aparece. */}
+                        {puedeAsignar && p.activa && p.puesto && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => alternar(p.id, "asignar")}
+                            aria-label={`Cambiar el puesto de ${p.nombre}`}
+                            aria-expanded={
+                              panel?.id === p.id && panel.modo === "asignar"
+                            }
+                          >
+                            <Briefcase className="h-4 w-4" aria-hidden />
+                          </Button>
+                        )}
+                        {esAdmin && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => alternar(p.id, "corregir")}
+                            aria-label={`Corregir ${p.nombre}`}
+                            aria-expanded={
+                              panel?.id === p.id && panel.modo === "corregir"
+                            }
+                          >
+                            <Pencil className="h-4 w-4" aria-hidden />
+                          </Button>
+                        )}
                       </TableCell>
                     )}
                   </TableRow>,
-                  // El formulario va en su propia fila: no entra en una celda.
-                  esAdmin && editando === p.id ? (
-                    <TableRow key={`${p.id}-editar`}>
-                      <TableCell colSpan={6} className="bg-secondary/20">
-                        <EditarPersona
-                          persona={p}
-                          reparticiones={reparticiones}
-                          onCerrar={() => setEditando(null)}
-                        />
+                  // El panel va en su propia fila: no entra en una celda.
+                  panel?.id === p.id ? (
+                    <TableRow key={`${p.id}-panel`}>
+                      <TableCell colSpan={columnas} className="bg-secondary/20">
+                        {panel.modo === "corregir" ? (
+                          <EditarPersona
+                            persona={p}
+                            reparticiones={reparticiones}
+                            onCerrar={() => setPanel(null)}
+                          />
+                        ) : (
+                          <AsignarPuesto
+                            persona={p}
+                            puestos={puestos}
+                            onCerrar={() => setPanel(null)}
+                          />
+                        )}
                       </TableCell>
                     </TableRow>
                   ) : null,
