@@ -80,7 +80,11 @@ export async function actualizarReparticion(
   }
 
   const supabase = await createClient();
-  const { error } = await supabase
+  // `.select()` a propósito: sin él, cero filas afectadas devuelve éxito y la app
+  // redirige anunciando "Repartición actualizada" sin haber guardado nada. Pasa si
+  // la RLS filtró la fila o si el id ya no existe —una unidad borrada desde el SQL
+  // Editor, por ejemplo—, y es el defecto que `editarPersona` ya había esquivado.
+  const { data, error } = await supabase
     .from("reparticiones")
     .update({
       code: parsed.data.code,
@@ -88,9 +92,13 @@ export async function actualizarReparticion(
       parent_id: parsed.data.parent_id ?? null,
       is_active: parsed.data.is_active,
     })
-    .eq("id", id);
+    .eq("id", id)
+    .select("id");
 
   if (error) return { error: mensaje(error) };
+  if (!data?.length) {
+    return { error: "No se encontró esa repartición. Actualizá la página." };
+  }
 
   revalidatePath("/reparticiones");
   redirect("/reparticiones");
