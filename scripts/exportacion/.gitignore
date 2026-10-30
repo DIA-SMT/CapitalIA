@@ -1,0 +1,10 @@
+# Nada de lo que se genera acá va al repositorio: los export traen nombres y
+# legajos de 4.706 empleados municipales.
+#
+# Lista blanca en vez de lista negra, igual que en scripts/importacion/ y por el
+# mismo motivo: si mañana el script emite un formato nuevo, queda ignorado por
+# defecto en vez de colarse en un commit. Ya pasó una vez con respaldo-*.json.
+*
+!.gitignore
+!README.md
+!*.mjs

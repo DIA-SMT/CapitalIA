@@ -7,9 +7,15 @@ import { SUPABASE_URL } from "./config";
 /**
  * Cliente con `service_role`. ⚠️ SALTEA TODA LA RLS.
  *
- * Existe por una sola razón: crear usuarios en Supabase Auth (la Admin API no
- * acepta la anon key). No se usa para leer ni escribir datos del dominio — eso
- * sigue yendo por el cliente normal, con la sesión del usuario y su RLS.
+ * Dos usos, y ninguno más:
+ *
+ * 1. Crear usuarios en Supabase Auth: la Admin API no acepta la anon key.
+ * 2. Leer el padrón para `/api/padron`, que consume otro sistema municipal. Ahí
+ *    no hay sesión de nadie, así que la RLS por repartición no devolvería ni una
+ *    fila —no poco: ninguna—.
+ *
+ * Todo lo demás sigue yendo por el cliente normal, con la sesión del usuario y su
+ * RLS.
  *
  * `server-only` impide que este módulo entre en un bundle del navegador. Aun así,
  * **quien lo invoque tiene que verificar por su cuenta que el usuario es admin**:
